@@ -3,7 +3,7 @@ public class Main2 {
     public static void main(String[] args) {
         int sportsmenDistanceFirstDay = 10;
         float sportsmenTotalDistance = sportsmenDistanceFirstDay;
-        for (int raceDuration = 1; raceDuration < 7; raceDuration++) {
+        for (int raceDuration = 2; raceDuration <= 7; raceDuration++) {
             sportsmenTotalDistance *= 1.1;
         }
         System.out.println("Total distance of sportsmen = " + sportsmenTotalDistance);
@@ -30,7 +30,7 @@ public class Main2 {
         int B = 5;
         int multiplication = 0;
         for (int i = 0; i < B; i++) {
-            multiplication += 3;
+            multiplication += A;
         }
         System.out.println("A * B = " + multiplication);
 
