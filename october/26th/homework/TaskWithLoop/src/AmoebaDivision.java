@@ -30,6 +30,16 @@ public class AmoebaDivision {
         }
     }
 
+    public void getNumberAmoebasByDivisionPeriodsUsingDoWhileLoop() {
+        System.out.println("DoWhile loop result: ");
+        int divisionTime = amoebaDivisionTime;
+        int numberAmoebas = initialNumberAmoebas;
+        do {
+            printTimeAndNumberAmoebas(divisionTime, numberAmoebas *= numberAmoebasAfterDivision);
+            divisionTime += amoebaDivisionTime;
+        } while (divisionTime <= researchPeriod);
+    }
+
     private void printTimeAndNumberAmoebas(int divisionTime, int numberAmoebas) {
         System.out.println("At " + divisionTime + " o'clock the number of amoebas is " + numberAmoebas);
     }

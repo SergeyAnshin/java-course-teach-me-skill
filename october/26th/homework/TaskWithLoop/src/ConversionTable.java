@@ -23,4 +23,13 @@ public class ConversionTable {
             inchValue++;
         }
     }
+
+    public void printTableForConvertingInchesToCentimetersUsingDoWhileLoop() {
+        System.out.println("DoWhile loop result: ");
+        int inchValue = lowerValueTable;
+        do {
+            System.out.println(inchValue + " inch = " + inchValue * CENTIMETERS_TO_INCHES);
+            inchValue++;
+        } while (inchValue <= topValueTable);
+    }
 }

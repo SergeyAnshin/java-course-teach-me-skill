@@ -3,10 +3,12 @@ public class SumNumbers {
     private int lastNumber;
     private int stepMultiplier;
 
-    public SumNumbers(int firstNumber, int lastNumber, int stepMultiplier) {
+    {
+        stepMultiplier = 2;
+    }
+    public SumNumbers(int firstNumber, int lastNumber) {
         this.firstNumber = firstNumber;
         this.lastNumber = lastNumber;
-        this.stepMultiplier = stepMultiplier;
     }
 
     public int getSumNumbersUsingForLoop() {
@@ -24,6 +26,16 @@ public class SumNumbers {
             sumNumbers += number;
             number *= stepMultiplier;
         }
+        return sumNumbers;
+    }
+
+    public int getSumNumbersUsingDoWhileLoop() {
+        int sumNumbers = 0;
+        int number = firstNumber;
+        do {
+            sumNumbers += number;
+            number *= stepMultiplier;
+        } while (number <= lastNumber);
         return sumNumbers;
     }
 

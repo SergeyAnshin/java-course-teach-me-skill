@@ -24,4 +24,14 @@ public class NumberMultiplication {
         }
         return multiplicationResult;
     }
+
+    public int getProductNumbersUsingDoWhileLoop() {
+        int multiplicationResult = 0;
+        int numberTerms = 0;
+        do {
+            multiplicationResult += firstMultiplier;
+            numberTerms++;
+        } while (numberTerms < secondMultiplier);
+        return multiplicationResult;
+    }
 }
