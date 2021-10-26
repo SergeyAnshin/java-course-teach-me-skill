@@ -17,8 +17,8 @@ public class SumOddNumbers {
     }
 
     public int getSumOddNumbersUsingWhileLoop() {
-        int sumOddNumbers = 0;
-        int number = getFirstOddNumber(firstNumber);
+        int sumOddNumbers = 0; //0, 1, 4
+        int number = getFirstOddNumber(firstNumber); //1, 3, 5
         while (number <= lastNumber) {
             sumOddNumbers += number;
             number += STEP;
