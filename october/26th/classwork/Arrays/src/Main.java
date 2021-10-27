@@ -11,18 +11,6 @@ public class Main {
 //        }
 //
 //        for (int i = 0; i < array.length; i++) {
-//            for (int j = 0; j < array.length; j++) {
-//                if (array[i] > array[j]) {
-//                    continue;
-//                } else {
-//                    int buff = array[i];
-//                    array[i] = array[j];
-//                    array[j] = buff;
-//                }
-//            }
-//        }
-//
-//        for (int i = 0; i < array.length; i++) {
 //            System.out.println(array[i]);
 //        }
 
@@ -42,6 +30,7 @@ public class Main {
             }
         }
         System.out.println(numberEvenNumbers);
+        System.out.println(Arrays.stream(array).filter(value -> value % 2 == 0).count());
 
         // Посчитать сумму нечетных элементов
         int sumOddNumbers = 0;
@@ -51,6 +40,7 @@ public class Main {
             }
         }
         System.out.println(sumOddNumbers);
+        System.out.println(Arrays.stream(array).filter(value -> value % 2 != 0).sum());
 
         // Найти среднее арифметическое элементов массива больше 20
         int sum = 0;
@@ -63,6 +53,7 @@ public class Main {
         }
         double average = (double) sum / numberElement;
         System.out.println(average);
+        System.out.println(Arrays.stream(array).filter(value -> value > 20).average());
 
         // «Сожмите» массив, выбросив из него каждый второй элемент. «Освободившиеся» места массива заполните нулями.
         int[] array1 = Arrays.copyOf(array, arrayLength);
@@ -70,6 +61,8 @@ public class Main {
             array1[i++] = 0;
         }
         System.out.println(Arrays.toString(array1));
+
+
 
         // Проверить различны ли массивы
         int[] array2 = Arrays.copyOf(array, arrayLength);
@@ -86,8 +79,8 @@ public class Main {
         }
         boolean flag2 = false;
         for (int i = 0; i < arrayLength; i++) {
-            if (array[i] != array2[i]) {
-                flag = false;
+            if (array[i] != array3[i]) {
+                flag2 = false;
                 break;
             } else {
                 flag = true;
@@ -106,6 +99,9 @@ public class Main {
             System.out.println("Arrays equals");
         }
 
+        System.out.println(Arrays.compare(array, array2));
+        System.out.println(Arrays.compare(array, array3));
+
         // Найти наименьший элемент среди элементов с четными индексами массива
         int minElement = array[0];
         for (int i = 2; i < arrayLength; i += 2) {
@@ -114,6 +110,8 @@ public class Main {
             }
         }
         System.out.println(minElement);
+        Arrays.sort(array);
+        System.out.println(Arrays.stream(array).filter(value -> Arrays.binarySearch(array, value) % 2 == 0).min());
 
         // Найти максимальный элемент в массиве и поменять его местами с нулевым элементом
         int[] array4 = Arrays.copyOf(array, arrayLength);
