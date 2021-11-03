@@ -93,7 +93,7 @@ public class TicTacToe {
     }
 
     public void changeCurrentPlayerNumber() {
-        if (currentPlayerNumber == NUMBER_FIRST_PLAYER) {
+        if (isFirstPlayerTurn()) {
             currentPlayerNumber = NUMBER_SECOND_PLAYER;
         } else {
             currentPlayerNumber = NUMBER_FIRST_PLAYER;
