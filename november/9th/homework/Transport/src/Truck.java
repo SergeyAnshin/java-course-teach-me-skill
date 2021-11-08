@@ -1,4 +1,6 @@
-public class Truck extends LandTransport {
+import interfaces.Loadable;
+
+public class Truck extends LandTransport implements Loadable {
     private double liftingCapacity;
 
     public Truck(double power, double maxSpeed, double weight, String brand,

@@ -14,9 +14,6 @@ public abstract class LandTransport extends Transport {
     }
 
     @Override
-    public void printMessage(double travelTime) {}
-
-    @Override
     public String toString() {
         return super.toString() +
                 "numberWheels=" + numberWheels +

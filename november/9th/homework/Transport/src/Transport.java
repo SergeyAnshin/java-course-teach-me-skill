@@ -1,8 +1,6 @@
 import interfaces.Convertible;
-import interfaces.Loadable;
-import interfaces.Measurable;
 
-public abstract class Transport implements Convertible, Measurable, Loadable {
+public abstract class Transport implements Convertible {
     private double power;
     private double maxSpeed;
     private double weight;
@@ -22,9 +20,6 @@ public abstract class Transport implements Convertible, Measurable, Loadable {
     public String getBrand() {
         return brand;
     }
-
-    @Override
-    public void isItPossibleLoad(double somethingToBeLoaded) {}
 
     @Override
     public String toString() {

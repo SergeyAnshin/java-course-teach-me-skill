@@ -8,7 +8,7 @@ public interface Measurable {
     }
 
     default double determineAmountBurnedFuel(double distance, double fuelConsumption) {
-        return distance / NUMBER_KILOMETRES_PER_LITRES;
+        return distance * fuelConsumption / NUMBER_KILOMETRES_PER_LITRES;
     }
 
     void printMessage(double travelTime);

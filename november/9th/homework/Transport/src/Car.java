@@ -1,6 +1,9 @@
-public class Car extends LandTransport {
+import interfaces.Measurable;
+
+public class Car extends LandTransport implements Measurable {
     private String bodyType;
     private int numberPassengers;
+    private static final int NUMBER_KILOMETRES_PER_LITRES = 100;
 
     public Car(double power, double maxSpeed, double weight, String brand, int numberWheels,
                double fuelConsumption, String bodyType, int numberPassengers) {
@@ -19,7 +22,7 @@ public class Car extends LandTransport {
     }
 
     private double getFuelConsumptionPerTrip(double distance, double fuelConsumption) {
-        return distance * fuelConsumption / 100;
+        return distance * fuelConsumption / NUMBER_KILOMETRES_PER_LITRES;
     }
 
     @Override

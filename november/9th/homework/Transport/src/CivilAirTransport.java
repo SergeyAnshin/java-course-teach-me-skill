@@ -1,4 +1,6 @@
-public class CivilAirTransport extends AirTransport {
+import interfaces.Loadable;
+
+public class CivilAirTransport extends AirTransport implements Loadable {
     private int numberPassengers;
     private boolean isBusinessClass;
 
