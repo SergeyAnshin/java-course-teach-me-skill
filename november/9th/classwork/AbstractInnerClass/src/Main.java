@@ -22,6 +22,6 @@ public class Main {
         Human human = new Human(hat, jacket, pants);
         human.putOnAllClothes();
         human.takeOffAllClothes();
-        
+
     }
 }
