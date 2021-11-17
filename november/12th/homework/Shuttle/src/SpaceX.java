@@ -7,11 +7,7 @@ public class SpaceX implements IStart {
     public boolean beforeStartSystemTest() {
         Random random = new Random();
         int randomNumber = random.nextInt(11);
-        if (randomNumber > NUMBER_SUCCESSFUL_TEST) {
-            return true;
-        } else {
-            return false;
-        }
+        return randomNumber > NUMBER_SUCCESSFUL_TEST ? true : false;
     }
 
     @Override
