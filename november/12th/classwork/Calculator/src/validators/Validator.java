@@ -1,6 +1,4 @@
-package entities.validators;
-
-import org.apache.commons.lang3.math.NumberUtils;
+package validators;
 
 import java.util.*;
 
@@ -72,12 +70,12 @@ public class Validator {
     }
 
     public boolean areBracketsInCorrectPosition(List<String> parsedExpression) {
-        HashMap<String, Integer> openBrackets = new HashMap<String, Integer>() {{
+        HashMap<String, Integer> openBrackets = new HashMap<>() {{
             put("{", 0);
             put("[", 1);
             put("(", 2);
         }};
-        HashMap<String, Integer> closeBrackets = new HashMap<String, Integer>() {{
+        HashMap<String, Integer> closeBrackets = new HashMap<>() {{
             put("}", 0);
             put("]", 1);
             put(")", 2);

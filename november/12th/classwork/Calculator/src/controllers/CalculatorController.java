@@ -1,7 +1,7 @@
 package controllers;
 
 import services.MenuService;
-import services.MenuServiceImpl;
+import services.impl.MenuServiceImpl;
 
 public class CalculatorController {
     private MenuService menuService = new MenuServiceImpl();

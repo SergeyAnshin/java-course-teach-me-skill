@@ -1,9 +1,10 @@
-package services;
+package services.impl;
 
 import entities.users.User;
+import services.StorageService;
+import services.UserService;
 
 import java.util.Scanner;
-import java.util.function.Predicate;
 
 public class UserServiceImpl implements UserService {
     private StorageService<User> storageService;

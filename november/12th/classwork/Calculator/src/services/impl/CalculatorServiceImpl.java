@@ -1,8 +1,10 @@
-package services;
+package services.impl;
 
 import entities.operations.SimpleOperation;
 import entities.operations.SimpleOperationImpl;
-import entities.validators.Validator;
+import services.CalculatorService;
+import services.StorageService;
+import validators.Validator;
 
 import java.io.IOException;
 import java.io.StreamTokenizer;
@@ -33,25 +35,15 @@ public class CalculatorServiceImpl implements CalculatorService {
                 double secondNumber = stack.pop();
                 double firstNumber = stack.pop();
                 switch (token) {
-                    case "-" :
-                        stack.push(operation.subtract(firstNumber, secondNumber));
-                        break;
-                    case "+" :
-                        stack.push(operation.add(firstNumber, secondNumber));
-                        break;
-                    case "*" :
-                        stack.push(operation.multiply(firstNumber, secondNumber));
-                        break;
-                    case "/" :
-                        stack.push(operation.divide(firstNumber, secondNumber));
-                        break;
+                    case "-" -> stack.push(operation.subtract(firstNumber, secondNumber));
+                    case "+" -> stack.push(operation.add(firstNumber, secondNumber));
+                    case "*" -> stack.push(operation.multiply(firstNumber, secondNumber));
+                    case "/" -> stack.push(operation.divide(firstNumber, secondNumber));
                 }
             } else if (validator.isPrefixFunction(token)) {
                 double number = stack.pop();
                 switch (token) {
-                    case "sin" :
-                        stack.push(operation.sin(number));
-                        break;
+                    case "sin" -> stack.push(operation.sin(number));
                 }
             }
 
@@ -92,15 +84,11 @@ public class CalculatorServiceImpl implements CalculatorService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            switch(tokenizer.ttype) {
-                case StreamTokenizer.TT_NUMBER:
-                    parsedExpression.add(String.valueOf(tokenizer.nval));
-                    break;
-                case StreamTokenizer.TT_WORD:
-                    parsedExpression.add(tokenizer.sval);
-                    break;
-                default:  // operator
-                    parsedExpression.add(String.valueOf((char) tokenizer.ttype));
+            switch (tokenizer.ttype) {
+                case StreamTokenizer.TT_NUMBER -> parsedExpression.add(String.valueOf(tokenizer.nval));
+                case StreamTokenizer.TT_WORD -> parsedExpression.add(tokenizer.sval);
+                default ->  // operator
+                        parsedExpression.add(String.valueOf((char) tokenizer.ttype));
             }
         }
         if (parsedExpression.get(0).equals("-") || parsedExpression.get(0).equals("+")) {
@@ -151,34 +139,6 @@ public class CalculatorServiceImpl implements CalculatorService {
             }
         }
 
-//        for (String token : parsedExpression) {
-//            if (isCreatable(token)) {
-//                expression.add(token);
-//            } else if (validator.isPrefixFunction(token)) {
-//                stack.push(token);
-//            } else if (validator.isOperator(token)) {
-//// && - ||
-//                while (validator.isPrefixFunction(stack.peek()) ||
-//                        getPriority(stack.peek()) >= getPriority(token) ) {
-//                    expression.add(stack.pop());
-//                }
-//                stack.push(token);
-//            } else if (token.equals("(")) {
-//                stack.push(token);
-//            } else if (token.equals(")")) {
-//                while (!stack.isEmpty() && !stack.peek().equals("(")) {
-////                    if (validator.isPrefixFunction(stack.peek())) {
-////                        expression.add(stack.pop());
-////                    }
-//                    expression.add(stack.pop());
-//                }
-//                stack.pop();
-//            }
-//        }
-//
-//        while (!stack.isEmpty()) {
-//            expression.add(stack.pop());
-//        }
         return postfixExpression;
     }
 

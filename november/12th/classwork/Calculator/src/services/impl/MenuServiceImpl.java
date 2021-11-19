@@ -1,6 +1,9 @@
-package services;
+package services.impl;
 
 import entities.menu.Menu;
+import services.CalculatorService;
+import services.MenuService;
+import services.StorageService;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -34,8 +37,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public void showMenu() {
         menu.getMenuItems()
-                .entrySet()
-                .forEach(keyValue -> System.out.println(keyValue.getKey() + " - " + keyValue.getValue()));
+                .forEach((key, value) -> System.out.println(key + " - " + value));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package controllers;
 
 import services.MenuService;
-import services.UserMenuImpl;
+import services.impl.UserMenuImpl;
 
 public class UserController {
     private MenuService menuService = new UserMenuImpl();
