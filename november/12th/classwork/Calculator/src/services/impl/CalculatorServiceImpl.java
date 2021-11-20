@@ -60,11 +60,15 @@ public class CalculatorServiceImpl implements CalculatorService {
             System.out.print("Enter an expression to calculate: ");
             if (scanner.hasNextLine()) {
                 expression = scanner.nextLine();
-                List<String> parsedExpression = getParseExpression(expression);
-                if (validator.isValid(parsedExpression)) {
-                    return parsedExpression;
+                if (!expression.isBlank()) {
+                    List<String> parsedExpression = getParseExpression(expression);
+                    if (validator.isValid(parsedExpression)) {
+                        return parsedExpression;
+                    } else {
+                        validator.printErrors();
+                    }
                 } else {
-                    validator.printErrors();
+                    expression = scanner.nextLine();
                 }
             } else {
                 scanner.next();

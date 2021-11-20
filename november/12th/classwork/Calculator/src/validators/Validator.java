@@ -12,45 +12,49 @@ public class Validator {
 
     //допилить
     public boolean isValid(List<String> parsedExpression) {
-        errors = new HashSet<>();
-        String element;
-        for (int i = 0; i < parsedExpression.size(); i++) {
-            element = parsedExpression.get(i);
+        if  (parsedExpression != null) {
+            errors = new HashSet<>();
+            String element;
+            for (int i = 0; i < parsedExpression.size(); i++) {
+                element = parsedExpression.get(i);
 
-            if (!isOperator(element) && !isPrefixFunction(element)
-                    && !isCreatable(element) && !isMathCharacter(element)) {
-                errors.add("Invalid characters");
-            }
+                if (!isOperator(element) && !isPrefixFunction(element)
+                        && !isCreatable(element) && !isMathCharacter(element)) {
+                    errors.add("Invalid characters");
+                }
 
-            if (i < parsedExpression.size() - 1) {
-                String nexElement = parsedExpression.get(i + 1);
-                if (isCreatable(element) &&
-                       ( isCreatable(nexElement) || isPrefixFunction(nexElement) || nexElement.equals("("))) {
-                    errors.add("Operator is missing");
-                }
-                if (isOperator(element) && isOperator(nexElement)) {
-                    errors.add("Operand missing");
-                }
+                if (i < parsedExpression.size() - 1) {
+                    String nexElement = parsedExpression.get(i + 1);
+                    if (isCreatable(element) &&
+                            ( isCreatable(nexElement) || isPrefixFunction(nexElement) || nexElement.equals("("))) {
+                        errors.add("Operator is missing");
+                    }
+                    if (isOperator(element) && isOperator(nexElement)) {
+                        errors.add("Operand missing");
+                    }
 
 //                isMathCharacter(element)
-                if (element.equals("(") && nexElement.equals(")")) {
-                    errors.add("Operand missing");
+                    if (element.equals("(") && nexElement.equals(")")) {
+                        errors.add("Operand missing");
+                    }
+
+                    if (isOperator(element) && nexElement.equals(")")) {
+                        errors.add("Operand missing");
+                    }
+
+                    if (element.equals(")") && isCreatable(nexElement)) {
+                        errors.add("Operator is missing");
+                    }
                 }
 
-                if (isOperator(element) && nexElement.equals(")")) {
-                    errors.add("Operand missing");
-                }
-
-                if (element.equals(")") && isCreatable(nexElement)) {
-                    errors.add("Operator is missing");
+                if (!areBracketsInCorrectPosition(parsedExpression)) {
+                    errors.add("Brackets are not placed correctly");
                 }
             }
-
-            if (!areBracketsInCorrectPosition(parsedExpression)) {
-                errors.add("Brackets are not placed correctly");
-            }
+            return errors.isEmpty();
+        } else {
+            return false;
         }
-        return errors.isEmpty();
     }
 
     public void printErrors() {
