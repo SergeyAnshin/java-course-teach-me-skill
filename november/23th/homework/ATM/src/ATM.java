@@ -81,13 +81,17 @@ public class ATM {
                         " card not supported. ATM supports only " +
                         supportedCardTypes.toString() + " cards");
             }
-        } catch (NullPointerException | WrongCardTypeException | NotEnoughFundsOnAccountException exception) {
+        } catch (WrongCardTypeException | NotEnoughFundsOnAccountException exception) {
             exception.printStackTrace();
         }
     }
 
-    private boolean isBankCardSupported(Card card) throws NullPointerException {
-        return supportedCardTypes.contains(card.getCardType());
+    private boolean isBankCardSupported(Card card) {
+        if (supportedCardTypes != null){
+            return supportedCardTypes.contains(card.getCardType());
+        } else {
+            return false;
+        }
     }
 
     private void showMenu() {
