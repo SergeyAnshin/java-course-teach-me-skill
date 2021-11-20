@@ -87,11 +87,7 @@ public class ATM {
     }
 
     private boolean isBankCardSupported(Card card) {
-        if (supportedCardTypes != null){
-            return supportedCardTypes.contains(card.getCardType());
-        } else {
-            return false;
-        }
+        return supportedCardTypes != null && supportedCardTypes.contains(card.getCardType());
     }
 
     private void showMenu() {
