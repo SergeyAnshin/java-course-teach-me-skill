@@ -34,4 +34,37 @@ public class TextFormatter {
                     return list.size() > 0; })
                 .collect(Collectors.toList());
     }
+
+    public static List<String> getSentencesWithInvalidWordsTwo(String sentence, List<String> words) {
+        List<String> sentenceWord = new ArrayList<>(List.of(sentence.toLowerCase()
+                .replaceAll("[^A-za-z ]", " ")
+                .split(" ")));
+        sentenceWord.retainAll(words);
+        return sentenceWord;
+    }
+
+    public static boolean isInvalidWordsInSentence(String sentence, List<String> words) {
+        List<String> sentenceWord = new ArrayList<>(List.of(sentence.toLowerCase()
+                .replaceAll("[^A-za-z ]", " ")
+                .split(" ")));
+        for (String s : sentenceWord) {
+            if (words.contains(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isInvalidWordsInSentenceBinarySearch(String sentence, List<String> words) {
+        String[] sentenceWord = sentence.toLowerCase()
+                .replaceAll("[^A-za-z ]", " ")
+                .split(" ");
+        Arrays.sort(sentenceWord);
+        for (int i = 0; i < words.size(); i++) {
+            if (Arrays.binarySearch(sentenceWord, words.get(i)) >= 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
