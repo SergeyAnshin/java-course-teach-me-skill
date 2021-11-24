@@ -33,7 +33,7 @@ public class StorageServiceImpl implements StorageService<Double> {
 
     @Override
     public boolean contains(Double element) {
-        return false;
+        return storage.getStorage().contains(element);
     }
 
 

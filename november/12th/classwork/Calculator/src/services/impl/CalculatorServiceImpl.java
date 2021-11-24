@@ -1,7 +1,6 @@
 package services.impl;
 
-import entities.operations.SimpleOperation;
-import entities.operations.SimpleOperationImpl;
+import entities.operations.Operation;
 import services.CalculatorService;
 import services.StorageService;
 import validators.Validator;
@@ -10,13 +9,13 @@ import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.util.*;
-
 import static org.apache.commons.lang3.math.NumberUtils.*;
 
 public class CalculatorServiceImpl implements CalculatorService {
     private StorageService storageService;
     private Validator validator = new Validator();
-    private SimpleOperation<Double> operation = new SimpleOperationImpl();
+    private Operation<Double> operation = new Operation<>();
+    private String currentExpression;
 
     public CalculatorServiceImpl(StorageService storageService) {
         this.storageService = storageService;
@@ -35,20 +34,20 @@ public class CalculatorServiceImpl implements CalculatorService {
                 double secondNumber = stack.pop();
                 double firstNumber = stack.pop();
                 switch (token) {
-                    case "-" -> stack.push(operation.subtract(firstNumber, secondNumber));
-                    case "+" -> stack.push(operation.add(firstNumber, secondNumber));
-                    case "*" -> stack.push(operation.multiply(firstNumber, secondNumber));
-                    case "/" -> stack.push(operation.divide(firstNumber, secondNumber));
+                    case "-" -> stack.push(operation.calculate(firstNumber, secondNumber, (a, b) -> a - b));
+                    case "+" -> stack.push(operation.calculate(firstNumber, secondNumber, (a, b) -> a + b));
+                    case "*" -> stack.push(operation.calculate(firstNumber, secondNumber, (a, b) -> a * b));
+                    case "/" -> stack.push(operation.calculate(firstNumber, secondNumber, (a, b) -> a / b));
                 }
             } else if (validator.isPrefixFunction(token)) {
                 double number = stack.pop();
                 switch (token) {
-                    case "sin" -> stack.push(operation.sin(number));
+                    case "sin" -> stack.push(operation.calculate(number, Math::sin));
                 }
             }
 
         }
-        storageService.addInStorage(stack.pop());
+        storageService.addInStorage(currentExpression + " = " + stack.pop());
         System.out.println("Calculation result: " + storageService.getLastAddedItem());
     }
 
@@ -63,6 +62,7 @@ public class CalculatorServiceImpl implements CalculatorService {
                 if (!expression.isBlank()) {
                     List<String> parsedExpression = getParseExpression(expression);
                     if (validator.isValid(parsedExpression)) {
+                        currentExpression = expression;
                         return parsedExpression;
                     } else {
                         validator.printErrors();
@@ -134,7 +134,6 @@ public class CalculatorServiceImpl implements CalculatorService {
         }
 
         while (!stack.isEmpty()) {
-//            postfixExpression.add(stack.pop());
             if (validator.isOperator(stack.peek())) {
                 postfixExpression.add(stack.pop());
             } else {

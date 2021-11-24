@@ -5,12 +5,14 @@ import services.CalculatorService;
 import services.MenuService;
 import services.StorageService;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class MenuServiceImpl implements MenuService {
     private Menu menu = new Menu();
-    private StorageService storageService = new StorageServiceImpl();
+    private StorageService storageService = new FileStorageServiceImpl();
     private CalculatorService calculatorService = new CalculatorServiceImpl(storageService);
 
     @Override
