@@ -1,8 +1,3 @@
-import exceptions.AddEmptyProductException;
-import exceptions.ProductAlreadyExistsInShopException;
-import exceptions.ProductCannotBeModified;
-import exceptions.ProductNotFoundException;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -18,12 +13,7 @@ public class Menu {
         createSortMenu();
         while (true) {
             showMenu(menu);
-            try {
-                performAction();
-            } catch (ProductAlreadyExistsInShopException | AddEmptyProductException |
-                    ProductNotFoundException | ProductCannotBeModified e) {
-                e.printStackTrace();
-            }
+            performAction();
         }
     }
 
@@ -39,14 +29,15 @@ public class Menu {
         sortMenu.put("0", "Sort products by price ascending");
         sortMenu.put("1", "Sort products by price descending");
         sortMenu.put("2", "Sort products by added time");
+        sortMenu.put("3", "Sort products by creation time ascending");
+        sortMenu.put("4", "Sort products by creation time descending");
     }
 
     private void showMenu(Map<String, String> menu) {
         menu.forEach((key, value) -> System.out.println(key + " - " + value));
     }
 
-    private void performAction() throws ProductAlreadyExistsInShopException, AddEmptyProductException,
-            ProductNotFoundException, ProductCannotBeModified {
+    private void performAction() {
         int actionNumber = getActionNumber(menu);
         if (actionNumber == 0) {
             showMenu(sortMenu);
@@ -94,6 +85,10 @@ public class Menu {
                 case 2 -> IntStream.range(0, store.getListProduct().size())
                         .map(i -> store.getListProduct().size() - i - 1)
                         .mapToObj(store.getListProduct()::get).collect(Collectors.toList());
+                case 3 -> productStream.sorted((Comparator.comparing(Product::getCreationDate)))
+                        .collect(Collectors.toList());
+                case 4 -> productStream.sorted(Comparator.comparing(Product::getCreationDate, Comparator.reverseOrder()))
+                        .collect(Collectors.toList());
                 default -> throw new IllegalStateException("Unexpected value: " + sortMenuItem);
             };
         }

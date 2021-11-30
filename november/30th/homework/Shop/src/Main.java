@@ -1,8 +1,3 @@
-import exceptions.AddEmptyProductException;
-import exceptions.ProductAlreadyExistsInShopException;
-import exceptions.ProductCannotBeModified;
-import exceptions.ProductNotFoundException;
-
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -16,25 +11,21 @@ public class Main {
 //
 //        Product modifiedProduct = new Product(3, "D", 13d);
 //
-//        try {
-//            store.addProduct(product);
-//            store.addProduct(product2);
-//            store.addProduct(product3);
+//        store.addProduct(product);
+//        store.addProduct(product2);
+//        store.addProduct(product3);
 //
-//            store.getListProduct().sort(Comparator.comparing(Product::getPrice));
-//            System.out.println("Sort by price: " + store.getListProduct());
+//        store.getListProduct().sort(Comparator.comparing(Product::getPrice));
+//        System.out.println("Sort by price: " + store.getListProduct());
 //
-//            store.deleteProduct(1);
+//        store.deleteProduct(1);
 //
-//            Collections.reverse(store.getListProduct());
-//            System.out.println("Sort by added time: " + store.getListProduct());
+//        Collections.reverse(store.getListProduct());
+//        System.out.println("Sort by added time: " + store.getListProduct());
 //
-//            store.editProduct(modifiedProduct);
+//        store.editProduct(modifiedProduct);
 //
-//            System.out.println(store.getListProduct());
-//        } catch (AddEmptyProductException | ProductAlreadyExistsInShopException | ProductNotFoundException | ProductCannotBeModified e) {
-//            e.printStackTrace();
-//        }
+//        System.out.println(store.getListProduct());
 
         Menu menu = new Menu();
         menu.startMenu();

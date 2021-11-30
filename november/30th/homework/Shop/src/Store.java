@@ -1,8 +1,4 @@
-import exceptions.AddEmptyProductException;
-import exceptions.ProductAlreadyExistsInShopException;
-import exceptions.ProductCannotBeModified;
-import exceptions.ProductNotFoundException;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,31 +17,35 @@ public class Store {
     }
 
 
-    public void addProduct(Product product) throws AddEmptyProductException, ProductAlreadyExistsInShopException {
+    public void addProduct(Product product) {
         if (listProduct == null) {
             listProduct = new ArrayList<>();
         }
 
         if (product == null) {
-            throw new AddEmptyProductException("You try to add a null value to the store.");
+            System.out.println("You try to add a null value to the store.");
         } else if (listProduct.contains(product)) {
-            throw new ProductAlreadyExistsInShopException("Product with id " + product.getId() + " already exists");
+            System.out.println("Product with id " + product.getId() + " already exists");
         }
 
         listProduct.add(product);
     }
 
-    public void deleteProduct(int productId) throws ProductNotFoundException {
+    public void deleteProduct(int productId) {
         if (!listProduct.removeIf(product -> product.getId() == productId)) {
-            throw new ProductNotFoundException("There is no product with id = " + productId);
+            System.out.println("There is no product with id = " + productId);
         }
     }
 
-    public void editProduct(Product product) throws ProductCannotBeModified {
-        if (product != null && listProduct.removeIf(product1 -> product1.equals(product))) {
-            listProduct.add(product);
+    public void editProduct(Product product) {
+        int productIndexToChange;
+        if (product != null && (productIndexToChange = listProduct.indexOf(product)) != -1) {
+            Product productToChange = listProduct.get(productIndexToChange);
+            productToChange.setName(product.getName());
+            productToChange.setPrice(product.getPrice());
+            productToChange.setUpdateDate(LocalDateTime.now());
         } else {
-            throw new ProductCannotBeModified("Product to modification does not exist");
+            System.out.println("Product to modification does not exist");
         }
     }
 }
