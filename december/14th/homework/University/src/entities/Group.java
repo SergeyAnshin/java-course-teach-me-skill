@@ -1,17 +1,16 @@
 package entities;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Group {
     private int id;
     private String name;
-    private Set<Student> students;
+    private HashSet<Student> students;
 
     public Group() {
     }
 
-    public Group(int id, String name, Set<Student> students) {
+    public Group(int id, String name, HashSet<Student> students) {
         this.id = id;
         this.name = name;
         this.students = students;
@@ -33,11 +32,11 @@ public class Group {
         this.name = name;
     }
 
-    public Set<Student> getStudents() {
+    public HashSet<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<Student> students) {
+    public void setStudents(HashSet<Student> students) {
         this.students = students;
     }
 
@@ -56,7 +55,7 @@ public class Group {
 
     @Override
     public String toString() {
-        return "entities.Group{" +
+        return "Group{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", students=" + students +

@@ -6,9 +6,7 @@ public interface Storage<T> {
 
     void add(T entity);
 
-    T getEntityById(int entityId);
-
     List<T> getEntities();
 
-    boolean contains(T entity);
+    boolean exist(T entity);
 }

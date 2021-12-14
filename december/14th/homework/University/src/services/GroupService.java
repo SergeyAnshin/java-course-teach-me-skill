@@ -1,7 +1,5 @@
 package services;
 
-import entities.Student;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
@@ -15,4 +13,7 @@ public interface GroupService<T> {
     List<T> getGroups();
 
     Optional<T> getGroupById(int groupId);
+
+    boolean exist(T group);
+
 }
