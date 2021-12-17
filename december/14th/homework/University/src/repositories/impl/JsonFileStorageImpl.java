@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import repositories.Storage;
 
 import java.io.*;
-import java.nio.CharBuffer;
 import java.util.*;
 
 public class JsonFileStorageImpl<T> implements Storage<T> {
@@ -46,7 +45,6 @@ public class JsonFileStorageImpl<T> implements Storage<T> {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(storageFile))) {
             StringBuilder jsonEntity = new StringBuilder();
             while (bufferedReader.read(charsBuffer) != -1) {
-//                System.out.println(Arrays.toString(charsBuffer));
                 for (int i = 0; i < charsBuffer.length - 1; i++) {
                     if (charsBuffer[i] != (char) 0) {
                         jsonEntity.append(charsBuffer[i]);
@@ -69,7 +67,7 @@ public class JsonFileStorageImpl<T> implements Storage<T> {
 
     @Override
     public boolean exist(T entity) {
-        if (fileForStoringEntities != null) {
+        if (fileForStoringEntities != null && fileForStoringEntities.exists()) {
             return readEntitiesFromFile(fileForStoringEntities).stream()
                     .anyMatch(currentEntity -> currentEntity.equals(entity));
         } else {

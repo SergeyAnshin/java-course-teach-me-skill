@@ -14,7 +14,7 @@ import java.util.OptionalDouble;
 
 public class UniversityServiceImpl implements UniversityService<University> {
     private final Storage<University> storage =
-            new JsonFileStorageImpl<>(new File("universities.txt"),University.class);
+            new JsonFileStorageImpl<>(new File("universities.json"),University.class);
 
     @Override
     public void add(University university) {
@@ -50,9 +50,7 @@ public class UniversityServiceImpl implements UniversityService<University> {
 
     @Override
     public boolean exist(University university) {
-        return getUniversities()
-                .stream()
-                .anyMatch(university1 -> university1.equals(university));
+        return storage.exist(university);
     }
 
     @Override

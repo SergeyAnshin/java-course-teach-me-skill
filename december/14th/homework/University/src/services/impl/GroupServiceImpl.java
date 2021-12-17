@@ -13,7 +13,7 @@ import java.util.OptionalDouble;
 
 public class GroupServiceImpl implements GroupService<Group> {
     private final Storage<Group> storage =
-            new JsonFileStorageImpl<>(new File("groups.txt"), Group.class);
+            new JsonFileStorageImpl<>(new File("groups.json"), Group.class);
 
     @Override
     public void add(Group group) {
@@ -56,8 +56,6 @@ public class GroupServiceImpl implements GroupService<Group> {
 
     @Override
     public boolean exist(Group group) {
-        return getGroups()
-                .stream()
-                .anyMatch(group1 -> group1.equals(group));
+        return storage.exist(group);
     }
 }
