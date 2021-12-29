@@ -1,0 +1,21 @@
+CREATE database user;
+
+CREATE TABLE user_table(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    name varchar(30) NOT NULL,
+    age int NOT NULL
+);
+
+INSERT INTO user_table VALUES(1, 'Anna', 15);
+INSERT INTO user_table (name, age) VALUES('Anna', 15);
+
+SELECT name, age
+FROM user_table
+WHERE id=2;
+
+UPDATE user_table
+SET age=30
+WHERE id=2;
+
+DELETE FROM user_table
+WHERE age > 30;
