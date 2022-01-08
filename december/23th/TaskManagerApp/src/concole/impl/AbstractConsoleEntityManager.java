@@ -1,0 +1,56 @@
+package concole.impl;
+
+import concole.ConsoleColors;
+import concole.ConsoleEntityManager;
+import concole.ConsoleOperation;
+import entities.Entity;
+import validators.AbstractValidator;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public abstract class AbstractConsoleEntityManager<T extends Entity> implements ConsoleEntityManager<T> {
+    private ConsoleOperation CONSOLE_OPERATION = new ConsoleOperation();
+    private AbstractValidator<T> validator;
+
+    public AbstractConsoleEntityManager(AbstractValidator<T> validator) {
+        this.validator = validator;
+    }
+
+    public String getStringValueForFieldFromConsole(String fieldName) {
+        System.out.println("Enter " + fieldName + ":");
+        return getValidStringField(fieldName);
+    }
+
+    public String getValidStringField(String field) {
+        String value;
+        while (true) {
+            value = CONSOLE_OPERATION.getStringLine();
+            if (validator.isValidValueForField(value, field)) {
+                return value;
+            } else {
+                System.out.println(validator.getErrorMessage());
+            }
+        }
+    }
+
+    public T selectEntityFromListById(List<T> entities) {
+        if (entities != null && !entities.isEmpty()) {
+            Map<Long, T> idEntityMap = entities.stream().collect(Collectors.toMap(Entity::getId, Function.identity()));
+            String className = entities.get(0).getClass().getName().substring(9).toLowerCase();
+            System.out.println("Enter " + className +  " ID:");
+            while (true) {
+                long selectedId = CONSOLE_OPERATION.getNumberFromTo(0, Long.MAX_VALUE);
+                if (idEntityMap.containsKey(selectedId)) {
+                    return idEntityMap.get(selectedId);
+                }
+                System.out.println(ConsoleColors.RED + "The " + className + " with this ID doesn't exist" +
+                        ConsoleColors.RESET);
+            }
+        }
+        return null;
+    }
+}
