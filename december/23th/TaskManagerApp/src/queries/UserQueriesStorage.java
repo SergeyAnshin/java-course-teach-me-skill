@@ -20,7 +20,7 @@ public class UserQueriesStorage {
             "UPDATE \"user\" SET login = ?, email = ?, password = ? WHERE id = ?";
 
     public static final String DELETE_QUERY =
-            "delete from \"user\" where id = ?";
+            "SELECT delete_user(?)";
 
     public static final String FIND_BY_LOGIN_QUERY =
             "SELECT * FROM \"user\" WHERE login = ?";

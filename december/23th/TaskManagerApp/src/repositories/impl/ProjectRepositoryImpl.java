@@ -20,7 +20,8 @@ import static queries.ProjectQueriesStorage.*;
 public class ProjectRepositoryImpl extends AbstractEntityCrudRepositoryImpl<Project> implements ProjectRepository<Project> {
 
     public ProjectRepositoryImpl() {
-        super(new RepositoryProjectMapper(), SAVE_QUERY, EXIST_QUERY, FIND_ALL_QUERY, FIND_BY_ID_QUERY, UPDATE_QUERY, DELETE_QUERY);
+        super(new RepositoryProjectMapper(), SAVE_QUERY, EXIST_QUERY, FIND_ALL_QUERY, FIND_BY_ID_QUERY,
+                UPDATE_QUERY, DELETE_QUERY);
     }
 
     @Override
@@ -68,8 +69,9 @@ public class ProjectRepositoryImpl extends AbstractEntityCrudRepositoryImpl<Proj
     }
 
     @Override
-    protected boolean executeDeleteStatementForEntity(Project entity, PreparedStatement statement) {
-        return false;
+    protected boolean executeDeleteStatementForEntity(Project project, PreparedStatement statement) throws SQLException {
+        statement.setLong(1, project.getId());
+        return statement.execute();
     }
 
 
@@ -80,7 +82,7 @@ public class ProjectRepositoryImpl extends AbstractEntityCrudRepositoryImpl<Proj
                 PreparedStatement statement = CONNECTION.prepareStatement(TRANSFER_PROJECT_TO_ANOTHER_AUTHOR_QUERY);
                 statement.setLong(1, user.getId());
                 statement.setLong(2,project.getId());
-                return !statement.execute();
+                return statement.executeUpdate() != 0;
             } catch (SQLException e) {
                 e.printStackTrace();
             }

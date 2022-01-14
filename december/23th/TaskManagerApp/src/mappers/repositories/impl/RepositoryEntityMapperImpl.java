@@ -13,7 +13,9 @@ public abstract class RepositoryEntityMapperImpl<T> implements RepositoryEntityM
     @Override
     public T toEntityFromResultSet(ResultSet resultSet) {
         try {
-            return getEntityFromResultSet(resultSet);
+            if (resultSet.next()) {
+                return getEntityFromResultSet(resultSet);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -23,17 +25,13 @@ public abstract class RepositoryEntityMapperImpl<T> implements RepositoryEntityM
     @Override
     public List<T> toListEntityFromResultSet(ResultSet resultSet) {
         List<T> entities = new ArrayList<>();
-        while (true) {
-            try {
-                if (!resultSet.next()) {
-                    break;
-                }
-                resultSet.previous();
+        try {
+            while (resultSet.next()) {
                 T entity = getEntityFromResultSet(resultSet);
                 entities.add(entity);
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return entities;
     }

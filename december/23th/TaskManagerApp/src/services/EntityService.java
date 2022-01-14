@@ -13,4 +13,6 @@ public interface EntityService<T> {
     boolean update(T entity);
 
     boolean delete(T entity);
+
+    List<T> findAll();
 }

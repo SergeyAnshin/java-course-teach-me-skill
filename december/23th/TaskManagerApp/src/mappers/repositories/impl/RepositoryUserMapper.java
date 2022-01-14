@@ -9,10 +9,7 @@ public class RepositoryUserMapper extends RepositoryEntityMapperImpl<User> {
 
     @Override
     protected User getEntityFromResultSet(ResultSet resultSet) throws SQLException {
-        if (resultSet.next()) {
-           return getEntityFromResultSetByColumnNumbers(resultSet, 1, 2, 3, 4);
-        }
-        return null;
+        return getEntityFromResultSetByColumnNumbers(resultSet, 1, 2, 3, 4);
     }
 
     @Override

@@ -8,8 +8,15 @@ public class Task implements Entity {
     private Long id;
     private String name;
     private TaskCategory taskCategory;
-
     private TaskDetails taskDetails;
+
+    public Task(Long id) {
+        this.id = id;
+    }
+
+    public Task(String name) {
+        this.name = name;
+    }
 
     public Task(Long id, String name) {
         this.id = id;

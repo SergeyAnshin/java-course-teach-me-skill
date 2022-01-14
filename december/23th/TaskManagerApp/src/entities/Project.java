@@ -43,7 +43,15 @@ public class Project implements Entity {
         this.id = project.getId();
         this.name = project.getName();
         this.key = project.getKey();
-        this.taskDetailsList = new ArrayList<>(project.getTaskDetailsList());
+        if (project.getTaskDetailsList() != null) {
+            this.taskDetailsList = new ArrayList<>(project.getTaskDetailsList());
+        }
+    }
+
+    public Project(String name, String key, List<TaskDetails> taskDetailsList) {
+        this.name = name;
+        this.key = key;
+        this.taskDetailsList = taskDetailsList;
     }
 
     public Long getId() {

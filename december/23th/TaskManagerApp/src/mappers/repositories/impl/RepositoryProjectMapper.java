@@ -14,7 +14,7 @@ public class RepositoryProjectMapper extends RepositoryEntityMapperImpl<Project>
 
     @Override
     protected Project getEntityFromResultSet(ResultSet resultSet) throws SQLException {
-
+        resultSet.previous();
         Long projectId = null;
         String projectName = null;
         String projectKey = null;

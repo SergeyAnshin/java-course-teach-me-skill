@@ -28,7 +28,6 @@ public class ProjectValidator extends AbstractValidator<Project> {
                 return keyIsValid(value);
             default:
                 System.out.println(ConsoleColors.RED + "There isn't validator for field" + field + ConsoleColors.RESET);
-
                 return false;
         }
     }

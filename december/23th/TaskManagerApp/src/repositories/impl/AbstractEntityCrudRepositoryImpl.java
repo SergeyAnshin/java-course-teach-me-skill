@@ -6,10 +6,8 @@ import entities.User;
 import mappers.repositories.RepositoryEntityMapper;
 import repositories.CrudRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;
 
 public abstract class AbstractEntityCrudRepositoryImpl<T> implements CrudRepository<T> {
     public static final Connection CONNECTION = TaskManagerAppDBConnector.getInstance().getConnection();
@@ -22,9 +20,6 @@ public abstract class AbstractEntityCrudRepositoryImpl<T> implements CrudReposit
     private String findByIdQuery;
     private String updateQuery;
     private String deleteQuery;
-
-    public AbstractEntityCrudRepositoryImpl() {
-    }
 
     public AbstractEntityCrudRepositoryImpl(RepositoryEntityMapper<T> entityMapper, String saveQuery, 
                                             String existQuery, String findAllQuery, String findByIdQuery, 
@@ -76,7 +71,8 @@ public abstract class AbstractEntityCrudRepositoryImpl<T> implements CrudReposit
     public T findById(Long id) {
         if (CONNECTION != null) {
             try {
-                PreparedStatement statement = CONNECTION.prepareStatement(findByIdQuery);
+                PreparedStatement statement = CONNECTION.prepareStatement(findByIdQuery,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 statement.setLong(1, id);
                 ResultSet resultSet = statement.executeQuery();
                 return entityMapper.toEntityFromResultSet(resultSet);
@@ -118,4 +114,19 @@ public abstract class AbstractEntityCrudRepositoryImpl<T> implements CrudReposit
     }
 
     protected abstract boolean executeDeleteStatementForEntity(T entity, PreparedStatement statement) throws SQLException;
+
+    @Override
+    public List<T> findAll() {
+        if (CONNECTION != null) {
+            try {
+//                Statement statement = CONNECTION.createStatement();
+                PreparedStatement preparedStatement = CONNECTION.prepareStatement(findAllQuery,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                return entityMapper.toListEntityFromResultSet(preparedStatement.executeQuery());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

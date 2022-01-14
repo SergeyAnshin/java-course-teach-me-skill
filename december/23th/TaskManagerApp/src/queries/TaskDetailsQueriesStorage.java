@@ -14,7 +14,7 @@ public class TaskDetailsQueriesStorage {
             "";
 
     public static final String UPDATE_QUERY =
-            "UPDATE task_details SET ____ WHERE id = ____";
+            "UPDATE task_details SET project_id = ?, task_id = ?, author = ?, executor = ? WHERE id = ?";
 
     public static final String DELETE_QUERY =
             "";

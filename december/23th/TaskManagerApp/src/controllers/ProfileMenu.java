@@ -42,12 +42,15 @@ public class ProfileMenu extends AbstractMenu {
     @Override
     protected void doMenuItemInMenu(long menuItemToDo, Map<Integer, String> menu) {
         if (menuItemToDo == 0) {
+            System.out.println("**** EDIT LOGIN ****");
             String login = userManager.getStringValueForFieldFromConsole("login");
             newUser.setLogin(login);
         } else if (menuItemToDo == 1) {
+            System.out.println("**** EDIT EMAIL ****");
             String email = userManager.getStringValueForFieldFromConsole("email");
             newUser.setEmail(email);
         } else if (menuItemToDo == 2) {
+            System.out.println("**** EDIT PASSWORD ****");
             String password = userManager.getStringValueForFieldFromConsole("password");
             newUser.setPassword(password);
         } else if (menuItemToDo == 3) {

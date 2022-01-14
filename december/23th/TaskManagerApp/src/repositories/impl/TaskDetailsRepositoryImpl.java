@@ -12,7 +12,8 @@ import static queries.TaskDetailsQueriesStorage.*;
 public class TaskDetailsRepositoryImpl extends AbstractEntityCrudRepositoryImpl<TaskDetails> implements TaskDetailsRepository<TaskDetails> {
 
     public TaskDetailsRepositoryImpl() {
-        super(new RepositoryTaskDetailsMapper(), SAVE_QUERY, EXIST_QUERY, FIND_ALL_QUERY, FIND_BY_ID_QUERY, UPDATE_QUERY, DELETE_QUERY);
+        super(new RepositoryTaskDetailsMapper(), SAVE_QUERY, EXIST_QUERY, FIND_ALL_QUERY, FIND_BY_ID_QUERY,
+                UPDATE_QUERY, DELETE_QUERY);
     }
 
     @Override

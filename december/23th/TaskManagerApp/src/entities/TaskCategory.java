@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * name NOT_NULL
@@ -11,6 +12,10 @@ public class TaskCategory implements Entity {
     private String name;
 
     private List<Task> tasks;
+
+    public TaskCategory(String name) {
+        this.name = name;
+    }
 
     public TaskCategory(Long id, String name) {
         this.id = id;
@@ -39,5 +44,27 @@ public class TaskCategory implements Entity {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskCategory that = (TaskCategory) o;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "TaskCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", tasks=" + tasks +
+                '}';
     }
 }

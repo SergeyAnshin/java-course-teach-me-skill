@@ -1,8 +1,13 @@
 package queries;
 
 public class ProjectQueriesStorage {
+    /**
+     * first param = project name
+     * second param = project key
+     * third param = author id
+     */
     public static final String SAVE_QUERY =
-            "SELECT save_project(?, ?, ?);";
+            "SELECT save_project(?, ?, ?)";
 
     public static final String EXIST_QUERY =
             "SELECT name, key FROM project WHERE name = ? OR key = ?";
@@ -26,9 +31,9 @@ public class ProjectQueriesStorage {
             "INNER JOIN \"user\" a ON td.author = a.\"id\" " +
             "LEFT JOIN \"user\" e ON td.executor = e.\"id\" ";
 
-    public static final String FIND_BY_ID_QUERY = FIND_BY_WITHOUT_CONDITIONAL_PART_QUERY + "WHERE p.id = ?";
+    public static final String FIND_BY_ID_QUERY = FIND_BY_WITHOUT_CONDITIONAL_PART_QUERY + "WHERE p.id = ? ORDER BY p.id";
 
-    public static final String FIND_BY_USER_QUERY = FIND_BY_WITHOUT_CONDITIONAL_PART_QUERY + "WHERE td.author = ?";
+    public static final String FIND_BY_USER_QUERY = FIND_BY_WITHOUT_CONDITIONAL_PART_QUERY + "WHERE td.author = ? ORDER BY p.id";
 
     public static final String UPDATE_QUERY =
             "UPDATE project SET name = ?, key = ? WHERE id = ?";
@@ -37,6 +42,6 @@ public class ProjectQueriesStorage {
             "UPDATE task_details SET author = ? WHERE project_id = ?";
 
     public static final String DELETE_QUERY =
-            "";
+            "SELECT delete_project(?)";
 }
 

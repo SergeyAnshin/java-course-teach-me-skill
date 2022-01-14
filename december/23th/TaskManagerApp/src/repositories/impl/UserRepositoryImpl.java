@@ -16,7 +16,8 @@ public class UserRepositoryImpl extends AbstractEntityCrudRepositoryImpl<User> i
     private String findByLogin;
 
     public UserRepositoryImpl() {
-        super(new RepositoryUserMapper(), SAVE_QUERY, EXIST_QUERY, FIND_ALL_QUERY, FIND_BY_ID_QUERY, UPDATE_QUERY, DELETE_QUERY);
+        super(new RepositoryUserMapper(), SAVE_QUERY, EXIST_QUERY, FIND_ALL_QUERY, FIND_BY_ID_QUERY,
+                UPDATE_QUERY, DELETE_QUERY);
         this.findByLoginAndPassword = FIND_BY_LOGIN_AND_PASSWORD_QUERY;
         this.findByLogin = FIND_BY_LOGIN_QUERY;
     }
@@ -26,7 +27,7 @@ public class UserRepositoryImpl extends AbstractEntityCrudRepositoryImpl<User> i
         statement.setString(1, user.getLogin());
         statement.setString(2, user.getEmail());
         statement.setString(3, user.getPassword());
-        return !statement.execute();
+        return statement.executeUpdate() != 0;
     }
 
     @Override
@@ -64,23 +65,13 @@ public class UserRepositoryImpl extends AbstractEntityCrudRepositoryImpl<User> i
         statement.setString(2, user.getEmail());
         statement.setString(3, user.getPassword());
         statement.setLong(4, user.getId());
-        return !statement.execute();
+        return statement.executeUpdate() != 0;
     }
 
-    /**
-     *
-     * @param user
-     * @param statement
-     * @return
-     * @throws SQLException
-     *
-     * When deleted are used ON DELETE CASCADE, DELETE TRIGGER FUNCTION and TRIGGER FUNCTION.
-     * All user information will be deleted.
-     */
     @Override
     protected boolean executeDeleteStatementForEntity(User user, PreparedStatement statement) throws SQLException {
         statement.setLong(1, user.getId());
-        return !statement.execute();
+        return statement.executeUpdate() != 0;
     }
 
     @Override

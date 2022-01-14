@@ -1,8 +1,11 @@
 package services.impl;
 
 import concole.ConsoleColors;
+import entities.Entity;
 import repositories.CrudRepository;
 import services.EntityService;
+
+import java.util.List;
 
 public abstract class AbstractEntityServiceImpl<T> implements EntityService<T> {
     private CrudRepository<T> repository;
@@ -18,12 +21,12 @@ public abstract class AbstractEntityServiceImpl<T> implements EntityService<T> {
         } else {
             if (!exist(entity)) {
                 if (!repository.save(entity)) {
-                    System.out.println(ConsoleColors.RED + "Could not save " + entity.getClass().getName() + "!" +
+                    System.out.println(ConsoleColors.RED + "Could not save " + Entity.getEntityName((Entity) entity) + "!" +
                             ConsoleColors.RESET);
+                } else {
+                    System.out.println(ConsoleColors.GREEN + Entity.getEntityName((Entity) entity) +
+                            " saved!" + ConsoleColors.RESET);
                 }
-            } else {
-                System.out.println(ConsoleColors.RED + entity.getClass().getName() + " already exist!" +
-                        ConsoleColors.RESET);
             }
         }
     }
@@ -31,7 +34,12 @@ public abstract class AbstractEntityServiceImpl<T> implements EntityService<T> {
     @Override
     public boolean exist(T entity) {
         if (entity != null) {
-            return repository.exist(entity);
+            if (repository.exist(entity)) {
+                System.out.println(ConsoleColors.RED + Entity.getEntityName((Entity) entity) + " already exist!" +
+                            ConsoleColors.RESET);
+                return true;
+            }
+            return false;
         }
         return true;
     }
@@ -43,11 +51,32 @@ public abstract class AbstractEntityServiceImpl<T> implements EntityService<T> {
 
     @Override
     public boolean update(T entity) {
-        return repository.update(entity);
+        if (repository.update(entity)) {
+            System.out.println(ConsoleColors.GREEN + Entity.getEntityName((Entity) entity) + " updated!" +
+                    ConsoleColors.RESET);
+            return true;
+        } else {
+            System.out.println(ConsoleColors.RED + "Could not update " + Entity.getEntityName((Entity) entity) + "!" +
+                    ConsoleColors.RESET);
+            return false;
+        }
     }
 
     @Override
     public boolean delete(T entity) {
-        return repository.delete(entity);
+        if (repository.delete(entity)) {
+            System.out.println(ConsoleColors.GREEN + Entity.getEntityName((Entity) entity) + " deleted!" +
+                    ConsoleColors.RESET);
+            return true;
+        } else {
+            System.out.println(ConsoleColors.RED + "Could not delete " + Entity.getEntityName((Entity) entity) + "!" +
+                    ConsoleColors.RESET);
+            return false;
+        }
+    }
+
+    @Override
+    public List<T> findAll() {
+        return repository.findAll();
     }
 }

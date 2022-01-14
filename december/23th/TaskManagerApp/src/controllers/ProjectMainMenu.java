@@ -1,5 +1,6 @@
 package controllers;
 
+import concole.ConsoleColors;
 import concole.ConsoleEntityManager;
 import concole.impl.ConsoleProjectManagerImpl;
 
@@ -38,14 +39,14 @@ public class ProjectMainMenu extends AbstractMenu {
         if (menuItemToDo == 0) {
             createProject();
         } else if (menuItemToDo == 1) {
-            System.out.println("**** SELECT PROJECT ****");
+            System.out.println("**** YOUR PROJECTS ****");
             List<Project> projects =  projectService.findProjectsByUser(getUser());
             if (projects != null && !projects.isEmpty()) {
                 showAllProject(projects);
                 Project selectedProject = consoleProjectManager.selectEntityFromListById(projects);
                 goIntoMenuForSelectedProject(selectedProject);
             } else {
-                System.out.println("You don't have projects. Create project!");
+                System.out.println(ConsoleColors.RED + "You don't have projects. Create project!" + ConsoleColors.RESET);
             }
         } else if (menuItemToDo == 2) {
             setWorkingInThisMenu(false);

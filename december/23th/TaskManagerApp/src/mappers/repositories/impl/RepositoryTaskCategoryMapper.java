@@ -9,7 +9,7 @@ public class RepositoryTaskCategoryMapper extends RepositoryEntityMapperImpl<Tas
 
     @Override
     protected TaskCategory getEntityFromResultSet(ResultSet resultSet) throws SQLException {
-        return null;
+        return getEntityFromResultSetByColumnNumbers(resultSet,1, 2);
     }
 
     @Override

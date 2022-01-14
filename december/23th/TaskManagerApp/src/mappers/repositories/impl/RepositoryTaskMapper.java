@@ -10,7 +10,7 @@ public class RepositoryTaskMapper extends RepositoryEntityMapperImpl<Task> {
 
     @Override
     protected Task getEntityFromResultSet(ResultSet resultSet) throws SQLException {
-        return null;
+        return getEntityFromResultSetByColumnNumbers(resultSet, 1, 2);
     }
 
     @Override

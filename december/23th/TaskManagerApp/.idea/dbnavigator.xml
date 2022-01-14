@@ -24,51 +24,87 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="e6cc75e0-4f51-4918-ba83-4cc90afa3f13">
+        <schema name="pg_catalog" object-types="table, view, function" />
+        <schema name="public" object-types="table, view, function, column" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="e6cc75e0-4f51-4918-ba83-4cc90afa3f13">
       <console name="ProjectTable" type="STANDARD" schema="public" session="Main"><![CDATA[select * from project;
 
-SELECT p.id AS project_id, p."name" AS project_name, p."key" AS project_key,
-       td."id" AS task_details_id, td.task_id AS task_details_task_id, 
-       t."name" AS task_name, t.task_category_id AS task_task_category_id,
-       tc."name" AS task_category_name,
-       td.author AS task_details_author, 
-       a."login" AS author_login, a.email AS author_email, a."password" AS author_password,
-       td.executor AS task_details_executor, 
-       e."login" AS executor_login, e.email AS executor_email, e."password" AS executor_password
-FROM project p
-INNER JOIN task_details td ON p."id" = td.project_id
-LEFT JOIN task t ON td.task_id = t."id"
-LEFT JOIN task_category tc ON t.task_category_id = tc."id"
-INNER JOIN "user" a ON td.author = a."id"
-LEFT JOIN "user" e ON td.executor = e."id"
-where td.author = 3;
+--SELECT p.id AS project_id, p."name" AS project_name, p."key" AS project_key,
+--       td."id" AS task_details_id, td.task_id AS task_details_task_id, 
+--       t."name" AS task_name, t.task_category_id AS task_task_category_id,
+--       tc."name" AS task_category_name,
+--       td.author AS task_details_author, 
+--       a."login" AS author_login, a.email AS author_email, a."password" AS author_password,
+--       td.executor AS task_details_executor, 
+--       e."login" AS executor_login, e.email AS executor_email, e."password" AS executor_password
+--FROM project p
+--INNER JOIN task_details td ON p."id" = td.project_id
+--LEFT JOIN task t ON td.task_id = t."id"
+--LEFT JOIN task_category tc ON t.task_category_id = tc."id"
+--INNER JOIN "user" a ON td.author = a."id"
+--LEFT JOIN "user" e ON td.executor = e."id"
+--where td.author = 3;
+--
+--
+--select p.id as p_id,
+--        p.name as p_name,
+--        p.key as p_key,
+--        td.id as td_id,
+--        td.
+--from project p 
+--inner join task_details td on p."id" = td.project_id
+--inner join task t on td.task_id = t."id"
+--where p.id = 1;
+--
+
+--CREATE OR REPLACE FUNCTION save_project(project_name CHARACTER VARYING, project_key CHARACTER VARYING, author_id BIGINT) RETURNS BOOLEAN AS $$
+--    DECLARE
+--        pr_id BIGINT;
+--    BEGIN 
+--        INSERT INTO project ("name", "key") VALUES ($1, $2) RETURNING "id" INTO pr_id;
+--        INSERT INTO task_details (project_id, author) VALUES (pr_id, $3);
+--        
+--        RETURN FOUND;
+--    END;
+--$$ LANGUAGE 'plpgsql';
 
 
-select p.id as p_id,
-        p.name as p_name,
-        p.key as p_key,
-        td.id as td_id,
-        td.
-from project p 
-inner join task_details td on p."id" = td.project_id
-inner join task t on td.task_id = t."id"
-where p.id = 1;
+--CREATE OR REPLACE FUNCTION delete_from_project_and_task_tables_by_id() RETURNS trigger AS $$
+--    BEGIN 
+--        DELETE FROM project p WHERE p."id" = OLD.project_id;
+--        DELETE FROM task t WHERE t."id" = OLD.task_id;
+--        RETURN NEW;
+--    END;
+--$$ LANGUAGE 'plpgsql';
+--
+--CREATE TRIGGER delete_user_trigger
+--AFTER DELETE ON task_details
+--FOR EACH ROW EXECUTE PROCEDURE delete_from_project_and_task_tables_by_id();
 
-CREATE OR REPLACE FUNCTION save_project(project_name CHARACTER VARYING, project_key CHARACTER VARYING, author_id BIGINT) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION delete_project(id_project BIGINT) RETURNS BOOLEAN AS $$
     DECLARE
-        pr_id BIGINT;
+        _rec RECORD;
     BEGIN 
-        INSERT INTO project ("name", "key") VALUES ($1, $2) RETURNING "id" INTO pr_id;
-        INSERT INTO task_details (project_id, author) VALUES (pr_id, $3);
+    
+        FOR _rec IN (SELECT * FROM task_details WHERE project_id = $1)
+        LOOP 
+            DELETE FROM task WHERE "id" = _rec.task_id;
+            DELETE FROM task_details WHERE "id" = _rec."id";
+        END LOOP;
+        
+        DELETE FROM project WHERE "id" = $1;
+        
+        RETURN FOUND;
     END;
 $$ LANGUAGE 'plpgsql';
 
-select save_project('pr 3', 'pr3', 1);
-
-insert into task_details (project_id, author, executor) values (10, 10, 1);]]></console>
+select delete_project(3);]]></console>
       <console name="TablesManager" type="STANDARD" schema="information_schema" session="Main"><![CDATA[create database task_manager_app_db;
 drop database task_manager_app_db;
 
@@ -118,7 +154,18 @@ create table task_details (
     foreign key (author) references "user" (id) ON DELETE CASCADE,
     foreign key (executor) references "user" (id) ON DELETE SET NULL
 );]]></console>
-      <console name="TaskCategoryTable" type="STANDARD" schema="public" session="Main"><![CDATA[select * from task_category;]]></console>
+      <console name="TaskCategoryTable" type="STANDARD" schema="public" session="Main"><![CDATA[select * from task_category;
+
+SELECT * FROM task_category WHERE name = 'To do' OR name = 'In progress' OR name = 'Done';
+
+CREATE OR REPLACE FUNCTION save_task_category(id_project BIGINT, task_category_name CHARACTER VARYING) RETURNS BOOLEAN AS $$
+    DECLARE
+        tc_id BIGINT;
+    BEGIN 
+        INSERT INTO task_category ("name") VALUES ($2) RETURNING "id" INTO tc_id;
+        INSERT INTO task_details (project_id, author) VALUES (pr_id, $3);
+    END;
+$$ LANGUAGE 'plpgsql';]]></console>
       <console name="TaskDetailsTable" type="STANDARD" schema="public" session="Main"><![CDATA[select * from task_details;
 
 select td.id as td_id, p."id" as p_id, p."name" as p_name, p."name" as p_key,
@@ -165,28 +212,52 @@ inner join task_details td on t.id = td.task_id
 inner join project p on td.project_id = p."id"
 inner join "user" au on td.author = au."id"
 left join "user" ex on td.executor = ex.id
-where p."id" = 4;]]></console>
+where p."id" = 4;
+
+
+
+CREATE OR REPLACE FUNCTION create_task(task_name CHARACTER VARYING, id_task_category BIGINT, id_project BIGINT, author_id BIGINT) RETURNS BOOLEAN AS $$
+    DECLARE
+        id_task BIGINT;
+        selected_task_details task_details%ROWTYPE;   
+    BEGIN 
+        INSERT INTO task ("name", task_category_id) VALUES ($1, $2) RETURNING "id" INTO id_task;
+        SELECT "id" FROM task_details INTO selected_task_details WHERE project_id = $3 AND task_id IS NULL LIMIT 1;
+        IF selected_task_details IS NULL THEN
+            INSERT INTO task_details (project_id, task_id, author) VALUES ($3, id_task, $4);
+        ELSE
+            UPDATE task_details SET task_id = id_task WHERE "id" = selected_task_details."id";
+        END IF;
+        RETURN FOUND;
+    END;
+$$ LANGUAGE 'plpgsql';]]></console>
       <console name="UserTable" type="STANDARD" schema="public" session="Main"><![CDATA[select * from "user";
 
-CREATE TRIGGER delete_user_trigger
-AFTER DELETE ON task_details
-FOR EACH ROW EXECUTE PROCEDURE delete_from_project_and_task_tables_by_id();
-
-DROP TRIGGER delete_user_trigger ON task_details;
-
-CREATE OR REPLACE FUNCTION delete_from_project_and_task_tables_by_id() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION delete_user(id_user BIGINT) RETURNS BOOLEAN AS $$
+    DECLARE
+        _rec RECORD;
     BEGIN 
-        DELETE FROM project p WHERE p."id" = OLD.project_id;
-        DELETE FROM task t WHERE t."id" = OLD.task_id;
-        RETURN NEW;
+    
+        FOR _rec IN 
+            SELECT * FROM task_details WHERE author = $1
+        LOOP 
+            DELETE FROM project WHERE "id" = _rec.project_id;
+            DELETE FROM task WHERE "id" = _rec.task_id;
+            DELETE FROM task_details WHERE "id" = _rec."id";
+        END LOOP;
+        
+        DELETE FROM "user" WHERE "id" = $1;
+        
+        RETURN FOUND;
     END;
-$$ LANGUAGE 'plpgsql';
-
-delete from "user" where id = 3;]]></console>
+$$ LANGUAGE 'plpgsql';]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="e6cc75e0-4f51-4918-ba83-4cc90afa3f13" object-ref="consoles/TaskDetailsTable" />
+      <object connection-id="e6cc75e0-4f51-4918-ba83-4cc90afa3f13" object-ref="consoles/TaskTable" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="e6cc75e0-4f51-4918-ba83-4cc90afa3f13" />
