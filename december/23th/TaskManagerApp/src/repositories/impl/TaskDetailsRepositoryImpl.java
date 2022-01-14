@@ -6,6 +6,7 @@ import repositories.TaskDetailsRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import static queries.TaskDetailsQueriesStorage.*;
 
@@ -28,7 +29,25 @@ public class TaskDetailsRepositoryImpl extends AbstractEntityCrudRepositoryImpl<
 
     @Override
     protected boolean executeUpdateStatementForEntity(TaskDetails taskDetails, PreparedStatement statement) throws SQLException {
-        return false;
+        statement.setLong(1, taskDetails.getProject().getId());
+
+        if (taskDetails.getTask() == null) {
+            statement.setNull(2, Types.NULL);
+        } else {
+            statement.setLong(2, taskDetails.getTask().getId());
+        }
+
+        statement.setLong(3, taskDetails.getAuthor().getId());
+
+        if (taskDetails.getExecutor() == null) {
+            statement.setNull(4, Types.NULL);
+        } else {
+            statement.setLong(4, taskDetails.getExecutor().getId());
+        }
+
+        statement.setLong(5, taskDetails.getId());
+
+        return statement.executeUpdate() != 0;
     }
 
     @Override
