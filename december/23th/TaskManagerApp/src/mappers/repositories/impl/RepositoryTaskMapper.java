@@ -1,7 +1,6 @@
 package mappers.repositories.impl;
 
 import entities.Task;
-import entities.TaskCategory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

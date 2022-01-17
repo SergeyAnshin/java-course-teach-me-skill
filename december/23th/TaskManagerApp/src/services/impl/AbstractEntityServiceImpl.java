@@ -1,11 +1,12 @@
 package services.impl;
 
 import concole.ConsoleColors;
-import entities.Entity;
 import repositories.CrudRepository;
 import services.EntityService;
 
 import java.util.List;
+
+import static enums.EntityServiceMessages.*;
 
 public abstract class AbstractEntityServiceImpl<T> implements EntityService<T> {
     private CrudRepository<T> repository;
@@ -21,11 +22,9 @@ public abstract class AbstractEntityServiceImpl<T> implements EntityService<T> {
         } else {
             if (!exist(entity)) {
                 if (!repository.save(entity)) {
-                    System.out.println(ConsoleColors.RED + "Could not save " + Entity.getEntityName((Entity) entity) + "!" +
-                            ConsoleColors.RESET);
+                    printSuccessMessageForEntity(FAILED_SAVE_MESSAGE, entity);
                 } else {
-                    System.out.println(ConsoleColors.GREEN + Entity.getEntityName((Entity) entity) +
-                            " saved!" + ConsoleColors.RESET);
+                    printSuccessMessageForEntity(SUCCESSFUL_SAVE_MESSAGE, entity);
                 }
             }
         }
@@ -35,13 +34,14 @@ public abstract class AbstractEntityServiceImpl<T> implements EntityService<T> {
     public boolean exist(T entity) {
         if (entity != null) {
             if (repository.exist(entity)) {
-                System.out.println(ConsoleColors.RED + Entity.getEntityName((Entity) entity) + " already exist!" +
-                            ConsoleColors.RESET);
+                printSuccessMessageForEntity(FAILED_EXIST_MESSAGE, entity);
                 return true;
+            } else {
+                return false;
             }
-            return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
     @Override
@@ -52,12 +52,10 @@ public abstract class AbstractEntityServiceImpl<T> implements EntityService<T> {
     @Override
     public boolean update(T entity) {
         if (repository.update(entity)) {
-            System.out.println(ConsoleColors.GREEN + Entity.getEntityName((Entity) entity) + " updated!" +
-                    ConsoleColors.RESET);
+            printSuccessMessageForEntity(SUCCESSFUL_UPDATE_MESSAGE, entity);
             return true;
         } else {
-            System.out.println(ConsoleColors.RED + "Could not update " + Entity.getEntityName((Entity) entity) + "!" +
-                    ConsoleColors.RESET);
+            printSuccessMessageForEntity(FAILED_UPDATE_MESSAGE, entity);
             return false;
         }
     }
@@ -65,12 +63,10 @@ public abstract class AbstractEntityServiceImpl<T> implements EntityService<T> {
     @Override
     public boolean delete(T entity) {
         if (repository.delete(entity)) {
-            System.out.println(ConsoleColors.GREEN + Entity.getEntityName((Entity) entity) + " deleted!" +
-                    ConsoleColors.RESET);
+            printSuccessMessageForEntity(SUCCESSFUL_DELETE_MESSAGE, entity);
             return true;
         } else {
-            System.out.println(ConsoleColors.RED + "Could not delete " + Entity.getEntityName((Entity) entity) + "!" +
-                    ConsoleColors.RESET);
+            printSuccessMessageForEntity(FAILED_DELETE_MESSAGE, entity);
             return false;
         }
     }

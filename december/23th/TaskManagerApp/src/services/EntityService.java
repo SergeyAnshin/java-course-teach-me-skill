@@ -1,5 +1,8 @@
 package services;
 
+import concole.ConsoleColors;
+import enums.EntityServiceMessages;
+
 import java.util.List;
 
 public interface EntityService<T> {
@@ -15,4 +18,20 @@ public interface EntityService<T> {
     boolean delete(T entity);
 
     List<T> findAll();
+
+    default void printSuccessMessageForEntity(EntityServiceMessages message, T entity) {
+        if (EntityServiceMessages.isSuccessfulMessage(message)) {
+            System.out.println(ConsoleColors.GREEN + getEntityName(entity) +
+                    " " + message.getMessage() + ConsoleColors.RESET);
+        } else {
+            System.out.println(ConsoleColors.RED + getEntityName(entity) +
+                    " " + message.getMessage() + ConsoleColors.RESET);
+        }
+
+    }
+
+    private String getEntityName(T entity) {
+        return entity.getClass().getName().substring(9);
+    }
+
 }

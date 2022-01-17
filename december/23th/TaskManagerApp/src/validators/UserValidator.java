@@ -28,16 +28,10 @@ public class UserValidator extends AbstractValidator<User> {
         }
 
         if (userService.exist(user)) {
-            setErrorMessage(ConsoleColors.RED + "User with the same username or email already exists" +
-                    ConsoleColors.RESET);
             return true;
         }
 
-        if (!passwordIsValid(user.getPassword())) {
-            return false;
-        }
-
-        return true;
+        return passwordIsValid(user.getPassword());
     }
 
     @Override
@@ -50,7 +44,7 @@ public class UserValidator extends AbstractValidator<User> {
             case "password":
                 return passwordIsValid(value);
             default:
-                System.out.println(ConsoleColors.RED + "There isn't validator for field" + field +
+                System.out.println(ConsoleColors.RED + NO_VALIDATOR_FOR_FIELD_ERROR_MESSAGE + field +
                         ConsoleColors.RESET);
                 return false;
         }

@@ -5,20 +5,15 @@ import concole.ConsoleColors;
 import java.util.regex.Pattern;
 
 public abstract class AbstractValidator<T> {
+    public static final String NO_VALIDATOR_FOR_FIELD_ERROR_MESSAGE = "There isn't validator for field";
     public static final String EMPTY_FIELD_ERROR_MESSAGE = "must not be empty!";
-
     public static final String CONTAIN_ONLY_LATIN_LETTERS_AND_NUMBERS_FORMAT = "^[a-zA-Z0-9]*$";
-    public static final String CONTAIN_ONLY_LATIN_LETTERS_AND_NUMBERS_ERROR_MESSAGE = "must contain only latin numbers or letters!";
+    public static final String CONTAIN_ONLY_LATIN_LETTERS_AND_NUMBERS_ERROR_MESSAGE =
+            "must contain only latin numbers or letters!";
 
     private String errorMessage;
 
-    public AbstractValidator() {
-
-    }
-
-    public AbstractValidator(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
+    public AbstractValidator() {}
 
     public String getErrorMessage() {
         return errorMessage;

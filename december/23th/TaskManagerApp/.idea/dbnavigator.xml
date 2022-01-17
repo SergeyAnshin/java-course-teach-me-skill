@@ -254,10 +254,7 @@ $$ LANGUAGE 'plpgsql';]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="e6cc75e0-4f51-4918-ba83-4cc90afa3f13" object-ref="consoles/TaskDetailsTable" />
-      <object connection-id="e6cc75e0-4f51-4918-ba83-4cc90afa3f13" object-ref="consoles/TaskTable" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="e6cc75e0-4f51-4918-ba83-4cc90afa3f13" />
@@ -300,7 +297,7 @@ $$ LANGUAGE 'plpgsql';]]></console>
           <description value="" />
           <database-type value="POSTGRES" />
           <config-type value="BASIC" />
-          <database-version value="13.3" />
+          <database-version value="14.1" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />

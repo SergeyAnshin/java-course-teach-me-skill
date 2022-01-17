@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +11,6 @@ import java.util.Objects;
 public class TaskCategory implements Entity {
     private Long id;
     private String name;
-
     private List<Task> tasks;
 
     public TaskCategory(String name) {
@@ -22,6 +22,16 @@ public class TaskCategory implements Entity {
         this.name = name;
     }
 
+    public TaskCategory(TaskCategory taskCategory) {
+        if (taskCategory != null) {
+            this.id = taskCategory.getId();
+            this.name = taskCategory.getName();
+            this.tasks = taskCategory.getTasks() != null ? new ArrayList<>(taskCategory.getTasks()) : null;
+        }
+
+    }
+
+    @Override
     public Long getId() {
         return id;
     }

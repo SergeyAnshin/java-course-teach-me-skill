@@ -1,14 +1,14 @@
 package validators;
 
 import concole.ConsoleColors;
-import entities.Task;
 import entities.TaskCategory;
 
 import java.util.List;
 
 public class TaskCategoryValidator extends AbstractValidator<TaskCategory> {
     private static final List<String> DEFAULT_NAME = List.of("To do", "In progress","Done");
-    private static final String CATEGORY_WITH_NAME_ALREADY_EXIST_ERROR = "category with the same name already exists!";
+    private static final String CATEGORY_WITH_NAME_ALREADY_EXIST_ERROR =
+            "category with the same name already exists!";
 
     @Override
     public boolean isValid(TaskCategory taskCategory) {
@@ -20,7 +20,7 @@ public class TaskCategoryValidator extends AbstractValidator<TaskCategory> {
         if ("name".equals(field)) {
             return nameIsValid(value);
         }
-        System.out.println(ConsoleColors.RED + "There isn't validator for field" + field + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.RED + NO_VALIDATOR_FOR_FIELD_ERROR_MESSAGE + field + ConsoleColors.RESET);
         return false;
     }
 

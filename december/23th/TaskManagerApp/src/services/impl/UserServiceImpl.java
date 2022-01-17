@@ -1,6 +1,5 @@
 package services.impl;
 
-import entities.Project;
 import entities.User;
 import repositories.UserRepository;
 import repositories.impl.UserRepositoryImpl;

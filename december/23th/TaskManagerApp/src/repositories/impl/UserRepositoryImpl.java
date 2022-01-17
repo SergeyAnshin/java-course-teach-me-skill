@@ -1,6 +1,5 @@
 package repositories.impl;
 
-import entities.Project;
 import entities.User;
 import mappers.repositories.impl.RepositoryUserMapper;
 import repositories.UserRepository;
@@ -12,14 +11,10 @@ import java.sql.SQLException;
 import static queries.UserQueriesStorage.*;
 
 public class UserRepositoryImpl extends AbstractEntityCrudRepositoryImpl<User> implements UserRepository<User>{
-    private String findByLoginAndPassword;
-    private String findByLogin;
 
     public UserRepositoryImpl() {
         super(new RepositoryUserMapper(), SAVE_QUERY, EXIST_QUERY, FIND_ALL_QUERY, FIND_BY_ID_QUERY,
                 UPDATE_QUERY, DELETE_QUERY);
-        this.findByLoginAndPassword = FIND_BY_LOGIN_AND_PASSWORD_QUERY;
-        this.findByLogin = FIND_BY_LOGIN_QUERY;
     }
 
     @Override
@@ -41,7 +36,7 @@ public class UserRepositoryImpl extends AbstractEntityCrudRepositoryImpl<User> i
     public User findByLoginAndPassword(String login, String password) {
         if (CONNECTION != null) {
             try {
-                PreparedStatement statement = CONNECTION.prepareStatement(findByLoginAndPassword);
+                PreparedStatement statement = CONNECTION.prepareStatement(FIND_BY_LOGIN_AND_PASSWORD_QUERY);
                 return executeFindByLoginAndPasswordStatement(login, password, statement);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -71,14 +66,14 @@ public class UserRepositoryImpl extends AbstractEntityCrudRepositoryImpl<User> i
     @Override
     protected boolean executeDeleteStatementForEntity(User user, PreparedStatement statement) throws SQLException {
         statement.setLong(1, user.getId());
-        return statement.executeUpdate() != 0;
+        return statement.execute();
     }
 
     @Override
     public User findByLogin(String login) {
         if (CONNECTION != null) {
             try {
-                PreparedStatement statement = CONNECTION.prepareStatement(findByLogin);
+                PreparedStatement statement = CONNECTION.prepareStatement(FIND_BY_LOGIN_QUERY);
                 return executeFindByLoginStatement(login, statement);
             } catch (SQLException e) {
                 e.printStackTrace();

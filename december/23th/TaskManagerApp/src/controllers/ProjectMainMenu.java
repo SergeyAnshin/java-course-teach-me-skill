@@ -1,22 +1,15 @@
 package controllers;
 
 import concole.ConsoleColors;
-import concole.ConsoleEntityManager;
-import concole.impl.ConsoleProjectManagerImpl;
-
 import entities.Project;
 import entities.TaskDetails;
 import entities.User;
-import services.ProjectService;
-import services.impl.ProjectServiceImpl;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ProjectMainMenu extends AbstractMenu {
-    private ConsoleEntityManager<Project> consoleProjectManager = new ConsoleProjectManagerImpl();
-    private ProjectService<Project> projectService = new ProjectServiceImpl();
     private Map<Integer, String> projectMainMenu = new HashMap<>() {{
         put(0, "Create project");
         put(1, "Select project");
@@ -30,7 +23,7 @@ public class ProjectMainMenu extends AbstractMenu {
 
     @Override
     protected Map<Integer, String> getMenuForUser(User user) {
-        System.out.println("**** PROJECT MENU ****");
+        printMenuTitle("project menu");
         return projectMainMenu;
     }
 
@@ -39,11 +32,11 @@ public class ProjectMainMenu extends AbstractMenu {
         if (menuItemToDo == 0) {
             createProject();
         } else if (menuItemToDo == 1) {
-            System.out.println("**** YOUR PROJECTS ****");
-            List<Project> projects =  projectService.findProjectsByUser(getUser());
+            printMenuTitle("your projects");
+            List<Project> projects =  PROJECT_SERVICE.findProjectsByUser(getUser());
             if (projects != null && !projects.isEmpty()) {
-                showAllProject(projects);
-                Project selectedProject = consoleProjectManager.selectEntityFromListById(projects);
+                CONSOLE_PROJECT_MANAGER.printEntityInfo(projects);
+                Project selectedProject = CONSOLE_PROJECT_MANAGER.selectEntityFromListById(projects);
                 goIntoMenuForSelectedProject(selectedProject);
             } else {
                 System.out.println(ConsoleColors.RED + "You don't have projects. Create project!" + ConsoleColors.RESET);
@@ -56,19 +49,13 @@ public class ProjectMainMenu extends AbstractMenu {
     }
 
     private void createProject() {
-        System.out.println("**** NEW PROJECT ****");
-        Project project = consoleProjectManager.getEntity();
+        printMenuTitle("new project");
+        Project project = CONSOLE_PROJECT_MANAGER.getEntity();
 
         TaskDetails taskDetails = new TaskDetails(new Project(project), new User(getUser()));
         project.setTaskDetailsList(List.of(taskDetails));
 
-        projectService.save(project);
-    }
-
-    private void showAllProject(List<Project> projects) {
-        for (Project project : projects) {
-            System.out.println("id - " + project.getId() + ", name - " + project.getName());
-        }
+        PROJECT_SERVICE.save(project);
     }
 
     private void goIntoMenuForSelectedProject(Project project) {

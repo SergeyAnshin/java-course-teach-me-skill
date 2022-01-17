@@ -1,18 +1,11 @@
 package controllers;
 
-import com.sun.tools.javac.Main;
-import concole.ConsoleColors;
-import concole.impl.ConsoleUserManagerImpl;
 import entities.User;
-import services.UserService;
-import services.impl.UserServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainMenu extends AbstractMenu {
-    private ConsoleUserManagerImpl userManager = new ConsoleUserManagerImpl();
-    private UserService<User> userService = new UserServiceImpl();
     private Map<Integer, String> unauthorizedUserMenu = new HashMap<>() {{
         put(0, "Sign Up");
         put(1, "Log in");
@@ -26,13 +19,9 @@ public class MainMenu extends AbstractMenu {
         put(4, "Exit");
     }};
 
-//    public MainMenu(User user) {
-//        super(user);
-//    }
-
     @Override
     public Map<Integer, String> getMenuForUser(User user) {
-        System.out.println("**** MAIN MENU ****");
+        printMenuTitle("main menu");
         return user != null && user.isAuthorized() ? authorizedUserMenu : unauthorizedUserMenu;
     }
 
@@ -70,22 +59,23 @@ public class MainMenu extends AbstractMenu {
     }
 
     private void logIn() {
-        System.out.println("**** LOG IN ****");
-        String login = userManager.getStringValueForFieldFromConsole("login");
-        String password = userManager.getStringValueForFieldFromConsole("password");
-        User user = userService.findByLoginAndPassword(login, password);
+        printMenuTitle("log in");
+        String login = CONSOLE_USER_MANAGER.getStringValueForFieldFromConsole("login");
+        String password = CONSOLE_USER_MANAGER.getStringValueForFieldFromConsole("password");
+        User user = USER_SERVICE.findByLoginAndPassword(login, password);
         if (user != null) {
             setUser(user);
             user.setAuthorized(true);
-        } else {
-            System.out.println(ConsoleColors.RED + "User does not exist. Check username and password!"
-                    + ConsoleColors.RESET);
         }
     }
 
     private void signIn() {
-        System.out.println("**** REGISTRATION ****");
-        userService.save(userManager.getEntity());
+        printMenuTitle("registration");
+        USER_SERVICE.save(CONSOLE_USER_MANAGER.getEntity());
+        if (getUser().isAuthorized()) {
+            setUser(new User());
+        }
+
     }
 
     private void goIntoProfileMenu() {

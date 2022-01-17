@@ -5,9 +5,7 @@ import mappers.repositories.impl.RepositoryTaskCategoryMapper;
 import repositories.TaskCategoryRepository;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
 
 import static queries.TaskCategoryQueriesStorage.*;
 
@@ -26,16 +24,20 @@ public class TaskCategoryRepositoryImpl extends AbstractEntityCrudRepositoryImpl
 
     @Override
     protected boolean executeExistStatementForEntity(TaskCategory taskCategory, PreparedStatement statement) throws SQLException {
-        return false;
+        statement.setString(1, taskCategory.getName());
+        return statement.executeQuery().next();
     }
 
     @Override
     protected boolean executeUpdateStatementForEntity(TaskCategory taskCategory, PreparedStatement statement) throws SQLException {
-        return false;
+        statement.setString(1, taskCategory.getName());
+        statement.setLong(2, taskCategory.getId());
+        return statement.executeUpdate() != 0;
     }
 
     @Override
     protected boolean executeDeleteStatementForEntity(TaskCategory taskCategory, PreparedStatement statement) throws SQLException {
-        return false;
+        statement.setLong(1, taskCategory.getId());
+        return statement.executeUpdate() != 0;
     }
 }

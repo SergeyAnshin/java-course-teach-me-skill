@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 /**
  * project NOT_NULL FOREIGN_KEY
  * task NOT_NULL FOREIGN_KEY
@@ -9,7 +11,6 @@ package entities;
  */
 public class TaskDetails implements Entity {
     private Long id;
-
     private Project project;
     private Task task;
     private User author;
@@ -20,6 +21,13 @@ public class TaskDetails implements Entity {
         this.author = author;
     }
 
+    public TaskDetails(Long id, Task task, User author, User executor) {
+        this.id = id;
+        this.task = task;
+        this.author = author;
+        this.executor = executor;
+    }
+
     public TaskDetails(Long id, Project project, Task task, User author, User executor) {
         this.id = id;
         this.project = project;
@@ -28,15 +36,24 @@ public class TaskDetails implements Entity {
         this.executor = executor;
     }
 
-    public TaskDetails(Long id, Task task, User author, User executor) {
-        this.id = id;
-        this.task = task;
-        this.author = author;
-        this.executor = executor;
+    public TaskDetails(TaskDetails taskDetails) {
+        if (taskDetails != null) {
+            this.id = taskDetails.getId();
+            this.project = new Project(taskDetails.getProject());
+            this.task = new Task(taskDetails.getTask());
+            this.author = new User(taskDetails.getAuthor());
+            this.executor = new User(taskDetails.getExecutor());
+        }
     }
 
+    @Override
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String getName() {
+        return "taskDetails" + id;
     }
 
     public void setId(Long id) {
@@ -73,6 +90,19 @@ public class TaskDetails implements Entity {
 
     public void setExecutor(User executor) {
         this.executor = executor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskDetails that = (TaskDetails) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

@@ -54,6 +54,4 @@ public class TaskDetailsRepositoryImpl extends AbstractEntityCrudRepositoryImpl<
     protected boolean executeDeleteStatementForEntity(TaskDetails taskDetails, PreparedStatement statement) throws SQLException {
         return false;
     }
-
-
 }

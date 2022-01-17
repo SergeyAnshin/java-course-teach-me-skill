@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * login NOT_NULL
  * email NOT_NULL
- * password NOT_ NULL
+ * password NOT_NULL
  * UNIQUE (login)
  * UNIQUE (email)
  */
@@ -15,23 +15,15 @@ public class User implements Entity {
     private String login;
     private String email;
     private String password;
-
     private List<TaskDetails> taskDetailsWhereAuthor;
     private List<TaskDetails> taskDetailsWhereExecutor;
-
     private boolean isAuthorized;
 
     public User() {
     }
 
-    public User(Long id, String login, String email, String password, List<TaskDetails> taskDetailsWhereAuthor, List<TaskDetails> taskDetailsWhereExecutor, boolean isAuthorized) {
+    public User(Long id) {
         this.id = id;
-        this.login = login;
-        this.email = email;
-        this.password = password;
-        this.taskDetailsWhereAuthor = taskDetailsWhereAuthor;
-        this.taskDetailsWhereExecutor = taskDetailsWhereExecutor;
-        this.isAuthorized = isAuthorized;
     }
 
     public User(String login, String email, String password) {
@@ -47,19 +39,34 @@ public class User implements Entity {
         this.password = password;
     }
 
-    public User(User user) {
-        this.id = user.getId();
-        this.login = user.getLogin();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-    }
-
-    public User(Long id) {
+    public User(Long id, String login, String email, String password, List<TaskDetails> taskDetailsWhereAuthor,
+                List<TaskDetails> taskDetailsWhereExecutor, boolean isAuthorized) {
         this.id = id;
+        this.login = login;
+        this.email = email;
+        this.password = password;
+        this.taskDetailsWhereAuthor = taskDetailsWhereAuthor;
+        this.taskDetailsWhereExecutor = taskDetailsWhereExecutor;
+        this.isAuthorized = isAuthorized;
     }
 
+    public User(User user) {
+        if (user != null) {
+            this.id = user.getId();
+            this.login = user.getLogin();
+            this.email = user.getEmail();
+            this.password = user.getPassword();
+        }
+    }
+
+    @Override
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String getName() {
+        return login;
     }
 
     public void setId(Long id) {
@@ -119,12 +126,12 @@ public class User implements Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id);
+        return email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(email);
     }
 
     @Override

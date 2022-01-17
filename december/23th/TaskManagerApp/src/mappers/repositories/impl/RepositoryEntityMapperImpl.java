@@ -5,7 +5,6 @@ import mappers.repositories.RepositoryEntityMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class RepositoryEntityMapperImpl<T> implements RepositoryEntityMapper<T> {
@@ -39,16 +38,16 @@ public abstract class RepositoryEntityMapperImpl<T> implements RepositoryEntityM
     protected abstract T getEntityFromResultSet(ResultSet resultSet) throws SQLException;
 
     protected T getEntityFromResultSetByColumnNumbers(ResultSet resultSet, int column1, int column2) throws SQLException {
-        throw new UnsupportedOperationException("This operation is not supported");
+        throw new UnsupportedOperationException();
     }
 
     protected T getEntityFromResultSetByColumnNumbers(ResultSet resultSet, int column1, int column2,
                                                       int column3) throws SQLException {
-        throw new UnsupportedOperationException("This operation is not supported");
+        throw new UnsupportedOperationException();
     }
 
     protected T getEntityFromResultSetByColumnNumbers(ResultSet resultSet, int column1, int column2,
                                                                int column3, int column4) throws SQLException {
-        throw new UnsupportedOperationException("This operation is not supported");
+        throw new UnsupportedOperationException();
     }
 }

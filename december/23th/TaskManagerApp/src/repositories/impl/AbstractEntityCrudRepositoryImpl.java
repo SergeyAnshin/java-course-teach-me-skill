@@ -2,7 +2,6 @@ package repositories.impl;
 
 import concole.ConsoleColors;
 import connections.TaskManagerAppDBConnector;
-import entities.User;
 import mappers.repositories.RepositoryEntityMapper;
 import repositories.CrudRepository;
 
@@ -11,8 +10,7 @@ import java.util.List;
 
 public abstract class AbstractEntityCrudRepositoryImpl<T> implements CrudRepository<T> {
     public static final Connection CONNECTION = TaskManagerAppDBConnector.getInstance().getConnection();
-    public static final String NO_CONNECTION_MESSAGE = ConsoleColors.RED + "No connection to the database" +
-            ConsoleColors.RESET;
+    public static final String NO_CONNECTION_MESSAGE = ConsoleColors.RED + "No connection to the database" + ConsoleColors.RESET;
     protected RepositoryEntityMapper<T> entityMapper;
     private String saveQuery;
     private String existQuery;
@@ -119,7 +117,6 @@ public abstract class AbstractEntityCrudRepositoryImpl<T> implements CrudReposit
     public List<T> findAll() {
         if (CONNECTION != null) {
             try {
-//                Statement statement = CONNECTION.createStatement();
                 PreparedStatement preparedStatement = CONNECTION.prepareStatement(findAllQuery,
                         ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 return entityMapper.toListEntityFromResultSet(preparedStatement.executeQuery());

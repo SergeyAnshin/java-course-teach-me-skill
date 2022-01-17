@@ -11,4 +11,8 @@ public interface ConsoleEntityManager<T> {
     String getValidStringField(String field);
 
     T selectEntityFromListById(List<T> entities);
+
+    void printEntityInfo(T entity);
+
+    void printEntityInfo(List<T> entities);
 }

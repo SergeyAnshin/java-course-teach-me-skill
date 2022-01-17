@@ -2,11 +2,7 @@ package concole.impl;
 
 import concole.ConsoleEntityManager;
 import entities.Project;
-import entities.TaskDetails;
 import validators.ProjectValidator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConsoleProjectManagerImpl extends AbstractConsoleEntityManager<Project> implements ConsoleEntityManager<Project> {
 

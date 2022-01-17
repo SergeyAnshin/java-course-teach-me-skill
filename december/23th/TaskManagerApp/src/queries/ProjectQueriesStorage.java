@@ -1,19 +1,17 @@
 package queries;
 
 public class ProjectQueriesStorage {
+
     /**
-     * first param = project name
-     * second param = project key
-     * third param = author id
+     * First parameter - project.getName();
+     * Second parameter - project.getKey();
+     * Third parameter - taskDetails.getAuthor().getId();
      */
-    public static final String SAVE_QUERY =
-            "SELECT save_project(?, ?, ?)";
+    public static final String SAVE_QUERY = "SELECT save_project(?, ?, ?)";
 
-    public static final String EXIST_QUERY =
-            "SELECT name, key FROM project WHERE name = ? OR key = ?";
+    public static final String EXIST_QUERY = "SELECT name, key FROM project WHERE name = ? OR key = ?";
 
-    public static final String FIND_ALL_QUERY =
-            "SELECT * FROM project";
+    public static final String FIND_ALL_QUERY = "SELECT * FROM project";
 
     private static final String FIND_BY_WITHOUT_CONDITIONAL_PART_QUERY =
             "SELECT p.id AS project_id, p.\"name\" AS project_name, p.\"key\" AS project_key, " +
@@ -31,17 +29,20 @@ public class ProjectQueriesStorage {
             "INNER JOIN \"user\" a ON td.author = a.\"id\" " +
             "LEFT JOIN \"user\" e ON td.executor = e.\"id\" ";
 
-    public static final String FIND_BY_ID_QUERY = FIND_BY_WITHOUT_CONDITIONAL_PART_QUERY + "WHERE p.id = ? ORDER BY p.id";
+    public static final String FIND_BY_ID_QUERY =
+            FIND_BY_WITHOUT_CONDITIONAL_PART_QUERY + "WHERE p.id = ? ORDER BY p.id";
 
-    public static final String FIND_BY_USER_QUERY = FIND_BY_WITHOUT_CONDITIONAL_PART_QUERY + "WHERE td.author = ? ORDER BY p.id";
+    public static final String FIND_BY_USER_QUERY =
+            FIND_BY_WITHOUT_CONDITIONAL_PART_QUERY + "WHERE td.author = ? ORDER BY p.id";
 
-    public static final String UPDATE_QUERY =
-            "UPDATE project SET name = ?, key = ? WHERE id = ?";
+    public static final String UPDATE_QUERY = "UPDATE project SET name = ?, key = ? WHERE id = ?";
 
     public static final String TRANSFER_PROJECT_TO_ANOTHER_AUTHOR_QUERY =
             "UPDATE task_details SET author = ? WHERE project_id = ?";
 
-    public static final String DELETE_QUERY =
-            "SELECT delete_project(?)";
+    /**
+     * Parameter - project.getId()
+     */
+    public static final String DELETE_QUERY = "SELECT delete_project(?)";
 }
 

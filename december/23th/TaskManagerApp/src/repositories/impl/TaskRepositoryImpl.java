@@ -1,10 +1,8 @@
 package repositories.impl;
 
-import entities.Project;
 import entities.Task;
-import mappers.repositories.RepositoryEntityMapper;
+import entities.TaskCategory;
 import mappers.repositories.impl.RepositoryTaskMapper;
-import repositories.ProjectRepository;
 import repositories.TaskRepository;
 
 import java.sql.PreparedStatement;
@@ -34,12 +32,30 @@ public class TaskRepositoryImpl extends AbstractEntityCrudRepositoryImpl<Task> i
 
     @Override
     protected boolean executeUpdateStatementForEntity(Task task, PreparedStatement statement) throws SQLException {
-        return false;
+        statement.setString(1, task.getName());
+        statement.setLong(2, task.getTaskCategory().getId());
+        statement.setLong(3, task.getId());
+        return statement.executeUpdate() != 0;
     }
 
     @Override
     protected boolean executeDeleteStatementForEntity(Task task, PreparedStatement statement) throws SQLException {
         statement.setLong(1, task.getId());
         return statement.executeUpdate() != 0;
+    }
+
+    @Override
+    public boolean changeTaskCategoryForAllTaskWithCurrentCategory(TaskCategory currentTaskCategory, TaskCategory newTaskCategory) {
+        if (CONNECTION != null) {
+            try {
+                PreparedStatement statement = CONNECTION.prepareStatement(CHANGE_TASK_CATEGORY_QUERY);
+                statement.setLong(1, newTaskCategory.getId());
+                statement.setLong(2, currentTaskCategory.getId());
+                return statement.executeUpdate() != 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }

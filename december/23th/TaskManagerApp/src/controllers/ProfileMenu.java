@@ -1,23 +1,12 @@
 package controllers;
 
-import com.sun.tools.javac.Main;
-import concole.ConsoleEntityManager;
-import concole.impl.ConsoleUserManagerImpl;
-import entities.Project;
 import entities.User;
-import services.ProjectService;
-import services.UserService;
-import services.impl.ProjectServiceImpl;
-import services.impl.UserServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileMenu extends AbstractMenu {
     private User newUser;
-    private ConsoleEntityManager<User> userManager = new ConsoleUserManagerImpl();
-    private UserService<User> userService = new UserServiceImpl();
-    private ProjectService<Project> projectService = new ProjectServiceImpl();
     private Map<Integer, String> profileMenu = new HashMap<>() {{
         put(0, "Edit login");
         put(1, "Edit email");
@@ -34,7 +23,7 @@ public class ProfileMenu extends AbstractMenu {
 
     @Override
     protected Map<Integer, String> getMenuForUser(User user) {
-        System.out.println("**** ACCOUNT ****");
+        printMenuTitle("account");
         System.out.println(newUser);
         return profileMenu;
     }
@@ -42,21 +31,21 @@ public class ProfileMenu extends AbstractMenu {
     @Override
     protected void doMenuItemInMenu(long menuItemToDo, Map<Integer, String> menu) {
         if (menuItemToDo == 0) {
-            System.out.println("**** EDIT LOGIN ****");
-            String login = userManager.getStringValueForFieldFromConsole("login");
+            printMenuTitle("edit login");
+            String login = CONSOLE_USER_MANAGER.getStringValueForFieldFromConsole("login");
             newUser.setLogin(login);
         } else if (menuItemToDo == 1) {
-            System.out.println("**** EDIT EMAIL ****");
-            String email = userManager.getStringValueForFieldFromConsole("email");
+            printMenuTitle("edit email");
+            String email = CONSOLE_USER_MANAGER.getStringValueForFieldFromConsole("email");
             newUser.setEmail(email);
         } else if (menuItemToDo == 2) {
-            System.out.println("**** EDIT PASSWORD ****");
-            String password = userManager.getStringValueForFieldFromConsole("password");
+            printMenuTitle("edit password");
+            String password = CONSOLE_USER_MANAGER.getStringValueForFieldFromConsole("password");
             newUser.setPassword(password);
         } else if (menuItemToDo == 3) {
-            userService.update(newUser);
+            USER_SERVICE.update(newUser);
         } else if (menuItemToDo == 4) {
-            userService.delete(getUser());
+            USER_SERVICE.delete(getUser());
             setUser(new User());
             setWorkingInThisMenu(false);
         } else if (menuItemToDo == 5) {

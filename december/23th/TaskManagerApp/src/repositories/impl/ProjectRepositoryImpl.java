@@ -13,10 +13,6 @@ import java.util.List;
 
 import static queries.ProjectQueriesStorage.*;
 
-/**
- * ДОПИСАТЬ АПДЭЙТ
- *
- */
 public class ProjectRepositoryImpl extends AbstractEntityCrudRepositoryImpl<Project> implements ProjectRepository<Project> {
 
     public ProjectRepositoryImpl() {
@@ -64,8 +60,10 @@ public class ProjectRepositoryImpl extends AbstractEntityCrudRepositoryImpl<Proj
 
     @Override
     protected boolean executeUpdateStatementForEntity(Project project, PreparedStatement statement) throws SQLException {
-
-        return false;
+        statement.setString(1, project.getName());
+        statement.setString(2, project.getKey());
+        statement.setLong(3, project.getId());
+        return statement.executeUpdate() != 0;
     }
 
     @Override
@@ -81,7 +79,7 @@ public class ProjectRepositoryImpl extends AbstractEntityCrudRepositoryImpl<Proj
             try {
                 PreparedStatement statement = CONNECTION.prepareStatement(TRANSFER_PROJECT_TO_ANOTHER_AUTHOR_QUERY);
                 statement.setLong(1, user.getId());
-                statement.setLong(2,project.getId());
+                statement.setLong(2, project.getId());
                 return statement.executeUpdate() != 0;
             } catch (SQLException e) {
                 e.printStackTrace();

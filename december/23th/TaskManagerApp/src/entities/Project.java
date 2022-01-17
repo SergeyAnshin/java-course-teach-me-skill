@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * name NOT_NULL
@@ -32,6 +33,12 @@ public class Project implements Entity {
         this.key = key;
     }
 
+    public Project(String name, String key, List<TaskDetails> taskDetailsList) {
+        this.name = name;
+        this.key = key;
+        this.taskDetailsList = taskDetailsList;
+    }
+
     public Project(Long id, String name, String key, List<TaskDetails> taskDetailsList) {
         this.id = id;
         this.name = name;
@@ -40,20 +47,17 @@ public class Project implements Entity {
     }
 
     public Project(Project project) {
-        this.id = project.getId();
-        this.name = project.getName();
-        this.key = project.getKey();
-        if (project.getTaskDetailsList() != null) {
-            this.taskDetailsList = new ArrayList<>(project.getTaskDetailsList());
+        if (project != null) {
+            this.id = project.getId();
+            this.name = project.getName();
+            this.key = project.getKey();
+            if (project.getTaskDetailsList() != null) {
+                this.taskDetailsList = new ArrayList<>(project.getTaskDetailsList());
+            }
         }
     }
 
-    public Project(String name, String key, List<TaskDetails> taskDetailsList) {
-        this.name = name;
-        this.key = key;
-        this.taskDetailsList = taskDetailsList;
-    }
-
+    @Override
     public Long getId() {
         return id;
     }
@@ -84,6 +88,19 @@ public class Project implements Entity {
 
     public void setTaskDetailsList(List<TaskDetails> taskDetailsList) {
         this.taskDetailsList = taskDetailsList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return id.equals(project.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

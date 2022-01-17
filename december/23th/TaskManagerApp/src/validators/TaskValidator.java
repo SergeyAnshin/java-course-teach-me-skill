@@ -15,7 +15,7 @@ public class TaskValidator extends AbstractValidator<Task> {
         if ("name".equals(field)) {
             return nameIsValid(value);
         }
-        System.out.println(ConsoleColors.RED + "There isn't validator for field" + field + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.RED + NO_VALIDATOR_FOR_FIELD_ERROR_MESSAGE + field + ConsoleColors.RESET);
         return false;
     }
 

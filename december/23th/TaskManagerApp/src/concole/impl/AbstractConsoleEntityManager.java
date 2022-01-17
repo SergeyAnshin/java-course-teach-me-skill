@@ -15,9 +15,6 @@ public abstract class AbstractConsoleEntityManager<T extends Entity> implements 
     private ConsoleOperation CONSOLE_OPERATION = new ConsoleOperation();
     private AbstractValidator<T> validator;
 
-    public AbstractConsoleEntityManager() {
-    }
-
     public AbstractConsoleEntityManager(AbstractValidator<T> validator) {
         this.validator = validator;
     }
@@ -53,5 +50,19 @@ public abstract class AbstractConsoleEntityManager<T extends Entity> implements 
             }
         }
         return null;
+    }
+
+    @Override
+    public void printEntityInfo(T entity) {
+        String entityName = Entity.getEntityName(entity);
+        System.out.println(entityName + " ID - " + entity.getId() + ", " +
+                entityName.toLowerCase() + " name - " + entity.getName());
+    }
+
+    @Override
+    public void printEntityInfo(List<T> entities) {
+        if (entities != null && !entities.isEmpty()) {
+            entities.forEach(this::printEntityInfo);
+        }
     }
 }
