@@ -14,6 +14,7 @@ import java.util.Map;
 
 public abstract class AbstractMenu {
     private static User user = new User();
+    private static Project project;
     private Map<Integer, String> menu;
     private boolean isWorkingInThisMenu = true;
 
@@ -36,6 +37,26 @@ public abstract class AbstractMenu {
         AbstractMenu.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        AbstractMenu.user = user;
+    }
+
+    public static Project getProject() {
+        return project;
+    }
+
+    public static void setProject(Project project) {
+        AbstractMenu.project = project;
+    }
+
+    public void setWorkingInThisMenu(boolean workingInThisMenu) {
+        isWorkingInThisMenu = workingInThisMenu;
+    }
+
     public void startMenu() {
         while (isWorkingInThisMenu) {
             menu = getMenuForUser(user);
@@ -56,18 +77,6 @@ public abstract class AbstractMenu {
     }
 
     protected abstract void doMenuItemInMenu(long menuItemToDo, Map<Integer, String> menu);
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        AbstractMenu.user = user;
-    }
-
-    public void setWorkingInThisMenu(boolean workingInThisMenu) {
-        isWorkingInThisMenu = workingInThisMenu;
-    }
 
     public void printMenuTitle(String menuTitle) {
         System.out.println("**** " + menuTitle.toUpperCase() + " ****");

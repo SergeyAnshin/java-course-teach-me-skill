@@ -58,7 +58,8 @@ CREATE OR REPLACE FUNCTION delete_user(id_user BIGINT) RETURNS BOOLEAN AS $$
         _rec RECORD;
     BEGIN
 
-        FOR _rec IN (SELECT * FROM task_details WHERE author = $1)
+        FOR _rec IN
+            SELECT * FROM task_details WHERE author = $1
         LOOP
             DELETE FROM project WHERE "id" = _rec.project_id;
             DELETE FROM task WHERE "id" = _rec.task_id;

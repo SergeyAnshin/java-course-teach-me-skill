@@ -13,7 +13,7 @@ public class ProfileMenu extends AbstractMenu {
         put(2, "Edit password");
         put(3, "Save changes");
         put(4, "Delete account");
-        put(5, "Main menu");
+        put(5, "Back to previous page");
         put(6, "Exit");
     }};
 

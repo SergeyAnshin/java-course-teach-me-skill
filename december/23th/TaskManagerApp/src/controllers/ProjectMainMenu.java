@@ -13,7 +13,7 @@ public class ProjectMainMenu extends AbstractMenu {
     private Map<Integer, String> projectMainMenu = new HashMap<>() {{
         put(0, "Create project");
         put(1, "Select project");
-        put(2, "Main menu");
+        put(2, "Back to previous page");
         put(3, "Exit");
     }};
 
@@ -36,8 +36,9 @@ public class ProjectMainMenu extends AbstractMenu {
             List<Project> projects =  PROJECT_SERVICE.findProjectsByUser(getUser());
             if (projects != null && !projects.isEmpty()) {
                 CONSOLE_PROJECT_MANAGER.printEntityInfo(projects);
-                Project selectedProject = CONSOLE_PROJECT_MANAGER.selectEntityFromListById(projects);
-                goIntoMenuForSelectedProject(selectedProject);
+                setProject(CONSOLE_PROJECT_MANAGER.selectEntityFromListById(projects));
+                MyProjectMenu myProjectMenu = new MyProjectMenu();
+                myProjectMenu.startMenu();
             } else {
                 System.out.println(ConsoleColors.RED + "You don't have projects. Create project!" + ConsoleColors.RESET);
             }
@@ -56,10 +57,5 @@ public class ProjectMainMenu extends AbstractMenu {
         project.setTaskDetailsList(List.of(taskDetails));
 
         PROJECT_SERVICE.save(project);
-    }
-
-    private void goIntoMenuForSelectedProject(Project project) {
-        MyProjectMenu myProjectMenu = new MyProjectMenu(project);
-        myProjectMenu.startMenu();
     }
 }

@@ -27,7 +27,8 @@ public class TaskRepositoryImpl extends AbstractEntityCrudRepositoryImpl<Task> i
 
     @Override
     protected boolean executeExistStatementForEntity(Task task, PreparedStatement statement) throws SQLException {
-        return false;
+        statement.setLong(1, task.getId());
+        return statement.executeQuery().next();
     }
 
     @Override

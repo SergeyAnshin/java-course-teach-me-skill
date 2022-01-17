@@ -6,19 +6,17 @@ import entities.User;
 import java.util.*;
 
 public class ProjectEditMenu extends AbstractMenu {
-    private Project project;
     private Project newProject;
     private Map<Integer, String> projectEditMenu = new HashMap<>() {{
         put(0, "Edit name");
         put(1, "Edit key");
         put(2, "Save changes");
-        put(3, "My project menu");
+        put(3, "Back to previous page");
         put(4, "Exit");
     }};
 
-    public ProjectEditMenu(Project project) {
-        this.project = project;
-        this.newProject = new Project(project);
+    public ProjectEditMenu() {
+        this.newProject = new Project(getProject());
     }
 
     @Override

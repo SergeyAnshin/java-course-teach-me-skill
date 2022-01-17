@@ -19,12 +19,15 @@ public class TaskDetailsRepositoryImpl extends AbstractEntityCrudRepositoryImpl<
 
     @Override
     protected boolean executeSaveStatementForEntity(TaskDetails taskDetails, PreparedStatement statement) throws SQLException {
-        return false;
+        statement.setLong(1, taskDetails.getProject().getId());
+        statement.setLong(2, taskDetails.getAuthor().getId());
+        return statement.execute();
     }
 
     @Override
     protected boolean executeExistStatementForEntity(TaskDetails taskDetails, PreparedStatement statement) throws SQLException {
-        return false;
+        statement.setLong(1, taskDetails.getId());
+        return statement.executeQuery().next();
     }
 
     @Override
@@ -52,6 +55,7 @@ public class TaskDetailsRepositoryImpl extends AbstractEntityCrudRepositoryImpl<
 
     @Override
     protected boolean executeDeleteStatementForEntity(TaskDetails taskDetails, PreparedStatement statement) throws SQLException {
-        return false;
+        statement.setLong(1, taskDetails.getId());
+        return statement.executeUpdate() != 0;
     }
 }

@@ -56,7 +56,7 @@ public abstract class AbstractConsoleEntityManager<T extends Entity> implements 
     public void printEntityInfo(T entity) {
         String entityName = Entity.getEntityName(entity);
         System.out.println(entityName + " ID - " + entity.getId() + ", " +
-                entityName.toLowerCase() + " name - " + entity.getName());
+                entityName.toLowerCase() + " name - " + entity.getName() + ".");
     }
 
     @Override
