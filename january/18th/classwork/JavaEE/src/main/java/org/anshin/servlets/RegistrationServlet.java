@@ -1,6 +1,7 @@
 package org.anshin.servlets;
 
 import org.anshin.entities.User;
+import org.anshin.enums.Role;
 import org.anshin.services.UserService;
 import org.anshin.services.impl.UserServiceImpl;
 
@@ -21,7 +22,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter(User.LOGIN_PARAM);
         String password = req.getParameter(User.PASSWORD_PARAM);
-        User user = new User(login, password);
+        User user = new User(login, password, Role.USER);
         if (userService.findByLogin(user.getLogin()) == null) {
             if (userService.save(user)) {
                 resp.getWriter().write(SUCCESSFUL_REGISTRATION_MESSAGE.getMessage());

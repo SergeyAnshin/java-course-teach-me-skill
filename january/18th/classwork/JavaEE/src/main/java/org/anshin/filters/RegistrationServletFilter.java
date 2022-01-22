@@ -13,17 +13,17 @@ import java.io.IOException;
 
 @WebFilter(servletNames = {"RegistrationServlet", "AuthenticationServlet"})
 public class RegistrationServletFilter extends HttpFilter {
-    private final AbstractValidator validator = new UserValidator();
+    private static final AbstractValidator USER_VALIDATOR = new UserValidator();
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        if (validator.isValidValueForField(login,"login")
-                && validator.isValidValueForField(password,"password")) {
+        if (USER_VALIDATOR.isValidValueForField(login,"login")
+                && USER_VALIDATOR.isValidValueForField(password,"password")) {
             chain.doFilter(req, res);
         } else {
-            res.getWriter().write(validator.getErrorMessage());
+            res.getWriter().write(USER_VALIDATOR.getErrorMessage());
         }
     }
 }

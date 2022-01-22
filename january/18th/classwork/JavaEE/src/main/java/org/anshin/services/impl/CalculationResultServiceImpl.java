@@ -2,6 +2,7 @@ package org.anshin.services.impl;
 
 import org.anshin.entities.CalculationResult;
 import org.anshin.entities.User;
+import org.anshin.enums.Operation;
 import org.anshin.repositories.CalculationResultRepository;
 import org.anshin.repositories.impl.CalculationResultRepositoryImpl;
 import org.anshin.services.CalculationResultService;
@@ -20,7 +21,7 @@ public class CalculationResultServiceImpl implements CalculationResultService<Ca
     }
 
     @Override
-    public List<CalculationResult<String>> getCalculationResultHistoryForUser(User user) {
+    public List<CalculationResult<String>> findAllByUser(User user) {
         List<CalculationResult<String>> calculationResults = resultRepository.findAllByUser(user);
         return Objects.requireNonNullElse(calculationResults, Collections.emptyList());
     }

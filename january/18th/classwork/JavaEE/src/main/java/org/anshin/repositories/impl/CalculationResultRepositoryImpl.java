@@ -2,6 +2,7 @@ package org.anshin.repositories.impl;
 
 import org.anshin.entities.CalculationResult;
 import org.anshin.entities.User;
+import org.anshin.enums.Operation;
 import org.anshin.repositories.CalculationResultRepository;
 
 import java.util.*;
@@ -33,5 +34,17 @@ public class CalculationResultRepositoryImpl implements CalculationResultReposit
     @Override
     public List<CalculationResult<String>> findAllByUser(User user) {
         return calculationResultStorage.get(user.getLogin());
+    }
+
+    @Override
+    public List<CalculationResult<String>> findAllByUserAndOperation(User user, Operation operation) {
+        List<CalculationResult<String>> calculationResults = calculationResultStorage.get(user.getLogin());
+        if (calculationResults != null && !calculationResults.isEmpty()) {
+            return calculationResults.stream()
+                    .filter(result -> result.getOperation().equals(operation))
+                    .collect(Collectors.toList());
+        } else {
+            return Collections.emptyList();
+        }
     }
 }

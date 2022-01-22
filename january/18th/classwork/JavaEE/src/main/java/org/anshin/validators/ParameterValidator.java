@@ -2,6 +2,8 @@ package org.anshin.validators;
 
 import org.anshin.enums.Operation;
 
+import static org.anshin.enums.ValidatorMessage.*;
+
 public class ParameterValidator extends AbstractValidator {
 
     @Override
@@ -17,15 +19,31 @@ public class ParameterValidator extends AbstractValidator {
     }
 
     public boolean isNumericParameterValid(String number) {
-        return number != null
-                && !number.isBlank()
-                && valueIsInRequiredFormat(number, NUMBER_FORMAT);
+        if (number == null && number.isBlank()) {
+            changeErrorMessageForFieldToNewOne("Value", EMPTY_FIELD_ERROR_MESSAGE.getMessage());
+            return false;
+        }
+
+        if (!valueIsInRequiredFormat(number, NUMBER_FORMAT)) {
+            changeErrorMessageForFieldToNewOne("Value", CONTAIN_ONLY_NUMBERS_MESSAGE.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     public boolean isOperationParameterValid(String operation) {
-        return operation != null
-                && !operation.isBlank()
-                && Operation.contain(operation);
+        if (operation == null && operation.isBlank()) {
+            changeErrorMessageForFieldToNewOne("Operation", EMPTY_FIELD_ERROR_MESSAGE.getMessage());
+            return false;
+        }
+
+        if (!Operation.contain(operation)) {
+            changeErrorMessageForFieldToNewOne("Operation", OPERATION_DOES_NOT_EXIST_MESSAGE.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
 }

@@ -2,6 +2,7 @@ package org.anshin.servlets;
 
 import org.anshin.entities.CalculationResult;
 import org.anshin.entities.User;
+import org.anshin.enums.Operation;
 import org.anshin.services.CalculationResultService;
 import org.anshin.services.impl.CalculationResultServiceImpl;
 
@@ -19,7 +20,8 @@ public class CalculationHistoryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String operation = req.getParameter("operation");
         User user = (User) req.getSession().getAttribute(User.SESSION_ATTRIBUTE);
-        resp.getWriter().write(calculatorService.getCalculationResultHistoryForUser(user).toString());
+        resp.getWriter().write(calculatorService.findAllByUser(user).toString());
     }
 }

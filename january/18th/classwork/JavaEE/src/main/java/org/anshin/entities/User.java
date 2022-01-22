@@ -1,5 +1,7 @@
 package org.anshin.entities;
 
+import org.anshin.enums.Role;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -8,6 +10,7 @@ public class User {
     private String password;
     private List<CalculationResult<String>> calculationResultList;
     private boolean authorized;
+    private Role role;
 
     public static final String LOGIN_PARAM = "login";
     public static final String PASSWORD_PARAM = "password";
@@ -16,9 +19,10 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password) {
+    public User(String login, String password, Role role) {
         this.login = login;
         this.password = password;
+        this.role = role;
     }
 
     public String getLogin() {
@@ -51,6 +55,14 @@ public class User {
 
     public void setAuthorized(boolean authorized) {
         this.authorized = authorized;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

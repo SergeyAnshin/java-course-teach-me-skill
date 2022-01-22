@@ -1,6 +1,7 @@
 package org.anshin.repositories.impl;
 
 import org.anshin.entities.User;
+import org.anshin.enums.Role;
 import org.anshin.repositories.UserRepository;
 
 import java.util.ArrayList;
@@ -10,6 +11,11 @@ import java.util.Map;
 
 public class UserRepositoryImpl implements UserRepository<User> {
     private static final Map<String, User> userStorage = new HashMap<>();
+
+    public UserRepositoryImpl() {
+        User admin = new User("admin", "admin", Role.ADMIN);
+        userStorage.putIfAbsent("admin", admin);
+    }
 
     @Override
     public boolean save(User user) {
