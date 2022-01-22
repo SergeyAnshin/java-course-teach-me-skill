@@ -2,24 +2,30 @@ package org.anshin.validators;
 
 import org.anshin.enums.Operation;
 
-import java.util.regex.Pattern;
+public class ParameterValidator extends AbstractValidator {
 
-public class ParameterValidator {
-    public static final String NUMBER_FORMAT = "^[-+]?\\d*[.,]?\\d+(?:[eE][-+]?\\d+)?$";
-
-    public static boolean isNumericParameterValid(String number) {
-        return number != null
-                && !number.isBlank()
-                && parameterIsInRequiredFormat(number, NUMBER_FORMAT);
+    @Override
+    public boolean isValidValueForField(String value, String field) {
+        switch (field) {
+            case "number" :
+                return isNumericParameterValid(value);
+            case "operation" :
+                return isOperationParameterValid(value);
+            default:
+                return false;
+        }
     }
 
-    public static boolean isOperationParameterValid(String operation) {
+    public boolean isNumericParameterValid(String number) {
+        return number != null
+                && !number.isBlank()
+                && valueIsInRequiredFormat(number, NUMBER_FORMAT);
+    }
+
+    public boolean isOperationParameterValid(String operation) {
         return operation != null
                 && !operation.isBlank()
                 && Operation.contain(operation);
     }
 
-    public static boolean parameterIsInRequiredFormat(String parameter, String format) {
-        return Pattern.compile(format).matcher(parameter).find();
-    }
 }
