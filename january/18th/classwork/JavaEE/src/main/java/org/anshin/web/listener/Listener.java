@@ -1,4 +1,4 @@
-package org.anshin.listener;
+package org.anshin.web.listener;
 
 import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
@@ -15,17 +15,15 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebListener
 public class Listener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
-    private final UserService<User> userService = new UserServiceImpl();
+    private final UserService userService = new UserServiceImpl();
     private final CalculatorService<Double, Operation> calculatorService = new CalculatorServiceImpl();
-    private final CalculationResultService<CalculationResult> resultService = new CalculationResultServiceImpl();
+    private final CalculationResultService resultService = new CalculationResultServiceImpl();
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {

@@ -1,4 +1,4 @@
-package org.anshin.filter;
+package org.anshin.web.filter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

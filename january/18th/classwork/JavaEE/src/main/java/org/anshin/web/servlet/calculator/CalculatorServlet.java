@@ -1,4 +1,4 @@
-package org.anshin.servlet;
+package org.anshin.web.servlet.calculator;
 
 import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
@@ -15,15 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.TreeSet;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebServlet(urlPatterns = URL_CALCULATOR_SERVLET, name = NAME_CALCULATOR_SERVLET)
 public class CalculatorServlet extends HttpServlet {
     private CalculatorService<Double, Operation> calculatorService;
-    private CalculationResultService<CalculationResult> resultService;
+    private CalculationResultService resultService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

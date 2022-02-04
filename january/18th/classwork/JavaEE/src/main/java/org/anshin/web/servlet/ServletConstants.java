@@ -1,6 +1,6 @@
-package org.anshin.servlet;
+package org.anshin.web.servlet;
 
-public class ServletConstant {
+public final class ServletConstants {
     public static final String METHOD_HEAD = "HEAD";
     public static final String METHOD_OPTIONS = "OPTIONS";
     public static final String METHOD_DELETE = "DELETE";
@@ -59,14 +59,14 @@ public class ServletConstant {
     public static final String NAME_NEW_KEYWORD_SERVLET = "NewKeywordServlet";
 
 
-    public static final String PATH_HOME_JSP = "/pages/home.jsp";
-    public static final String PATH_REGISTRATION_JSP = "/pages/registration.jsp";
-    public static final String PATH_AUTHENTICATION_JSP = "/pages/authentication.jsp";
-    public static final String PATH_CALCULATOR_JSP = "/pages/calculator.jsp";
-    public static final String PATH_CALCULATION_HISTORY_JSP = "/pages/calculation-history.jsp";
-    public static final String PATH_USERS_JSP = "/pages/users.jsp";
-    public static final String PATH_USER_SETTINGS_JSP = "/pages/user-settings.jsp";
-    public static final String PATH_PASSWORD_RESET_JSP = "/pages/password-reset.jsp";
+    public static final String PATH_HOME_JSP = "/pages/home/home.jsp";
+    public static final String PATH_REGISTRATION_JSP = "/pages/user/registration.jsp";
+    public static final String PATH_AUTHENTICATION_JSP = "/pages/user/authentication.jsp";
+    public static final String PATH_CALCULATOR_JSP = "/pages/calculator/calculator.jsp";
+    public static final String PATH_CALCULATION_HISTORY_JSP = "/pages/calculator/calculation-history.jsp";
+    public static final String PATH_USERS_JSP = "/pages/admin/users.jsp";
+    public static final String PATH_USER_SETTINGS_JSP = "/pages/user/user-settings.jsp";
+    public static final String PATH_PASSWORD_RESET_JSP = "/pages/user/password-reset.jsp";
 
 
     public static final String SUCCESSFUL_MESSAGE_REGISTRATION = "You are registered!";
@@ -77,4 +77,7 @@ public class ServletConstant {
     public static final String FAILED_MESSAGE_USER_EXISTS= "User with this username or email already exists!";
     public static final String FAILED_MESSAGE_AUTHENTICATION = "There is no user with this username and password!";
     public static final String FAILED_MESSAGE_PASSWORD_RESET = "There is no user with this email or keyword!";
+
+    private ServletConstants() {
+    }
 }

@@ -1,17 +1,18 @@
 package org.anshin.repository;
 
+import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
 import org.anshin.enums.Operation;
 
 import java.util.List;
 
-public interface CalculationResultRepository<T> {
+public interface CalculationResultRepository {
 
-    boolean save(T calculationResult);
+    boolean save(CalculationResult calculationResult);
 
-    List<T> findAll();
+    List<CalculationResult> findAll();
 
-    List<T> findAllByUser(User user);
+    List<CalculationResult> findAllByUser(User user);
 
-    List<T> findAllByUserAndOperation(User user, Operation operation);
+    List<CalculationResult> findAllByUserAndOperation(User user, Operation operation);
 }

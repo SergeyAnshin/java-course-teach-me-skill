@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-public class CalculationResultHashMapRepository implements CalculationResultRepository<CalculationResult> {
+public class CalculationResultHashMapRepository implements CalculationResultRepository {
     private final Map<String, ArrayList<CalculationResult>> calculationResultStorage =
             new ConcurrentHashMap<>();
 

@@ -1,4 +1,4 @@
-package org.anshin.servlet;
+package org.anshin.web.servlet.home;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebServlet(urlPatterns = URL_HOME_SERVLET, name = NAME_HOME_SERVLET)
 public class HomeServlet extends HttpServlet {

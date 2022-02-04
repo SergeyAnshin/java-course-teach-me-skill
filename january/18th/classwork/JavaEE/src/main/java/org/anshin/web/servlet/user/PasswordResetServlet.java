@@ -1,4 +1,4 @@
-package org.anshin.servlet;
+package org.anshin.web.servlet.user;
 
 import org.anshin.entity.User;
 import org.anshin.service.UserService;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebServlet(urlPatterns = URL_PASSWORD_RESET_SERVLET, name = NAME_PASSWORD_RESET_SERVLET)
 public class PasswordResetServlet extends HttpServlet {
-    private UserService<User> userService;
+    private UserService userService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

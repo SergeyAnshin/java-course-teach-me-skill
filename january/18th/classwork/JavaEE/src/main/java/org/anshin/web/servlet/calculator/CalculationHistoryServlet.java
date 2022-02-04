@@ -1,6 +1,5 @@
-package org.anshin.servlet;
+package org.anshin.web.servlet.calculator;
 
-import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
 import org.anshin.service.CalculationResultService;
 import org.anshin.service.impl.CalculationResultServiceImpl;
@@ -12,13 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebServlet(urlPatterns = URL_CALCULATION_HISTORY_SERVLET, name = NAME_CALCULATION_HISTORY_SERVLET)
 public class CalculationHistoryServlet extends HttpServlet {
-    private CalculationResultService<CalculationResult> resultService;
+    private CalculationResultService resultService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

@@ -76,7 +76,8 @@
                                 <div class="col">
                                     <form action="${pageContext.request.contextPath}/user-settings/new-keyword" method="post">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="keyword" name="keyword" placeholder="keyword" required>
+                                            <input type="text" class="form-control" id="keyword" name="keyword"
+                                                   placeholder="keyword" pattern="^[a-zA-Z0-9]*$" required>
                                             <label for="keyword">New keyword</label>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>

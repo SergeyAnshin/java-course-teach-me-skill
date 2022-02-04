@@ -1,6 +1,5 @@
-package org.anshin.filter;
+package org.anshin.web.filter;
 
-import org.anshin.entity.User;
 import org.anshin.service.UserService;
 import org.anshin.service.impl.UserServiceImpl;
 import org.anshin.validator.AbstractValidator;
@@ -15,13 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 import static org.anshin.validator.UserValidator.*;
 
 @WebFilter(servletNames = {NAME_REGISTRATION_SERVLET})
 public class RegistrationServletFilter extends HttpFilter {
     private final AbstractValidator userValidator = new UserValidator();
-    private UserService<User> userService;
+    private UserService userService;
 
     @Override
     public void init(FilterConfig config) throws ServletException {

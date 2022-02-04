@@ -1,20 +1,17 @@
-package org.anshin.filter;
+package org.anshin.web.filter;
 
 import org.anshin.validator.AbstractValidator;
 import org.anshin.validator.ParameterValidator;
 
 import javax.servlet.FilterChain;
-import javax.servlet.GenericServlet;
-import javax.servlet.HttpMethodConstraintElement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 import static org.anshin.validator.ParameterValidator.FIELD_NAME_NUMBER;
 import static org.anshin.validator.ParameterValidator.FIELD_NAME_OPERATION;
 

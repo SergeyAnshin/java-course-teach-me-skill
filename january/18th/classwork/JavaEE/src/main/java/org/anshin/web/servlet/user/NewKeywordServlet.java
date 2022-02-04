@@ -1,4 +1,4 @@
-package org.anshin.servlet;
+package org.anshin.web.servlet.user;
 
 import org.anshin.entity.User;
 import org.anshin.service.UserService;
@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebServlet(urlPatterns = URL_NEW_KEYWORD_SERVLET, name = NAME_NEW_KEYWORD_SERVLET)
 public class NewKeywordServlet extends HttpServlet {
     private AbstractValidator userValidator = new UserValidator();
-    private UserService<User> userService;
+    private UserService userService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

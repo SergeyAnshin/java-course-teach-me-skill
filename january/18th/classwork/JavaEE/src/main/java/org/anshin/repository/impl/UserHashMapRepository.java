@@ -6,18 +6,17 @@ import org.anshin.repository.UserRepository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class UserHashMapRepository implements UserRepository<User> {
+public class UserHashMapRepository implements UserRepository {
     private final Map<String, User> userStorage = new ConcurrentHashMap<>();
 
     public UserHashMapRepository() {
         User admin = new User("admin@gmail.com","admin", "admin", Role.ADMIN);
-        User user = new User("ser@gmail.com","ser", "12345", Role.USER);
         userStorage.putIfAbsent("admin", admin);
-        userStorage.putIfAbsent("ser", user);
     }
 
     @Override
@@ -48,21 +47,21 @@ public class UserHashMapRepository implements UserRepository<User> {
     }
 
     @Override
-    public User findByLogin(String login) {
-        return !userStorage.isEmpty() ? userStorage.get(login) : null;
+    public Optional<User> findByLogin(String login) {
+        return !userStorage.isEmpty() ? Optional.ofNullable(userStorage.get(login)) : Optional.empty();
     }
 
     @Override
-    public User findByLoginAndPassword(String login, String password) {
+    public Optional<User> findByLoginAndPassword(String login, String password) {
         if (!userStorage.isEmpty()) {
             User user = userStorage.get(login);
             if (user != null) {
-                return user.getPassword().equals(password) ? user : null;
+                return user.getPassword().equals(password) ? Optional.of(user) : Optional.empty();
             } else {
-                return null;
+                return Optional.empty();
             }
         } else {
-            return null;
+            return Optional.empty();
         }
     }
 

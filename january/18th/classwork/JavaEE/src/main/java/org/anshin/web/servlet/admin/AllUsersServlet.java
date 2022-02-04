@@ -1,6 +1,5 @@
-package org.anshin.servlet;
+package org.anshin.web.servlet.admin;
 
-import org.anshin.entity.User;
 import org.anshin.service.UserService;
 import org.anshin.service.impl.UserServiceImpl;
 
@@ -12,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebServlet(urlPatterns = URL_ALL_USERS_SERVLET, name = NAME_ALL_USERS_SERVLET)
 public class AllUsersServlet extends HttpServlet {
-    private UserService<User> userService;
+    private UserService userService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {

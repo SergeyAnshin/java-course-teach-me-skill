@@ -1,7 +1,6 @@
-package org.anshin.filter;
+package org.anshin.web.filter;
 
 import org.anshin.entity.User;
-import org.anshin.enums.Role;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -12,24 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static org.anshin.servlet.ServletConstant.*;
+import static org.anshin.web.servlet.ServletConstants.*;
 
-@WebFilter(servletNames = NAME_ALL_USERS_SERVLET)
-public class UsersServletFilter extends HttpFilter {
+@WebFilter(servletNames = {NAME_CALCULATOR_SERVLET, NAME_CALCULATION_HISTORY_SERVLET, NAME_LOGOUT_SERVLET,
+        NAME_USER_SETTINGS})
+public class AuthenticatedUsersFilter extends HttpFilter {
 
     @Override
-    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpSession session = req.getSession();
         if (session != null && session.getAttribute(ATTRIBUTE_SESSION_AUTH_USER) != null) {
             User user = (User) session.getAttribute(ATTRIBUTE_SESSION_AUTH_USER);
-            if (user.getRole().equals(Role.ADMIN)) {
+            if (user.isAuthorized()) {
                 chain.doFilter(req, res);
             } else {
-                res.sendRedirect(URL_HOME_SERVLET);
+                res.sendRedirect(req.getContextPath() + URL_AUTHENTICATION_SERVLET);
             }
         } else {
-            res.sendRedirect(URL_AUTHENTICATION_SERVLET);
+            res.sendRedirect(req.getContextPath() + URL_AUTHENTICATION_SERVLET);
         }
-
     }
 }

@@ -6,9 +6,10 @@ import org.anshin.repository.impl.UserHashMapRepository;
 import org.anshin.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
-public class UserServiceImpl implements UserService<User> {
-    private final UserRepository<User> userRepository = new UserHashMapRepository();
+public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository = new UserHashMapRepository();
 
     @Override
     public boolean exists(User user) {
@@ -26,12 +27,12 @@ public class UserServiceImpl implements UserService<User> {
     }
 
     @Override
-    public User findByLogin(String login) {
+    public Optional<User> findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
 
     @Override
-    public User findByLoginAndPassword(String login, String password) {
+    public Optional<User> findByLoginAndPassword(String login, String password) {
         return userRepository.findByLoginAndPassword(login, password);
     }
 

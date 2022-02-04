@@ -1,24 +1,27 @@
 package org.anshin.repository;
 
+import org.anshin.entity.User;
+
 import java.util.List;
+import java.util.Optional;
 
-public interface UserRepository<T> {
+public interface UserRepository {
 
-    boolean exists(T user);
+    boolean exists(User user);
 
     boolean exists(String email, String login);
 
-    boolean save(T user);
+    boolean save(User user);
 
-    T findByLogin(String login);
+    Optional<User> findByLogin(String login);
 
-    T findByLoginAndPassword(String login, String password);
+    Optional<User> findByLoginAndPassword(String login, String password);
 
-    List<T> findAll();
+    List<User> findAll();
 
     boolean updatePasswordForUserWithEmail(String newPassword, String email);
 
     boolean existsByEmailAndKeyword(String email, String keyword);
 
-    boolean update(T user);
+    boolean update(User user);
 }
