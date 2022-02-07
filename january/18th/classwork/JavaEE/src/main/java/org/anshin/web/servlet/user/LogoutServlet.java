@@ -1,5 +1,7 @@
 package org.anshin.web.servlet.user;
 
+import org.anshin.entity.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +16,9 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().removeAttribute(ATTRIBUTE_SESSION_AUTH_USER );
-        resp.getWriter().write(SUCCESSFUL_MESSAGE_LOGOUT);
+        req.getSession().invalidate();
+        resp.sendRedirect(URL_HOME_SERVLET);
+
     }
 
 

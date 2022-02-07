@@ -34,7 +34,6 @@ public class RegistrationServletFilter extends HttpFilter {
             String email = req.getParameter(PARAMETER_EMAIL);
             String login = req.getParameter(PARAMETER_LOGIN);
             String password = req.getParameter(PARAMETER_PASSWORD);
-
             if (userValidator.isValidValueForField(login, FIELD_NAME_LOGIN)
                     && userValidator.isValidValueForField(password, FIELD_NAME_PASSWORD)) {
                 if (userService.exists(email, login)) {

@@ -39,11 +39,11 @@ public class RegistrationServlet extends HttpServlet {
 
         if (userService.save(user)) {
             if (req.getSession().getAttribute(ATTRIBUTE_SESSION_AUTH_USER) != null) {
-                req.getSession().removeAttribute(ATTRIBUTE_SESSION_AUTH_USER);
+                req.getSession().invalidate();
             }
             resp.sendRedirect(URL_AUTHENTICATION_SERVLET);
         } else {
-            req.setAttribute(ATTRIBUTE_REGISTRATION_RESULT, FAILED_MESSAGE_REGISTRATION);
+            req.setAttribute(ATTRIBUTE_REGISTRATION_RESULT, FAILED_MESSAGE_USER_EXISTS);
             req.getServletContext().getRequestDispatcher(PATH_REGISTRATION_JSP).forward(req, resp);
         }
 

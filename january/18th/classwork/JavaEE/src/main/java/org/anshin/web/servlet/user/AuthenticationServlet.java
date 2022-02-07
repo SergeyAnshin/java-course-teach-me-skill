@@ -39,7 +39,7 @@ public class AuthenticationServlet extends HttpServlet {
         Optional<User> user = userService.findByLoginAndPassword(login, password);
         if (user.isPresent()) {
             user.get().setAuthorized(true);
-            req.getSession().setAttribute(ATTRIBUTE_SESSION_AUTH_USER, user);
+            req.getSession().setAttribute(ATTRIBUTE_SESSION_AUTH_USER, user.get());
             resp.sendRedirect(URL_HOME_SERVLET);
         } else {
             req.setAttribute(ATTRIBUTE_AUTHENTICATION_FAILED_MESSAGE, FAILED_MESSAGE_AUTHENTICATION);
