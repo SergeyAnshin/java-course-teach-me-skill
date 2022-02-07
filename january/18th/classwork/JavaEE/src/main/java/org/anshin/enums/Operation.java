@@ -4,7 +4,17 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public enum Operation {
-    SUM, SUBTRACT, DIVIDE, MULTIPLY;
+    SUM(1), SUBTRACT(2), DIVIDE(3), MULTIPLY(4);
+
+    private int DBId;
+
+    Operation(int DBId) {
+        this.DBId = DBId;
+    }
+
+    public int getDBId() {
+        return DBId;
+    }
 
     public static boolean contain(String operation) {
         return Arrays.stream(values())

@@ -2,14 +2,14 @@ package org.anshin.service.impl;
 
 import org.anshin.entity.User;
 import org.anshin.repository.UserRepository;
-import org.anshin.repository.impl.UserHashMapRepository;
+import org.anshin.repository.impl.dbstorage.UserDBRepository;
 import org.anshin.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository = new UserHashMapRepository();
+    private final UserRepository userRepository = new UserDBRepository();
 
     @Override
     public boolean exists(User user) {

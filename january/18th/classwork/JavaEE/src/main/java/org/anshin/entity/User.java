@@ -5,7 +5,8 @@ import org.anshin.enums.Role;
 import java.util.List;
 import java.util.Objects;
 
-public class User {
+public class User extends Entity {
+    private Long id;
     private String email;
     private String login;
     private String password;
@@ -30,7 +31,13 @@ public class User {
         this.role = role;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -104,7 +111,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
+                "id=" + id +
+                ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", calculationResultList=" + calculationResultList +

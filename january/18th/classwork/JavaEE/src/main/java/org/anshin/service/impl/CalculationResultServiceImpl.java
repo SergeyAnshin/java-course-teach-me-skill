@@ -3,13 +3,14 @@ package org.anshin.service.impl;
 import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
 import org.anshin.repository.CalculationResultRepository;
-import org.anshin.repository.impl.CalculationResultHashMapRepository;
+import org.anshin.repository.impl.collectionstorage.CalculationResultHashMapRepository;
+import org.anshin.repository.impl.dbstorage.CalculationResultDBRepository;
 import org.anshin.service.CalculationResultService;
 
 import java.util.List;
 
 public class CalculationResultServiceImpl implements CalculationResultService {
-    private final CalculationResultRepository resultRepository = new CalculationResultHashMapRepository();
+    private final CalculationResultRepository resultRepository = new CalculationResultDBRepository();
 
     @Override
     public boolean save(CalculationResult calculationResult) {

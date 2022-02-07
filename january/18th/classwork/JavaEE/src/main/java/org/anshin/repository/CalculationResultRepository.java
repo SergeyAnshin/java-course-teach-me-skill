@@ -6,11 +6,7 @@ import org.anshin.enums.Operation;
 
 import java.util.List;
 
-public interface CalculationResultRepository {
-
-    boolean save(CalculationResult calculationResult);
-
-    List<CalculationResult> findAll();
+public interface CalculationResultRepository extends CrudRepository<CalculationResult> {
 
     List<CalculationResult> findAllByUser(User user);
 

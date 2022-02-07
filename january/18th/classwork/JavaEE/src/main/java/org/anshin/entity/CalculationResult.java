@@ -5,13 +5,17 @@ import org.anshin.enums.Operation;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class CalculationResult {
+public class CalculationResult extends Entity {
+    private Long id;
     private double firstValue;
     private double secondValue;
     private Operation operation;
     private double result;
     private LocalDateTime calculationTime = LocalDateTime.now();
     private User user;
+
+    public CalculationResult() {
+    }
 
     public CalculationResult(Operation operation, double result) {
         this.operation = operation;
@@ -23,6 +27,14 @@ public class CalculationResult {
         this.secondValue = secondValue;
         this.operation = operation;
         this.result = result;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getFirstValue() {
@@ -89,7 +101,8 @@ public class CalculationResult {
     @Override
     public String toString() {
         return "CalculationResult{" +
-                "firstValue=" + firstValue +
+                "id=" + id +
+                ", firstValue=" + firstValue +
                 ", secondValue=" + secondValue +
                 ", operation=" + operation +
                 ", result=" + result +
