@@ -1,4 +1,4 @@
-package org.anshin.repository.impl;
+package org.anshin.repository.impl.collectionstorage;
 
 import org.anshin.entity.User;
 import org.anshin.enums.Role;

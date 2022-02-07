@@ -1,4 +1,4 @@
-package org.anshin.repository.impl;
+package org.anshin.repository.impl.collectionstorage;
 
 import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
@@ -13,6 +13,14 @@ import java.util.stream.Collectors;
 public class CalculationResultHashMapRepository implements CalculationResultRepository {
     private final Map<String, ArrayList<CalculationResult>> calculationResultStorage =
             new ConcurrentHashMap<>();
+
+    @Override
+    public boolean exists(CalculationResult calculationResult) {
+        List<CalculationResult> userCalculationResults =
+                calculationResultStorage.get(calculationResult.getUser().getLogin());
+        return userCalculationResults != null && !userCalculationResults.isEmpty()
+                && userCalculationResults.contains(calculationResult);
+    }
 
     @Override
     public boolean save(CalculationResult calculationResult) {
