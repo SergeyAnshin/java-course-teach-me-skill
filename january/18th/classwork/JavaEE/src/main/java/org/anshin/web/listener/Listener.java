@@ -3,6 +3,7 @@ package org.anshin.web.listener;
 import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
 import org.anshin.enums.Operation;
+import org.anshin.repository.ConnectionPool;
 import org.anshin.service.CalculationResultService;
 import org.anshin.service.CalculatorService;
 import org.anshin.service.UserService;
@@ -33,5 +34,11 @@ public class Listener implements ServletContextListener, HttpSessionListener, Ht
         servletContext.setAttribute(ATTRIBUTE_USER_SERVICE, userService);
         servletContext.setAttribute(ATTRIBUTE_CALCULATOR_SERVICE, calculatorService);
         servletContext.setAttribute(ATTRIBUTE_CALCULATION_RESULT_SERVICE, resultService);
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        ServletContextListener.super.contextDestroyed(sce);
+        ConnectionPool.INSTANCE.destroyConnectionPool();
     }
 }
