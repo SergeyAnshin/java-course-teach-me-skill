@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zzz
-  Date: 29.01.2022
-  Time: 15:38
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -76,7 +69,8 @@
                                 <div class="col">
                                     <form action="${pageContext.request.contextPath}/user-settings/new-keyword" method="post">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="keyword" name="keyword" placeholder="keyword" required>
+                                            <input type="text" class="form-control" id="keyword" name="keyword"
+                                                   placeholder="keyword" pattern="^[a-zA-Z0-9]*$" required>
                                             <label for="keyword">New keyword</label>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>

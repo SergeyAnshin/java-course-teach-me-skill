@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zzz
-  Date: 26.01.2022
-  Time: 11:32
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -19,6 +12,7 @@
 <body>
 
     <header>
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
@@ -43,7 +37,7 @@
                             </li>
                         </c:if>
                     </ul>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
                         <c:choose>
                             <c:when test="${sessionScope.authUser == null}">
                                 <li class="nav-item">

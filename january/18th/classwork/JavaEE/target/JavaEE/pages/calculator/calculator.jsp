@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zzz
-  Date: 28.01.2022
-  Time: 21:04
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -37,12 +30,12 @@
                     <div class="mb-3">
                         <label for="firstValue" class="form-label">First value</label>
                         <input type="text" class="form-control" id="firstValue" name="firstValue"
-                               value="${param.firstValue}" required>
+                               value="${param.firstValue}"  pattern="^[-+]?\d*[.,]?\d+(?:[eE][-+]?\d+)?$" required>
                     </div>
                     <div class="mb-3">
                         <label for="secondValue" class="form-label">Second value</label>
                         <input type="text" class="form-control" id="secondValue" name="secondValue"
-                               value="${param.secondValue}" required>
+                               value="${param.secondValue}" pattern="^[-+]?\d*[.,]?\d+(?:[eE][-+]?\d+)?$" required>
                     </div>
                     <div class="mb-3">
                         <label for="operationType" class="form-label">Operation</label>
