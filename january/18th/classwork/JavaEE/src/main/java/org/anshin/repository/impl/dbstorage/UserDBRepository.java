@@ -62,6 +62,11 @@ public class UserDBRepository implements UserRepository {
     private static final String SQL_UPDATE_USER =
             "UPDATE \"user\" SET email = ?, login = ?, password = ?, keyword = ?, role_id = ? WHERE id = ?";
 
+    private static final String SQL_DELETE_USER = "DELETE FROM \"user\" WHERE id = ?";
+
+    private static final String SQL_SELECT_USER_BY_ID =
+            SQL_SELECT_USERS_WITHOUT_CONDITIONAL_PART +
+            "WHERE u.id = ?";
 
     @Override
     public boolean exists(User user) {
@@ -126,7 +131,21 @@ public class UserDBRepository implements UserRepository {
 
     @Override
     public boolean delete(Long id) {
-        throw new UnsupportedOperationException();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean isDeleted = false;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_USER);
+            statement.setLong(1, id);
+            isDeleted = statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return isDeleted;
     }
 
     @Override
@@ -252,5 +271,25 @@ public class UserDBRepository implements UserRepository {
             close(connection);
         }
         return isUpdated;
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        User user = null;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            statement = connection.prepareStatement(SQL_SELECT_USER_BY_ID);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            user = userMapper.toEntityFromResultSet(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return Optional.ofNullable(user);
     }
 }

@@ -24,4 +24,8 @@ public interface UserService {
     boolean existsByEmailAndKeyword(String email, String keyword);
 
     boolean update(User user);
+
+    boolean delete(Long id);
+
+    Optional<User> findById(Long id);
 }

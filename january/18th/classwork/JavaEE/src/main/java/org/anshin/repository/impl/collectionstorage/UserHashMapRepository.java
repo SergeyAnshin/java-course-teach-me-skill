@@ -108,4 +108,9 @@ public class UserHashMapRepository implements UserRepository {
     public boolean update(User user) {
         return userStorage != null && !userStorage.isEmpty() && userStorage.put(user.getLogin(), user) != null;
     }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        throw new UnsupportedOperationException();
+    }
 }

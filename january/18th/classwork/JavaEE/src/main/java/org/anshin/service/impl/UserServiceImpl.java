@@ -1,6 +1,7 @@
 package org.anshin.service.impl;
 
 import org.anshin.entity.User;
+import org.anshin.enums.Role;
 import org.anshin.repository.UserRepository;
 import org.anshin.repository.impl.dbstorage.UserDBRepository;
 import org.anshin.service.UserService;
@@ -54,5 +55,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean update(User user) {
         return userRepository.update(user);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        Optional<User> user = findById(id);
+        if (user.isPresent() && !user.get().getRole().equals(Role.ADMIN)) {
+            return userRepository.delete(id);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 }

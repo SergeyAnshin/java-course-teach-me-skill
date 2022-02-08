@@ -28,6 +28,16 @@
                                 <td>${item.email}</td>
                                 <td>${item.login}</td>
                                 <td>${item.role}</td>
+                                <td>
+                                    <c:if test="${item.role != 'ADMIN'}">
+                                        <form action="${pageContext.request.contextPath}/users/delete" method="post">
+                                            <input type="hidden" name="userId" value="${item.id}">
+                                            <button type="submit"
+                                                    onclick="return confirm('Are you sure you want to delete the user?')"
+                                                    class="btn btn-primary btn-sm">Delete</button>
+                                        </form>
+                                    </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
