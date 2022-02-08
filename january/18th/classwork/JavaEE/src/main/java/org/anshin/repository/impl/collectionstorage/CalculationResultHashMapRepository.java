@@ -42,6 +42,11 @@ public class CalculationResultHashMapRepository implements CalculationResultRepo
     }
 
     @Override
+    public boolean delete(Long id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public List<CalculationResult> findAllByUser(User user) {
         return calculationResultStorage.get(user.getLogin());
     }
@@ -56,5 +61,10 @@ public class CalculationResultHashMapRepository implements CalculationResultRepo
         } else {
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    public boolean deleteAllByUser(User user) {
+        throw new UnsupportedOperationException();
     }
 }

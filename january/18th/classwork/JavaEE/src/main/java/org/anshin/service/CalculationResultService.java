@@ -12,4 +12,8 @@ public interface CalculationResultService {
     List<CalculationResult> findAllByUser(User user);
 
     List<CalculationResult> findAll();
+
+    boolean delete(Long id);
+
+    boolean deleteAllByUser(User user);
 }

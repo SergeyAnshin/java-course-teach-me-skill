@@ -27,4 +27,14 @@ public class CalculationResultServiceImpl implements CalculationResultService {
         return resultRepository.findAll();
     }
 
+    @Override
+    public boolean delete(Long id) {
+        return resultRepository.delete(id);
+    }
+
+    @Override
+    public boolean deleteAllByUser(User user) {
+        return resultRepository.deleteAllByUser(user);
+    }
+
 }

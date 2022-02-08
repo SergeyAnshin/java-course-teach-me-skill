@@ -14,7 +14,7 @@ import java.io.IOException;
 import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebFilter(servletNames = {NAME_CALCULATOR_SERVLET, NAME_CALCULATION_HISTORY_SERVLET, NAME_LOGOUT_SERVLET,
-        NAME_USER_SETTINGS})
+        NAME_USER_SETTINGS, NAME_DELETE_CALCULATION_RESULT_SERVLET})
 public class AuthenticatedUsersFilter extends HttpFilter {
 
     @Override

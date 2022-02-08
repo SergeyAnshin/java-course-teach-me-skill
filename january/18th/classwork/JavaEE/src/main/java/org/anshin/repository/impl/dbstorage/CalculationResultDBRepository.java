@@ -42,6 +42,10 @@ public class CalculationResultDBRepository implements CalculationResultRepositor
             SQL_SELECT_CALCULATION_RESULT_WITHOUT_CONDITIONAL_PART +
             "WHERE user_id = ? AND operation_id = ?";
 
+    private static final String SQL_DELETE_CALCULATION_RESULT = "DELETE FROM calculation_result WHERE id = ?";
+
+    private static final String SQL_DELETE_ALL_CALCULATION_RESULT = "DELETE FROM calculation_result WHERE user_id = ?";
+
     @Override
     public List<CalculationResult> findAllByUser(User user) {
         List<CalculationResult> calculationResults = null;
@@ -81,6 +85,25 @@ public class CalculationResultDBRepository implements CalculationResultRepositor
             close(connection);
         }
         return calculationResults != null ? calculationResults : Collections.emptyList();
+    }
+
+    @Override
+    public boolean deleteAllByUser(User user) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean isDeleted = false;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_ALL_CALCULATION_RESULT);
+            statement.setLong(1, user.getId());
+            isDeleted = statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return isDeleted;
     }
 
     @Override
@@ -144,5 +167,24 @@ public class CalculationResultDBRepository implements CalculationResultRepositor
             close(connection);
         }
         return calculationResults != null ? calculationResults : Collections.emptyList();
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean isDeleted = false;
+        try {
+            connection = ConnectionPool.INSTANCE.getConnection();
+            statement = connection.prepareStatement(SQL_DELETE_CALCULATION_RESULT);
+            statement.setLong(1, id);
+            isDeleted = statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(statement);
+            close(connection);
+        }
+        return isDeleted;
     }
 }

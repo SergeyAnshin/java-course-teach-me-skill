@@ -16,6 +16,8 @@ public final class ServletConstants {
     public static final String PARAMETER_CALCULATOR_FIRST_VALUE = "firstValue";
     public static final String PARAMETER_CALCULATOR_SECOND_VALUE = "secondValue";
     public static final String PARAMETER_CALCULATOR_OPERATION_TYPE = "operationType";
+    public static final String PARAMETER_CALCULATION_RESULT_ID = "resultId";
+    public static final String PARAMETER_CALCULATION_RESULT_DELETE_ALL = "deleteAll";
 
 
     public static final String ATTRIBUTE_SESSION_AUTH_USER = "authUser";
@@ -45,6 +47,7 @@ public final class ServletConstants {
     public static final String URL_USER_SETTINGS_SERVLET = "/user-settings";
     public static final String URL_PASSWORD_RESET_SERVLET = "/password-reset";
     public static final String URL_NEW_KEYWORD_SERVLET = "/user-settings/new-keyword";
+    public static final String URL_DELETE_CALCULATION_RESULT_SERVLET = "/history/delete";
 
 
     public static final String NAME_REGISTRATION_SERVLET = "RegistrationServlet";
@@ -57,6 +60,7 @@ public final class ServletConstants {
     public static final String NAME_USER_SETTINGS = "UserSettingsServlet";
     public static final String NAME_PASSWORD_RESET_SERVLET = "PasswordResetServlet";
     public static final String NAME_NEW_KEYWORD_SERVLET = "NewKeywordServlet";
+    public static final String NAME_DELETE_CALCULATION_RESULT_SERVLET = "DeleteCalculationResult";
 
 
     public static final String PATH_HOME_JSP = "/pages/home/home.jsp";

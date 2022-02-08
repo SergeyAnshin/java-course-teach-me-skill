@@ -11,4 +11,6 @@ public interface CalculationResultRepository extends CrudRepository<CalculationR
     List<CalculationResult> findAllByUser(User user);
 
     List<CalculationResult> findAllByUserAndOperation(User user, Operation operation);
+
+    boolean deleteAllByUser(User user);
 }

@@ -34,4 +34,6 @@ public interface CrudRepository<T extends Entity> {
             }
         }
     }
+
+    boolean delete(Long id);
 }

@@ -125,6 +125,11 @@ public class UserDBRepository implements UserRepository {
     }
 
     @Override
+    public boolean delete(Long id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean exists(String email, String login) {
         Connection connection = null;
         PreparedStatement statement = null;

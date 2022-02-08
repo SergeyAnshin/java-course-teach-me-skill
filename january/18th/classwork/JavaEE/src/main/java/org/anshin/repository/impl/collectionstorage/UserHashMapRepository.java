@@ -73,6 +73,11 @@ public class UserHashMapRepository implements UserRepository {
     }
 
     @Override
+    public boolean delete(Long id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean updatePasswordForUserWithEmail(String newPassword, String email) {
         User userFromStorage = userStorage.values()
                 .stream()
