@@ -16,7 +16,6 @@ public enum ConnectionPool {
     private Queue<ProxyConnection> givenAwayConnections;
 
     private final static int DEFAULT_FREE_CONNECTIONS_POOL_SIZE = 5;
-    private static final String DRIVER_NAME = "org.postgresql.Driver";
     private static final String URL = "jdbc:postgresql://localhost:5432/calculator_db";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "postgres";
@@ -27,10 +26,8 @@ public enum ConnectionPool {
 
         for (int i = 0; i < DEFAULT_FREE_CONNECTIONS_POOL_SIZE; i++) {
             try {
-                Class.forName(DRIVER_NAME).getDeclaredConstructor().newInstance();
                 freeConnections.offer(new ProxyConnection(DriverManager.getConnection(URL, USERNAME, PASSWORD)));
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                    NoSuchMethodException | ClassNotFoundException | SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

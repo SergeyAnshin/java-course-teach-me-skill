@@ -46,6 +46,5 @@ public class RegistrationServlet extends HttpServlet {
             req.setAttribute(ATTRIBUTE_REGISTRATION_RESULT, FAILED_MESSAGE_USER_EXISTS);
             req.getServletContext().getRequestDispatcher(PATH_REGISTRATION_JSP).forward(req, resp);
         }
-
     }
 }

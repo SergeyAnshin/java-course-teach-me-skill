@@ -13,7 +13,7 @@ public interface CalculationResultService {
 
     List<CalculationResult> findAll();
 
-    boolean delete(Long id);
+    boolean deleteById(Long id);
 
     boolean deleteAllByUser(User user);
 }

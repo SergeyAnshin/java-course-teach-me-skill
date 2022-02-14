@@ -44,6 +44,13 @@
                 </table>
             </div>
         </div>
+
+        <div class="row mt-4">
+            <form action="${pageContext.request.contextPath}/users" method="get">
+                <button class="btn btn-primary btn-sm" type="submit" name="page" value="previous">Previous</button>
+                <button class="btn btn-primary btn-sm" type="submit" name="page" value="next">Next</button>
+            </form>
+        </div>
     </div>
 
 </body>

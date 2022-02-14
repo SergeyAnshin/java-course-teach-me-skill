@@ -6,7 +6,7 @@ import org.anshin.enums.Operation;
 
 import java.util.List;
 
-public interface CalculationResultRepository extends CrudRepository<CalculationResult> {
+public interface CalculationResultRepository extends EntityCrudRepository<CalculationResult> {
 
     List<CalculationResult> findAllByUser(User user);
 

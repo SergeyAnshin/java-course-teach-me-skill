@@ -1,5 +1,9 @@
 package org.anshin.web.servlet.admin;
 
+import org.anshin.entity.User;
+import org.anshin.handler.EntityListHandler;
+import org.anshin.handler.ValueListIterator;
+import org.anshin.repository.UserRepository;
 import org.anshin.service.UserService;
 import org.anshin.service.impl.UserServiceImpl;
 
@@ -25,7 +29,17 @@ public class AllUsersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute(ATTRIBUTE_USERS, userService.findAll());
+        ValueListIterator<User> userValueListIterator =
+                (EntityListHandler<User, UserRepository>) req.getSession().getAttribute(ATTRIBUTE_USER_VALUE_LIST_ITERATOR);
+
+        if (req.getParameter(PARAMETER_PAGE) == null) {
+            req.setAttribute(ATTRIBUTE_USERS, userValueListIterator.getNextElements(10));
+        } else if (req.getParameter(PARAMETER_PAGE).equals("next")) {
+            req.setAttribute(ATTRIBUTE_USERS, userValueListIterator.getNextElements(10));
+        } else {
+            req.setAttribute(ATTRIBUTE_USERS, userValueListIterator.getPreviousElements(10));
+        }
+
         req.getServletContext().getRequestDispatcher(PATH_USERS_JSP).forward(req, resp);
     }
 }

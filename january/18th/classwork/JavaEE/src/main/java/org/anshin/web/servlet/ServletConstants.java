@@ -19,6 +19,7 @@ public final class ServletConstants {
     public static final String PARAMETER_CALCULATION_RESULT_ID = "resultId";
     public static final String PARAMETER_USER_ID = "userId";
     public static final String PARAMETER_CALCULATION_RESULT_DELETE_ALL = "deleteAll";
+    public static final String PARAMETER_PAGE = "page";
 
 
     public static final String ATTRIBUTE_SESSION_AUTH_USER = "authUser";
@@ -35,7 +36,7 @@ public final class ServletConstants {
     public static final String ATTRIBUTE_USERS = "users";
     public static final String ATTRIBUTE_USER_IS_VERIFY = "isUserVerify";
     public static final String ATTRIBUTE_EMAIL = "email";
-
+    public static final String ATTRIBUTE_USER_VALUE_LIST_ITERATOR = "userValueListIterator";
 
 
     public static final String URL_REGISTRATION_SERVLET = "/registration";

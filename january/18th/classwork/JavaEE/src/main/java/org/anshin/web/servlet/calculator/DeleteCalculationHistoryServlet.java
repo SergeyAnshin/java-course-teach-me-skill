@@ -32,7 +32,7 @@ public class DeleteCalculationHistoryServlet extends HttpServlet {
 
         if (req.getParameter(PARAMETER_CALCULATION_RESULT_ID) != null) {
             Long id = Long.parseLong(req.getParameter(PARAMETER_CALCULATION_RESULT_ID));
-            resultService.delete(id);
+            resultService.deleteById(id);
         } else {
             String deleteAll = req.getParameter(PARAMETER_CALCULATION_RESULT_DELETE_ALL);
             if (deleteAll != null && !deleteAll.isBlank()) {

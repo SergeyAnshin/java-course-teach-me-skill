@@ -36,7 +36,7 @@ public class RegistrationServletFilter extends HttpFilter {
             String password = req.getParameter(PARAMETER_PASSWORD);
             if (userValidator.isValidValueForField(login, FIELD_NAME_LOGIN)
                     && userValidator.isValidValueForField(password, FIELD_NAME_PASSWORD)) {
-                if (userService.exists(email, login)) {
+                if (userService.existsByEmailOrLogin(email, login)) {
                     req.setAttribute(ATTRIBUTE_WRONG_VALUE_MESSAGE, FAILED_MESSAGE_USER_EXISTS);
                     req.getServletContext().getRequestDispatcher(PATH_REGISTRATION_JSP).forward(req, res);
                 } else {

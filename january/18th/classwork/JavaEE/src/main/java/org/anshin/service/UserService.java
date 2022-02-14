@@ -9,7 +9,7 @@ public interface UserService {
 
     boolean exists(User user);
 
-    boolean exists(String email, String login);
+    boolean existsByEmailOrLogin(String email, String login);
 
     boolean save(User user);
 
@@ -25,7 +25,7 @@ public interface UserService {
 
     boolean update(User user);
 
-    boolean delete(Long id);
+    boolean deleteById(Long id);
 
     Optional<User> findById(Long id);
 }

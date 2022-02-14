@@ -36,19 +36,4 @@ public abstract class RepositoryEntityMapperImpl<T> implements RepositoryEntityM
     }
 
     protected abstract T getEntityFromResultSet(ResultSet resultSet) throws SQLException;
-
-    protected T getEntityFromResultSetByColumnNumbers(ResultSet resultSet, int column1, int column2) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
-
-    protected T getEntityFromResultSetByColumnNumbers(ResultSet resultSet, int column1, int column2,
-                                                      int column3) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
-
-    protected T getEntityFromResultSetByColumnNumbers(ResultSet resultSet, int column1, int column2,
-                                                      int column3, int column4) throws SQLException {
-        throw new UnsupportedOperationException();
-    }
-    
 }

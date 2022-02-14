@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class User extends Entity {
-    private Long id;
     private String email;
     private String login;
     private String password;
@@ -23,20 +22,11 @@ public class User extends Entity {
         this.login = login;
     }
 
-
     public User(String email, String login, String password, Role role) {
         this.email = email;
         this.login = login;
         this.password = password;
         this.role = role;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -111,7 +101,7 @@ public class User extends Entity {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +

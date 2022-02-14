@@ -30,7 +30,7 @@ public class UserHashMapRepository implements UserRepository {
     }
 
     @Override
-    public boolean exists(String email, String login) {
+    public boolean existsByEmailAndLogin(String email, String login) {
         if (userStorage.isEmpty()) {
             return false;
         } else {

@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CalculationResult extends Entity {
-    private Long id;
     private double firstValue;
     private double secondValue;
     private Operation operation;
@@ -27,14 +26,6 @@ public class CalculationResult extends Entity {
         this.secondValue = secondValue;
         this.operation = operation;
         this.result = result;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public double getFirstValue() {
@@ -101,7 +92,7 @@ public class CalculationResult extends Entity {
     @Override
     public String toString() {
         return "CalculationResult{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", firstValue=" + firstValue +
                 ", secondValue=" + secondValue +
                 ", operation=" + operation +

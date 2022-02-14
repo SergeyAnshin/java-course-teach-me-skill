@@ -3,14 +3,17 @@ package org.anshin.service.impl;
 import org.anshin.entity.User;
 import org.anshin.enums.Role;
 import org.anshin.repository.UserRepository;
-import org.anshin.repository.impl.dbstorage.UserDBRepository;
 import org.anshin.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository = new UserDBRepository();
+    private final UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public boolean exists(User user) {
@@ -18,8 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean exists(String email, String login) {
-        return userRepository.exists(email, login);
+    public boolean existsByEmailOrLogin(String email, String login) {
+        return userRepository.existsByEmailAndLogin(email, login);
     }
 
     @Override
@@ -58,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean deleteById(Long id) {
         Optional<User> user = findById(id);
         if (user.isPresent() && !user.get().getRole().equals(Role.ADMIN)) {
             return userRepository.delete(id);
