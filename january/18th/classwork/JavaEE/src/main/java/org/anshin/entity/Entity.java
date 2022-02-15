@@ -1,20 +1,20 @@
 package org.anshin.entity;
 
 public abstract class Entity {
-    private Long id;
+    private long id;
 
     public Entity() {
     }
 
-    public Entity(Long id) {
+    public Entity(long id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

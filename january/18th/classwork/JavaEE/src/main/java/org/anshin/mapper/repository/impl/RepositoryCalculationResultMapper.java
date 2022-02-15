@@ -1,14 +1,11 @@
 package org.anshin.mapper.repository.impl;
 
 import org.anshin.entity.CalculationResult;
-import org.anshin.entity.User;
 import org.anshin.enums.Operation;
-import org.anshin.enums.Role;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class RepositoryCalculationResultMapper extends RepositoryEntityMapperImpl<CalculationResult> {
 

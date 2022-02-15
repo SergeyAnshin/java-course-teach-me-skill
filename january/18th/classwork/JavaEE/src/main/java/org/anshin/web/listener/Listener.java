@@ -1,10 +1,16 @@
 package org.anshin.web.listener;
 
+import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
 import org.anshin.enums.Operation;
 import org.anshin.handler.EntityListHandler;
 import org.anshin.handler.ValueListIterator;
+import org.anshin.mapper.repository.RepositoryEntityMapper;
+import org.anshin.mapper.repository.impl.RepositoryCalculationResultMapper;
+import org.anshin.mapper.repository.impl.RepositoryUserMapper;
+import org.anshin.repository.CalculationResultRepository;
 import org.anshin.repository.ConnectionPool;
+import org.anshin.repository.UserRepository;
 import org.anshin.repository.impl.jdbcstorage.CalculationResultJDBCRepository;
 import org.anshin.repository.impl.jdbcstorage.UserJDBCRepository;
 import org.anshin.service.CalculationResultService;
@@ -38,8 +44,14 @@ public class Listener implements ServletContextListener, HttpSessionListener, Ht
             e.printStackTrace();
         }
 
-        UserService userService = new UserServiceImpl(new UserJDBCRepository());
-        CalculationResultService resultService = new CalculationResultServiceImpl(new CalculationResultJDBCRepository());
+        RepositoryEntityMapper<User> repositoryUserMapper = new RepositoryUserMapper();
+        UserRepository userRepository = new UserJDBCRepository(repositoryUserMapper);
+        UserService userService = new UserServiceImpl(userRepository);
+
+        RepositoryEntityMapper<CalculationResult> calculationResultMapper = new RepositoryCalculationResultMapper();
+        CalculationResultRepository resultRepository = new CalculationResultJDBCRepository(calculationResultMapper);
+        CalculationResultService resultService = new CalculationResultServiceImpl(resultRepository);
+
         CalculatorService<Double, Operation> calculatorService = new CalculatorServiceImpl();
 
         ServletContext servletContext = sce.getServletContext();

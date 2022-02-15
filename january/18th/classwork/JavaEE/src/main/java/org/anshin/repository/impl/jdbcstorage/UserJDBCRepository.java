@@ -18,7 +18,7 @@ import java.util.Optional;
  * 3. matching a role ID from db and enum
  */
 public class UserJDBCRepository implements UserRepository {
-    private final RepositoryEntityMapper<User> userMapper = new RepositoryUserMapper();
+    private final RepositoryEntityMapper<User> userMapper;
 
     private static final String SQL_SELECT_USERS_WITHOUT_CONDITIONAL_PART =
             "SELECT u.*, r.name AS role_name " +
@@ -65,6 +65,15 @@ public class UserJDBCRepository implements UserRepository {
     private static final String SQL_SELECT_USER_BY_ID =
             SQL_SELECT_USERS_WITHOUT_CONDITIONAL_PART +
             "WHERE u.id = ?";
+
+
+    public UserJDBCRepository() {
+        userMapper = new RepositoryUserMapper();
+    }
+
+    public UserJDBCRepository(RepositoryEntityMapper<User> userMapper) {
+        this.userMapper = userMapper;
+    }
 
     @Override
     public boolean exists(User user) {

@@ -13,8 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CalculationResultJDBCRepository implements CalculationResultRepository {
-    private final RepositoryEntityMapper<CalculationResult> calculationResultMapper =
-            new RepositoryCalculationResultMapper();
+    private final RepositoryEntityMapper<CalculationResult> calculationResultMapper;
 
     private static final String SQL_SELECT_CALCULATION_RESULT_WITHOUT_CONDITIONAL_PART =
             "SELECT cr.id, cr.first_value, cr.second_value, cr.result, cr.calculation_time, o.name AS operation_name " +
@@ -43,6 +42,15 @@ public class CalculationResultJDBCRepository implements CalculationResultReposit
     private static final String SQL_DELETE_CALCULATION_RESULT = "DELETE FROM calculation_result WHERE id = ?";
 
     private static final String SQL_DELETE_ALL_CALCULATION_RESULT = "DELETE FROM calculation_result WHERE user_id = ?";
+
+
+    public CalculationResultJDBCRepository() {
+        calculationResultMapper = new RepositoryCalculationResultMapper();
+    }
+
+    public CalculationResultJDBCRepository(RepositoryEntityMapper<CalculationResult> calculationResultMapper) {
+        this.calculationResultMapper = calculationResultMapper;
+    }
 
     @Override
     public List<CalculationResult> findAllByUser(User user) {
