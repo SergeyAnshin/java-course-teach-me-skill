@@ -1,15 +1,18 @@
-package entities;
+package service;
+
+import entity.ATM;
+import entity.Card;
 
 public class BalanceReducer implements Runnable {
     private ATM atm;
     private Card card;
-    private Manager manager;
+    private BalanceManager balanceManager;
     private double withdrawAmount;
 
-    public BalanceReducer(ATM atm, Card card, Manager manager, double withdrawAmount) {
+    public BalanceReducer(ATM atm, Card card, BalanceManager balanceManager, double withdrawAmount) {
         this.atm = atm;
         this.card = card;
-        this.manager = manager;
+        this.balanceManager = balanceManager;
         this.withdrawAmount = withdrawAmount;
     }
 
@@ -19,8 +22,8 @@ public class BalanceReducer implements Runnable {
             System.out.println(Thread.currentThread().getName() + " writes off from the balance");
             System.out.println("Balance before withdrawal: ATM = " + atm.getBalance() + ", card = " + card.getBalance());
 
-            manager.withdraw(atm, withdrawAmount);
-            manager.withdraw(card, withdrawAmount);
+            balanceManager.withdraw(atm, withdrawAmount);
+            balanceManager.withdraw(card, withdrawAmount);
 
             System.out.println("Balance after withdrawal: ATM = " + atm.getBalance() + ", card = " + card.getBalance());
         }

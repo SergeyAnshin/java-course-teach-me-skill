@@ -1,6 +1,8 @@
-package entities;
+package service;
 
-public class Manager {
+import entity.Entity;
+
+public class BalanceManager {
 
     public void topUp(Entity entity, double amount) {
         synchronized (entity) {

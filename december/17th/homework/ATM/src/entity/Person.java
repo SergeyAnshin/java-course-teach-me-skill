@@ -1,4 +1,4 @@
-package entities;
+package entity;
 
 import java.util.Objects;
 import java.util.Set;
@@ -12,11 +12,10 @@ public class Person {
     public Person() {
     }
 
-    public Person(int id, String firstName, String lastName, Set<Card> cards) {
+    public Person(int id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.cards = cards;
     }
 
     public int getId() {
