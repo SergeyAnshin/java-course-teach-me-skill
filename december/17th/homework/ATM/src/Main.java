@@ -12,5 +12,6 @@ public class Main {
         Thread withdrawThread = new Thread((BalanceReducer) applicationContext.getBean("balanceReducer"));
         topUpThread.start();
         withdrawThread.start();
+
     }
 }
