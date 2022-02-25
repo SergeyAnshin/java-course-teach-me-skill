@@ -34,7 +34,7 @@ import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebListener
 public class Listener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
-    private static final String DRIVER_NAME = "org.postgresql.Driver";
+    private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {

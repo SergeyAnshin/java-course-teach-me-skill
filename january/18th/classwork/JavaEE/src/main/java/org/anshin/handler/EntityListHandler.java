@@ -6,7 +6,6 @@ import org.anshin.repository.EntityCrudRepository;
 import java.util.*;
 
 public class EntityListHandler<T extends Entity, R extends EntityCrudRepository<T>> implements ValueListIterator<T> {
-
     private R repository;
     private List<T> entities;
     private ListIterator<T> listIterator;
@@ -57,7 +56,7 @@ public class EntityListHandler<T extends Entity, R extends EntityCrudRepository<
     @Override
     public void resetIndex() {
         if (listIterator != null && entities != null) {
-            entities.listIterator(0);
+            listIterator = entities.listIterator();
         }
     }
 }

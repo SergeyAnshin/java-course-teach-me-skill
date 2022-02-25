@@ -22,18 +22,18 @@ public class UserJDBCRepository implements UserRepository {
 
     private static final String SQL_SELECT_USERS_WITHOUT_CONDITIONAL_PART =
             "SELECT u.*, r.name AS role_name " +
-            "FROM \"user\" u " +
+            "FROM user u " +
             "INNER JOIN role r ON u.role_id = r.id ";
 
     private static final String SQL_EXISTS_USER =
-            "SELECT COUNT(\"id\") " +
-            "FROM \"user\" " +
+            "SELECT COUNT(id) " +
+            "FROM user " +
             "WHERE email = ? OR login = ?";
 
     private static final String SQL_SAVE_USER =
-            "INSERT INTO \"user\" (email, login, password, role_id) " +
+            "INSERT INTO user (email, login, password, role_id) " +
             "VALUES (?, ?, ?, (" +
-                    "SELECT \"id\" " +
+                    "SELECT id " +
                     "FROM role " +
                     "WHERE name = ? " +
                     "LIMIT 1))";
@@ -50,17 +50,17 @@ public class UserJDBCRepository implements UserRepository {
             "LIMIT 1";
 
     private static final String SQL_UPDATE_USER_PASSWORD_BY_EMAIL =
-            "UPDATE \"user\" SET password = ? WHERE email = ?";
+            "UPDATE user SET password = ? WHERE email = ?";
 
     private static final String SQL_EXISTS_USER_BY_EMAIL_AND_KEYWORD =
-            "SELECT COUNT(\"id\") " +
-            "FROM \"user\" " +
+            "SELECT COUNT(id) " +
+            "FROM user " +
             "WHERE email = ? AND keyword = ? ";
 
     private static final String SQL_UPDATE_USER =
-            "UPDATE \"user\" SET email = ?, login = ?, password = ?, keyword = ?, role_id = ? WHERE id = ?";
+            "UPDATE user SET email = ?, login = ?, password = ?, keyword = ?, role_id = ? WHERE id = ?";
 
-    private static final String SQL_DELETE_USER = "DELETE FROM \"user\" WHERE id = ?";
+    private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id = ?";
 
     private static final String SQL_SELECT_USER_BY_ID =
             SQL_SELECT_USERS_WITHOUT_CONDITIONAL_PART +

@@ -6,6 +6,7 @@ import org.anshin.enums.Operation;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class RepositoryCalculationResultMapper extends RepositoryEntityMapperImpl<CalculationResult> {
 
@@ -23,8 +24,8 @@ public class RepositoryCalculationResultMapper extends RepositoryEntityMapperImp
         calculationResult.setFirstValue(resultSet.getDouble(LABEL_FIRST_VALUE_COLUMN));
         calculationResult.setSecondValue(resultSet.getDouble(LABEL_SECOND_VALUE_COLUMN));
         calculationResult.setResult(resultSet.getDouble(LABEL_RESULT_COLUMN));
-        Timestamp calculationTime = (Timestamp) resultSet.getObject(LABEL_CALCULATION_TIME_COLUMN);
-        calculationResult.setCalculationTime(calculationTime.toLocalDateTime());
+        LocalDateTime calculationTime = (LocalDateTime) resultSet.getObject(LABEL_CALCULATION_TIME_COLUMN);
+        calculationResult.setCalculationTime(calculationTime);
         calculationResult.setOperation(Operation.valueOf(resultSet.getString(LABEL_OPERATION_NAME_COLUMN)));
         return calculationResult;
     }

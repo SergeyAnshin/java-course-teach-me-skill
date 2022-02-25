@@ -16,9 +16,9 @@ public enum ConnectionPool {
     private Queue<ProxyConnection> givenAwayConnections;
 
     private final static int DEFAULT_FREE_CONNECTIONS_POOL_SIZE = 5;
-    private static final String URL = "jdbc:postgresql://localhost:5432/calculator_db";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "postgres";
+    private static final String URL = "jdbc:mysql://localhost:3306/calculator_db";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "admin";
 
     ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>(DEFAULT_FREE_CONNECTIONS_POOL_SIZE);

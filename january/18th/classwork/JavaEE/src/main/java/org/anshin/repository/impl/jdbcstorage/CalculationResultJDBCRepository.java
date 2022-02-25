@@ -9,6 +9,7 @@ import org.anshin.repository.CalculationResultRepository;
 import org.anshin.repository.ConnectionPool;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,12 +22,12 @@ public class CalculationResultJDBCRepository implements CalculationResultReposit
             "INNER JOIN operation o ON cr.operation_id = o.id ";
 
     private static final String SQL_EXISTS_CALCULATION_RESULT =
-            "SELECT COUNT(\"id\") " +
+            "SELECT COUNT(id) " +
             "FROM calculation_result " +
             "WHERE user_id = ? AND calculation_time = ? ";
 
     private static final String SQL_SAVE_CALCULATION_RESULT =
-            "INSERT INTO calculation_result (first_value, second_value, result, calculation_time, user_id, operation_id) " +
+            "INSERT INTO calculation_result (`first_value`, second_value, result, calculation_time, operation_id, user_id) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
     private static final String SQL_SELECT_ALL_CALCULATION_RESULT = SQL_SELECT_CALCULATION_RESULT_WITHOUT_CONDITIONAL_PART;
@@ -104,6 +105,7 @@ public class CalculationResultJDBCRepository implements CalculationResultReposit
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 exists = resultSet.getInt(1) > 0;
+                System.out.println(exists);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,8 +122,8 @@ public class CalculationResultJDBCRepository implements CalculationResultReposit
             statement.setDouble(2, calculationResult.getSecondValue());
             statement.setDouble(3, calculationResult.getResult());
             statement.setObject(4, calculationResult.getCalculationTime());
-            statement.setLong(5, calculationResult.getUser().getId());
-            statement.setLong(6, calculationResult.getOperation().getDBId());
+            statement.setLong(5, calculationResult.getOperation().getDBId());
+            statement.setLong(6, calculationResult.getUser().getId());
             isSaved = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
