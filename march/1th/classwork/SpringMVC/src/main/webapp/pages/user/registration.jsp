@@ -5,8 +5,13 @@
 </head>
 <body>
   <form action="/user/registration" method="post">
-      <input type="text" name="name">
-      <input type="password" name="password">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name">
+      <p>${name}</p>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password">
+      <p>${password}</p>
+      <input type="submit">
   </form>
 </body>
 </html>

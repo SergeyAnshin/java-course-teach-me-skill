@@ -1,7 +1,16 @@
 package org.sergey.ans.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class User {
+
+    @NotBlank
+    @NotEmpty
     private String name;
+
+    @NotBlank
+    @NotEmpty
     private String password;
 
     public User(String name, String password) {
