@@ -18,7 +18,7 @@
                pattern="^[-+]?\d*[.,]?\d+(?:[eE][-+]?\d+)?$" required>
         <br><br>
 
-        <label for="secondValue">First value</label>
+        <label for="secondValue">Second value</label>
         <input type="text" id="secondValue" name="secondValue"
                pattern="^[-+]?\d*[.,]?\d+(?:[eE][-+]?\d+)?$" required>
         <br><br>

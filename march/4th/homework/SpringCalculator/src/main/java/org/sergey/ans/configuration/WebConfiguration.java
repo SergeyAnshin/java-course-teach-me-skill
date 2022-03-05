@@ -9,9 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-@EnableWebMvc
+
 @Configuration
 @ComponentScan("org.sergey.ans")
+@EnableWebMvc
 public class WebConfiguration implements WebMvcConfigurer {
 
     @Bean
