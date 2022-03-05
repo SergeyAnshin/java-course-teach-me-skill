@@ -1,4 +1,4 @@
-package org.sergey.ans.controller;
+package org.sergey.ans.controller.calculator;
 
 import org.sergey.ans.enums.Operation;
 import org.sergey.ans.service.CalculatorService;
