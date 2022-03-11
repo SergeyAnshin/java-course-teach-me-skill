@@ -1,10 +1,11 @@
-package org.anshin.repository.impl.jdbcstorage;
+package org.anshin.dao.impl.jdbcstorage;
 
+import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
-import org.anshin.mapper.repository.RepositoryEntityMapper;
-import org.anshin.mapper.repository.impl.RepositoryUserMapper;
-import org.anshin.repository.ConnectionPool;
-import org.anshin.repository.UserRepository;
+import org.anshin.mapper.dao.EntityMapperDAO;
+import org.anshin.mapper.dao.impl.UserMapperDAO;
+import org.anshin.dao.ConnectionPool;
+import org.anshin.dao.UserDAO;
 
 import java.sql.*;
 import java.util.Collections;
@@ -17,8 +18,8 @@ import java.util.Optional;
  * 2. update user - update within table or other? update all columns or that have been changed?
  * 3. matching a role ID from db and enum
  */
-public class UserJDBCRepository implements UserRepository {
-    private final RepositoryEntityMapper<User> userMapper;
+public class UserJDBCDAO implements UserDAO {
+    private final EntityMapperDAO<User> userMapper;
 
     private static final String SQL_SELECT_USERS_WITHOUT_CONDITIONAL_PART =
             "SELECT u.*, r.name AS role_name " +
@@ -66,14 +67,19 @@ public class UserJDBCRepository implements UserRepository {
             SQL_SELECT_USERS_WITHOUT_CONDITIONAL_PART +
             "WHERE u.id = ?";
 
+    private static final String SQL_FIND_ALL_FROM_ID_WITH_LIMIT =
+            SQL_SELECT_USERS_WITHOUT_CONDITIONAL_PART +
+            "WHERE u.id > ? LIMIT ?";
 
-    public UserJDBCRepository() {
-        userMapper = new RepositoryUserMapper();
+
+    public UserJDBCDAO() {
+        userMapper = new UserMapperDAO();
     }
 
-    public UserJDBCRepository(RepositoryEntityMapper<User> userMapper) {
+    public UserJDBCDAO(EntityMapperDAO<User> userMapper) {
         this.userMapper = userMapper;
     }
+
 
     @Override
     public boolean exists(User user) {
@@ -132,6 +138,21 @@ public class UserJDBCRepository implements UserRepository {
             e.printStackTrace();
         }
         return isDeleted;
+    }
+
+    @Override
+    public List<User> findAllFromIdWithLimit(long id, long limit) {
+        List<User> users = null;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL_FROM_ID_WITH_LIMIT)) {
+            statement.setLong(1, id);
+            statement.setLong(2, limit);
+            ResultSet resultSet = statement.executeQuery();
+            users = userMapper.toListEntityFromResultSet(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users != null ? users : Collections.emptyList();
     }
 
     @Override

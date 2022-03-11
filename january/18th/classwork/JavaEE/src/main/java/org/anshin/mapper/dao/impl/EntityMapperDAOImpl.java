@@ -1,13 +1,13 @@
-package org.anshin.mapper.repository.impl;
+package org.anshin.mapper.dao.impl;
 
-import org.anshin.mapper.repository.RepositoryEntityMapper;
+import org.anshin.mapper.dao.EntityMapperDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class RepositoryEntityMapperImpl<T> implements RepositoryEntityMapper<T> {
+public abstract class EntityMapperDAOImpl<T> implements EntityMapperDAO<T> {
 
     @Override
     public T toEntityFromResultSet(ResultSet resultSet) {

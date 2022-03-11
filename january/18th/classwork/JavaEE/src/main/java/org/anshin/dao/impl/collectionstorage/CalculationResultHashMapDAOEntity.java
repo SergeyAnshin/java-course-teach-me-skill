@@ -1,16 +1,16 @@
-package org.anshin.repository.impl.collectionstorage;
+package org.anshin.dao.impl.collectionstorage;
 
 import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
 import org.anshin.enums.Operation;
-import org.anshin.repository.CalculationResultRepository;
+import org.anshin.dao.CalculationResultDAO;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-public class CalculationResultHashMapRepositoryEntity implements CalculationResultRepository {
+public class CalculationResultHashMapDAOEntity implements CalculationResultDAO {
     private final Map<String, ArrayList<CalculationResult>> calculationResultStorage =
             new ConcurrentHashMap<>();
 
@@ -44,6 +44,21 @@ public class CalculationResultHashMapRepositoryEntity implements CalculationResu
     @Override
     public boolean delete(Long id) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<CalculationResult> findAllFromIdWithLimit(long id, long limit) {
+        SortedSet<CalculationResult> users =
+                new TreeSet<>(Comparator.comparing(CalculationResult::getId));
+        List<CalculationResult> calculationResults = calculationResultStorage.values()
+                .stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+        users.addAll(calculationResults);
+        return users.stream()
+                .filter(calculationResult -> calculationResult.getId() >= id)
+                .limit(limit)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -1,20 +1,18 @@
-package org.anshin.repository.impl.collectionstorage;
+package org.anshin.dao.impl.collectionstorage;
 
 import org.anshin.entity.User;
 import org.anshin.enums.Role;
-import org.anshin.repository.UserRepository;
+import org.anshin.dao.UserDAO;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class UserHashMapRepository implements UserRepository {
+public class UserHashMapDAO implements UserDAO {
     private final Map<String, User> userStorage = new ConcurrentHashMap<>();
 
-    public UserHashMapRepository() {
+    public UserHashMapDAO() {
         User admin = new User("admin@gmail.com","admin", "admin", Role.ADMIN);
         userStorage.putIfAbsent("admin", admin);
     }
@@ -74,7 +72,14 @@ public class UserHashMapRepository implements UserRepository {
 
     @Override
     public boolean delete(Long id) {
-        throw new UnsupportedOperationException();
+        return userStorage.values().removeIf(user ->  user.getId() == id);
+    }
+
+    @Override
+    public List<User> findAllFromIdWithLimit(long id, long limit) {
+        SortedSet<User> users = new TreeSet<>(Comparator.comparing(User::getLogin));
+        users.addAll(userStorage.values());
+        return users.stream().filter(user -> user.getId() >= id).limit(limit).collect(Collectors.toList());
     }
 
     @Override
@@ -111,6 +116,6 @@ public class UserHashMapRepository implements UserRepository {
 
     @Override
     public Optional<User> findById(Long id) {
-        throw new UnsupportedOperationException();
+        return userStorage.values().stream().filter(user -> user.getId() == id).findFirst();
     }
 }

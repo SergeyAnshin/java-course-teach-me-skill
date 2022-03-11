@@ -1,4 +1,4 @@
-package org.anshin.mapper.repository.impl;
+package org.anshin.mapper.dao.impl;
 
 import org.anshin.entity.User;
 import org.anshin.enums.Role;
@@ -6,7 +6,7 @@ import org.anshin.enums.Role;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RepositoryUserMapper extends RepositoryEntityMapperImpl<User> {
+public class UserMapperDAO extends EntityMapperDAOImpl<User> {
     private static final String LABEL_ID_COLUMN = "id";
     private static final String LABEL_EMAIL_COLUMN = "email";
     private static final String LABEL_LOGIN_COLUMN = "login";

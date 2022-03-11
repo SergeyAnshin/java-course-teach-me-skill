@@ -1,10 +1,10 @@
-package org.anshin.repository;
+package org.anshin.dao;
 
 import org.anshin.entity.User;
 
 import java.util.Optional;
 
-public interface UserRepository extends EntityCrudRepository<User> {
+public interface UserDAO extends EntityGenericDAO<User> {
 
     boolean existsByEmailAndLogin(String email, String login);
 

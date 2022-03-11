@@ -3,16 +3,16 @@ package org.anshin.web.listener;
 import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
 import org.anshin.enums.Operation;
-import org.anshin.handler.EntityListHandler;
-import org.anshin.handler.ValueListIterator;
-import org.anshin.mapper.repository.RepositoryEntityMapper;
-import org.anshin.mapper.repository.impl.RepositoryCalculationResultMapper;
-import org.anshin.mapper.repository.impl.RepositoryUserMapper;
-import org.anshin.repository.CalculationResultRepository;
-import org.anshin.repository.ConnectionPool;
-import org.anshin.repository.UserRepository;
-import org.anshin.repository.impl.jdbcstorage.CalculationResultJDBCRepository;
-import org.anshin.repository.impl.jdbcstorage.UserJDBCRepository;
+import org.anshin.valuelisthandler.EntityListHandler;
+import org.anshin.valuelisthandler.EntityListIterator;
+import org.anshin.mapper.dao.EntityMapperDAO;
+import org.anshin.mapper.dao.impl.CalculationResultMapperDAO;
+import org.anshin.mapper.dao.impl.UserMapperDAO;
+import org.anshin.dao.CalculationResultDAO;
+import org.anshin.dao.ConnectionPool;
+import org.anshin.dao.UserDAO;
+import org.anshin.dao.impl.jdbcstorage.CalculationResultJDBCDAO;
+import org.anshin.dao.impl.jdbcstorage.UserJDBCDAO;
 import org.anshin.service.CalculationResultService;
 import org.anshin.service.CalculatorService;
 import org.anshin.service.UserService;
@@ -44,12 +44,12 @@ public class Listener implements ServletContextListener, HttpSessionListener, Ht
             e.printStackTrace();
         }
 
-        RepositoryEntityMapper<User> repositoryUserMapper = new RepositoryUserMapper();
-        UserRepository userRepository = new UserJDBCRepository(repositoryUserMapper);
-        UserService userService = new UserServiceImpl(userRepository);
+        EntityMapperDAO<User> repositoryUserMapper = new UserMapperDAO();
+        UserDAO userDAO = new UserJDBCDAO(repositoryUserMapper);
+        UserService userService = new UserServiceImpl(userDAO);
 
-        RepositoryEntityMapper<CalculationResult> calculationResultMapper = new RepositoryCalculationResultMapper();
-        CalculationResultRepository resultRepository = new CalculationResultJDBCRepository(calculationResultMapper);
+        EntityMapperDAO<CalculationResult> calculationResultMapper = new CalculationResultMapperDAO();
+        CalculationResultDAO resultRepository = new CalculationResultJDBCDAO(calculationResultMapper);
         CalculationResultService resultService = new CalculationResultServiceImpl(resultRepository);
 
         CalculatorService<Double, Operation> calculatorService = new CalculatorServiceImpl();
@@ -68,7 +68,7 @@ public class Listener implements ServletContextListener, HttpSessionListener, Ht
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        ValueListIterator<User> valueListIterator = new EntityListHandler<>(new UserJDBCRepository());
-        se.getSession().setAttribute(ATTRIBUTE_USER_VALUE_LIST_ITERATOR, valueListIterator);
+        EntityListIterator<User> entityListIterator = new EntityListHandler<>(new UserJDBCDAO());
+        se.getSession().setAttribute(ATTRIBUTE_USER_VALUE_LIST_ITERATOR, entityListIterator);
     }
 }

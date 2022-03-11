@@ -2,15 +2,15 @@ package org.anshin.service.impl;
 
 import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
-import org.anshin.repository.CalculationResultRepository;
+import org.anshin.dao.CalculationResultDAO;
 import org.anshin.service.CalculationResultService;
 
 import java.util.List;
 
 public class CalculationResultServiceImpl implements CalculationResultService {
-    private final CalculationResultRepository resultRepository;
+    private final CalculationResultDAO resultRepository;
 
-    public CalculationResultServiceImpl(CalculationResultRepository resultRepository) {
+    public CalculationResultServiceImpl(CalculationResultDAO resultRepository) {
         this.resultRepository = resultRepository;
     }
 

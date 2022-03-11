@@ -1,4 +1,4 @@
-package org.anshin.repository;
+package org.anshin.dao;
 
 import java.sql.*;
 import java.util.Map;

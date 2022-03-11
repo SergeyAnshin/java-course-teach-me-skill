@@ -15,7 +15,7 @@ import static org.anshin.web.servlet.ServletConstants.*;
 
 @WebServlet(urlPatterns = URL_HOME_SERVLET, name = NAME_HOME_SERVLET)
 public class HomeServlet extends HttpServlet {
-    static Logger logger = LoggerFactory.getLogger(HomeServlet.class);
+    private static Logger logger = LoggerFactory.getLogger(HomeServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

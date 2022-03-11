@@ -1,20 +1,19 @@
-package org.anshin.repository.impl.jdbcstorage;
+package org.anshin.dao.impl.jdbcstorage;
 
 import org.anshin.entity.CalculationResult;
 import org.anshin.entity.User;
 import org.anshin.enums.Operation;
-import org.anshin.mapper.repository.RepositoryEntityMapper;
-import org.anshin.mapper.repository.impl.RepositoryCalculationResultMapper;
-import org.anshin.repository.CalculationResultRepository;
-import org.anshin.repository.ConnectionPool;
+import org.anshin.mapper.dao.EntityMapperDAO;
+import org.anshin.mapper.dao.impl.CalculationResultMapperDAO;
+import org.anshin.dao.CalculationResultDAO;
+import org.anshin.dao.ConnectionPool;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-public class CalculationResultJDBCRepository implements CalculationResultRepository {
-    private final RepositoryEntityMapper<CalculationResult> calculationResultMapper;
+public class CalculationResultJDBCDAO implements CalculationResultDAO {
+    private final EntityMapperDAO<CalculationResult> calculationResultMapper;
 
     private static final String SQL_SELECT_CALCULATION_RESULT_WITHOUT_CONDITIONAL_PART =
             "SELECT cr.id, cr.first_value, cr.second_value, cr.result, cr.calculation_time, o.name AS operation_name " +
@@ -44,12 +43,14 @@ public class CalculationResultJDBCRepository implements CalculationResultReposit
 
     private static final String SQL_DELETE_ALL_CALCULATION_RESULT = "DELETE FROM calculation_result WHERE user_id = ?";
 
+    private static final String SQL_FIND_ALL_FROM_ID_WITH_LIMIT = "SELECT * FROM calculation_result WHERE id > ? LIMIT ?";
 
-    public CalculationResultJDBCRepository() {
-        calculationResultMapper = new RepositoryCalculationResultMapper();
+
+    public CalculationResultJDBCDAO() {
+        calculationResultMapper = new CalculationResultMapperDAO();
     }
 
-    public CalculationResultJDBCRepository(RepositoryEntityMapper<CalculationResult> calculationResultMapper) {
+    public CalculationResultJDBCDAO(EntityMapperDAO<CalculationResult> calculationResultMapper) {
         this.calculationResultMapper = calculationResultMapper;
     }
 
@@ -155,5 +156,20 @@ public class CalculationResultJDBCRepository implements CalculationResultReposit
             e.printStackTrace();
         }
         return isDeleted;
+    }
+
+    @Override
+    public List<CalculationResult> findAllFromIdWithLimit(long id, long limit) {
+        List<CalculationResult> calculationResults = null;
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL_FROM_ID_WITH_LIMIT)) {
+            statement.setLong(1, id);
+            statement.setLong(2, limit);
+            ResultSet resultSet = statement.executeQuery();
+            calculationResults = calculationResultMapper.toListEntityFromResultSet(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return calculationResults != null ? calculationResults : Collections.emptyList();
     }
 }

@@ -1,6 +1,5 @@
-package org.anshin.repository;
+package org.anshin.dao;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

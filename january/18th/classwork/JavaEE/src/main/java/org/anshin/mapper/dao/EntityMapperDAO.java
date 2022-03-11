@@ -1,9 +1,9 @@
-package org.anshin.mapper.repository;
+package org.anshin.mapper.dao;
 
 import java.sql.ResultSet;
 import java.util.List;
 
-public interface RepositoryEntityMapper<T> {
+public interface EntityMapperDAO<T> {
 
     T toEntityFromResultSet(ResultSet resultSet);
 

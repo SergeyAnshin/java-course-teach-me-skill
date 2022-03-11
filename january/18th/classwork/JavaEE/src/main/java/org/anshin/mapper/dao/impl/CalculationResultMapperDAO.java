@@ -1,14 +1,13 @@
-package org.anshin.mapper.repository.impl;
+package org.anshin.mapper.dao.impl;
 
 import org.anshin.entity.CalculationResult;
 import org.anshin.enums.Operation;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-public class RepositoryCalculationResultMapper extends RepositoryEntityMapperImpl<CalculationResult> {
+public class CalculationResultMapperDAO extends EntityMapperDAOImpl<CalculationResult> {
 
     private static final String LABEL_ID_COLUMN = "id";
     private static final String LABEL_FIRST_VALUE_COLUMN = "first_value";
