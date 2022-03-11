@@ -32,7 +32,9 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String signUp(@ModelAttribute("newUser") @Valid User user, BindingResult bindingResult) {
-        if (!bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
+            logger.info(bindingResult.getAllErrors().toString());
+        } else {
             boolean isSaved = userService.save(user);
             logger.info(user.toString());
             logger.info(String.valueOf(isSaved));

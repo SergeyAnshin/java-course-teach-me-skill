@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+</head>
+<body>
+    <form action="#" th:action="@{/calculator/calculation}" method="post" th:object="${expression}">
+
+        <label th:for="result">Result:</label>
+        <input type="text" id="result" th:field="*{result}" readonly/>
+        <br><br>
+
+        <label th:for="firstValue">First value:</label>
+        <input type="text" id="firstValue" th:field="*{firstValue}"/>
+        <p th:if="${#fields.hasErrors('firstValue')}" th:errors="*{firstValue}">Incorrect first value</p>
+        <br><br>
+
+        <label th:for="secondValue">Second value:</label>
+        <input type="text" id="secondValue" th:field="*{secondValue}"/>
+        <p th:if="${#fields.hasErrors('secondValue')}" th:errors="*{secondValue}">Incorrect second value</p>
+        <br><br>
+
+        <label for="operation">Operation</label>
+        <select th:field="*{operation}" id="operation">
+            <option th:each="operation : ${operations}" th:value="${operation}"
+                    th:text="${operation}">Operation</option>
+        </select>
+        <br><br>
+
+        <input type="submit"/>
+
+    </form>
+</body>
+</html>
