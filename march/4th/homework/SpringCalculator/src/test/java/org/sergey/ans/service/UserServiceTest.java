@@ -2,16 +2,18 @@ package org.sergey.ans.service;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.sergey.ans.dao.UserDAO;
+import org.sergey.ans.dao.impl.collectionstorage.UserListDAO;
 import org.sergey.ans.entity.User;
 
+import javax.swing.text.html.Option;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
-    private static UserDAO userDAO;
+    private static UserListDAO userListDAO;
     private static UserService userService;
 
     private static User user;
@@ -20,8 +22,8 @@ class UserServiceTest {
 
     @BeforeAll
     static void init() {
-        userDAO = new UserDAO();
-        userService = new UserService(userDAO);
+        userListDAO = new UserListDAO();
+        userService = new UserService(userListDAO);
         user = new User("Tom", "tom@gmail.com", "12345", Date.valueOf(LocalDate.now().minusYears(25)));
         user1 = new User("Tom", "tom@gmail.com", "12345", Date.valueOf(LocalDate.now().minusYears(25)));
         user2 = new User("Bob", "bob@gmail.com", "12345", Date.valueOf(LocalDate.now().minusYears(22)));
@@ -32,5 +34,11 @@ class UserServiceTest {
         assertTrue(userService.save(user));
         assertFalse(userService.save(user1));
         assertTrue(userService.save(user2));
+    }
+
+    @Test
+    void authenticate() {
+        assertEquals(Optional.of(user), userService.authenticate(user));
+        assertEquals(Optional.empty(), userService.authenticate(user1));
     }
 }

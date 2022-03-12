@@ -1,16 +1,18 @@
 package org.sergey.ans.service;
 
-import org.sergey.ans.dao.GenericDAO;
+import org.sergey.ans.dao.UserDAO;
 import org.sergey.ans.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public final class UserService {
-    private final GenericDAO<User> userDAO;
+    private final UserDAO userDAO;
 
     @Autowired
-    public UserService(GenericDAO<User> userDAO) {
+    public UserService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -19,6 +21,15 @@ public final class UserService {
             return userDAO.save(user);
         } else {
             return false;
+        }
+    }
+
+    public Optional<User> authenticate(User user) {
+        Optional<User> authUser = userDAO.findByEmail(user.getEmail());
+        if (authUser.isPresent() && authUser.get().getPassword().equals(user.getPassword())) {
+            return authUser;
+        } else {
+            return Optional.empty();
         }
     }
 }
