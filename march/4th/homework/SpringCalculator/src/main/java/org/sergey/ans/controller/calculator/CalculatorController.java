@@ -19,6 +19,11 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/calculator")
 public class CalculatorController {
+    public final static String ATTRIBUTE_EXPRESSION = "expression";
+    public final static String ATTRIBUTE_OPERATIONS = "operations";
+    public final static String PATH_CALCULATOR_TEMPLATE = "calculator/calculator";
+    public final static String URL_CALCULATOR_CONTROLLER = "/calculator/calculation";
+
     private final CalculatorService calculatorService;
     private final Logger logger = LoggerFactory.getLogger(CalculatorController.class);
 
@@ -28,23 +33,23 @@ public class CalculatorController {
     }
 
     @GetMapping("/calculation")
-    public String getCalculatorTemplate(@ModelAttribute("expression")TwoVariableMathExpression expression, Model model) {
-        model.addAttribute("operations", Operation.values());
-        return "calculator/calculator";
+    public String getCalculatorTemplate(@ModelAttribute(ATTRIBUTE_EXPRESSION)TwoVariableMathExpression expression, Model model) {
+        model.addAttribute(ATTRIBUTE_OPERATIONS, Operation.values());
+        return PATH_CALCULATOR_TEMPLATE;
     }
 
     @PostMapping("/calculation")
-    public String calculate(@ModelAttribute("expression") @Valid TwoVariableMathExpression expression,
+    public String calculate(@ModelAttribute(ATTRIBUTE_EXPRESSION) @Valid TwoVariableMathExpression expression,
                             BindingResult bindingResult, Model model) {
-        model.addAttribute("operations", Operation.values());
+        model.addAttribute(ATTRIBUTE_OPERATIONS, Operation.values());
         if (bindingResult.hasErrors()) {
-            logger.info(bindingResult.getAllErrors().toString());
+            logger.info(this.getClass().getName() + ": validation errors = " + bindingResult.getAllErrors());
         } else {
             double result = calculatorService.calculate(expression.getFirstValue(),
                     expression.getSecondValue(), expression.getOperation().toString());
             expression.setResult(result);
-            logger.info(String.valueOf(result));
+            logger.info(this.getClass().getName() + ": expression evaluated = " + expression);
         }
-        return "calculator/calculator";
+        return PATH_CALCULATOR_TEMPLATE;
     }
 }
