@@ -21,7 +21,7 @@
         <p th:if="${#fields.hasErrors('secondValue')}" th:errors="*{secondValue}">Incorrect second value</p>
         <br><br>
 
-        <label for="operation">Operation</label>
+        <label th:for="operation">Operation:</label>
         <select th:field="*{operation}" id="operation">
             <option th:each="operation : ${operations}" th:value="${operation}"
                     th:text="${operation}">Operation</option>
