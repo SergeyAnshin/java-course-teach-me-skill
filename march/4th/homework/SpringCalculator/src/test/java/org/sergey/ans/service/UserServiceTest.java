@@ -2,10 +2,9 @@ package org.sergey.ans.service;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.sergey.ans.dao.impl.collectionstorage.UserListDAO;
+import org.sergey.ans.dao.impl.collectionstorage.UserListStorage;
 import org.sergey.ans.entity.User;
 
-import javax.swing.text.html.Option;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -13,7 +12,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceTest {
-    private static UserListDAO userListDAO;
+    private static UserListStorage userListStorage;
     private static UserService userService;
 
     private static User user;
@@ -22,8 +21,8 @@ class UserServiceTest {
 
     @BeforeAll
     static void init() {
-        userListDAO = new UserListDAO();
-        userService = new UserService(userListDAO);
+        userListStorage = new UserListStorage();
+        userService = new UserService(userListStorage);
         user = new User("Tom", "tom@gmail.com", "12345", Date.valueOf(LocalDate.now().minusYears(25)));
         user1 = new User("Tom", "tom@gmail.com", "12345", Date.valueOf(LocalDate.now().minusYears(25)));
         user2 = new User("Bob", "bob@gmail.com", "12345", Date.valueOf(LocalDate.now().minusYears(22)));

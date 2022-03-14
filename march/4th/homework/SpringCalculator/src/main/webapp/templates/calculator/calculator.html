@@ -8,7 +8,7 @@
     <form action="#" th:action="@{/calculator/calculation}" method="post" th:object="${expression}">
 
         <label th:for="result">Result:</label>
-        <input type="text" id="result" th:field="*{result}" readonly/>
+        <input type="text" id="result" th:value="${result}" readonly/>
         <br><br>
 
         <label th:for="firstValue">First value:</label>

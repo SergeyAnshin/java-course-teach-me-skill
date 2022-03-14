@@ -17,10 +17,10 @@ public final class UserService {
     }
 
     public boolean save(User user) {
-        if (!userDAO.exists(user)) {
-            return userDAO.save(user);
-        } else {
+        if (userDAO.exists(user)) {
             return false;
+        } else {
+            return userDAO.save(user);
         }
     }
 
