@@ -1,12 +1,15 @@
 package org.sergey.ans.service;
 
-import org.sergey.ans.enums.Operation;
+import org.sergey.ans.entity.CalculationResult;
+import org.sergey.ans.entity.TwoVariableMathExpression;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CalculatorService {
 
-    public double calculate(double firstValue, double secondValue, String operation) {
-        return Operation.valueOf(operation.trim().toUpperCase()).calculate(firstValue, secondValue);
+    public CalculationResult<TwoVariableMathExpression> calculate(TwoVariableMathExpression expression) {
+        double result = expression.getOperation()
+                .calculate(expression.getFirstValue(), expression.getSecondValue());
+        return new CalculationResult<>(expression, result);
     }
 }
