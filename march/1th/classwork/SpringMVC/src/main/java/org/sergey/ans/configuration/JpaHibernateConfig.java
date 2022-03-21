@@ -3,21 +3,20 @@ package org.sergey.ans.configuration;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
-//
-//@Configuration
-//@EnableTransactionManagement
-public class HibernateConfig {
+@Configuration
+@EnableTransactionManagement
+public class JpaHibernateConfig {
 
-    @Bean(name = "hibernateDataSource")
-    public DataSource hibernateDataSource() {
+    @Bean(name = "jpaDataSource")
+    public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql:///calculator_hibernate_db");
@@ -34,19 +33,17 @@ public class HibernateConfig {
         return hibernateProperties;
     }
 
-    @Bean(name = "hibernateSessionFactory")
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(hibernateDataSource());
-        sessionFactory.setPackagesToScan("org.sergey.ans.entity");
-        sessionFactory.setHibernateProperties(hibernateProperties());
-        return sessionFactory;
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setJtaDataSource(dataSource());
+        return entityManagerFactoryBean;
     }
 
-    @Bean(name = "hibernateTransactionManager")
+    @Bean
     public PlatformTransactionManager hibernateTransactionManager() {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
-        return transactionManager;
+        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+        jpaTransactionManager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
+        return jpaTransactionManager;
     }
 }

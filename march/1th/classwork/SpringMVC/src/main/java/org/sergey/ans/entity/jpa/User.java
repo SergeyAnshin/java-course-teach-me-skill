@@ -1,14 +1,16 @@
-package org.sergey.ans.entity;
+package org.sergey.ans.entity.jpa;
 
-import org.hibernate.annotations.GeneratorType;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.List;
 
-
+@NamedQueries({
+        @NamedQuery(name = "User.findAllByName", query = "select u from User u where u.name = :name")
+})
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
