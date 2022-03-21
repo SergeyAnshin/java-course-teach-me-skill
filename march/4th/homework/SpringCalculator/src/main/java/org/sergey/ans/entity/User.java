@@ -10,6 +10,11 @@ import javax.persistence.*;
 import javax.validation.constraints.Past;
 import java.util.*;
 
+@NamedQueries({
+        @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+        @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+        @NamedQuery(name = "User.exists", query = "SELECT COUNT (u.id) FROM User u WHERE u.email = :email"),
+})
 @Entity
 @Table(name = "users")
 public class User {

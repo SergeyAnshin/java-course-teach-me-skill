@@ -1,5 +1,6 @@
 package org.sergey.ans.configuration;
 
+import org.hibernate.annotations.Filter;
 import org.sergey.ans.interceptor.AuthenticationInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
-@ComponentScan("org.sergey.ans")
+@ComponentScan(value = "org.sergey.ans", excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = HibernateConfiguration.class)
+})
 @EnableWebMvc
 public class WebConfiguration extends WebMvcConfigurerAdapter implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;

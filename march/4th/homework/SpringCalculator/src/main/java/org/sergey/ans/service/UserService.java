@@ -13,7 +13,7 @@ public final class UserService {
     private final UserDAO userDAO;
 
     @Autowired
-    public UserService(@Qualifier(value = "userHibernateStorage") UserDAO userDAO) {
+    public UserService(@Qualifier(value = "jpaUserDAO") UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
