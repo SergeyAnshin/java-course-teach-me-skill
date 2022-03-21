@@ -5,6 +5,9 @@
     <title>Calculator</title>
 </head>
 <body>
+
+    <header th:insert="block/header.html :: header">Header</header>
+
     <form action="#" th:action="@{/calculator/calculation}" method="post" th:object="${expression}">
 
         <label th:for="result">Result:</label>

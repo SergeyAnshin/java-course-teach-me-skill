@@ -56,7 +56,7 @@ public class CalculatorController {
         } else {
             logger.info(this.getClass().getName() + ": expression to evaluate = " + expression);
 
-            CalculationResult<TwoVariableMathExpression> calculationResult = calculatorService.calculate(expression);
+            CalculationResult calculationResult = calculatorService.calculate(expression);
             calculationResult.setUser((User) session.getAttribute(ATTRIBUTE_AUTH_USER));
             logger.info(this.getClass().getName() + ": calculated result = " + calculationResult);
 

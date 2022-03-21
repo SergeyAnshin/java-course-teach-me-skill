@@ -4,6 +4,7 @@ import org.sergey.ans.dao.CalculationResultDAO;
 import org.sergey.ans.entity.CalculationResult;
 import org.sergey.ans.entity.TwoVariableMathExpression;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +14,11 @@ public class CalculationResultService {
     private final CalculationResultDAO calculationResultDAO;
 
     @Autowired
-    public CalculationResultService(CalculationResultDAO calculationResultDAO) {
+    public CalculationResultService(@Qualifier(value = "calculationResultHibernateStorage") CalculationResultDAO calculationResultDAO) {
         this.calculationResultDAO = calculationResultDAO;
     }
 
-    public boolean save(CalculationResult<TwoVariableMathExpression> calculationResult) {
+    public boolean save(CalculationResult calculationResult) {
         if (calculationResultDAO.exists(calculationResult)) {
             return false;
         } else {
@@ -25,7 +26,7 @@ public class CalculationResultService {
         }
     }
 
-    public List<CalculationResult<TwoVariableMathExpression>> findAll() {
+    public List<CalculationResult> findAll() {
         return calculationResultDAO.findAll();
     }
 }

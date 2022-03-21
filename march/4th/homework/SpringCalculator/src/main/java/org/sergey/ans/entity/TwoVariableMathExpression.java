@@ -2,10 +2,17 @@ package org.sergey.ans.entity;
 
 import org.sergey.ans.enums.Operation;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+@Entity
+@Table(name = "math_expression")
 public class TwoVariableMathExpression {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotNull
     private Double firstValue;
@@ -16,10 +23,24 @@ public class TwoVariableMathExpression {
     @NotNull
     private Operation operation;
 
+    @OneToOne(mappedBy = "expression")
+    private CalculationResult calculationResult;
+
+    public TwoVariableMathExpression() {
+    }
+
     public TwoVariableMathExpression(Double firstValue, Double secondValue, Operation operation) {
         this.firstValue = firstValue;
         this.secondValue = secondValue;
         this.operation = operation;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Double getFirstValue() {
@@ -46,25 +67,35 @@ public class TwoVariableMathExpression {
         this.operation = operation;
     }
 
+    public CalculationResult getCalculationResult() {
+        return calculationResult;
+    }
+
+    public void setCalculationResult(CalculationResult calculationResult) {
+        this.calculationResult = calculationResult;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TwoVariableMathExpression that = (TwoVariableMathExpression) o;
-        return Objects.equals(firstValue, that.firstValue) && Objects.equals(secondValue, that.secondValue) && operation == that.operation;
+        return id == that.id && Objects.equals(firstValue, that.firstValue) && Objects.equals(secondValue, that.secondValue) && operation == that.operation && Objects.equals(calculationResult, that.calculationResult);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstValue, secondValue, operation);
+        return Objects.hash(id, firstValue, secondValue, operation, calculationResult);
     }
 
     @Override
     public String toString() {
         return "TwoVariableMathExpression{" +
-                "firstValue=" + firstValue +
+                "id=" + id +
+                ", firstValue=" + firstValue +
                 ", secondValue=" + secondValue +
                 ", operation=" + operation +
+                ", calculationResult=" + calculationResult +
                 '}';
     }
 }

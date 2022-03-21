@@ -3,6 +3,7 @@ package org.sergey.ans.service;
 import org.sergey.ans.dao.UserDAO;
 import org.sergey.ans.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,7 +13,7 @@ public final class UserService {
     private final UserDAO userDAO;
 
     @Autowired
-    public UserService(UserDAO userDAO) {
+    public UserService(@Qualifier(value = "userHibernateStorage") UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 

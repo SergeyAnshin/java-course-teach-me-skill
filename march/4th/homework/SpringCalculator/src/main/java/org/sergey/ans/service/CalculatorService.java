@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CalculatorService {
 
-    public CalculationResult<TwoVariableMathExpression> calculate(TwoVariableMathExpression expression) {
+    public CalculationResult calculate(TwoVariableMathExpression expression) {
         double result = expression.getOperation()
                 .calculate(expression.getFirstValue(), expression.getSecondValue());
-        return new CalculationResult<>(expression, result);
+        return new CalculationResult(expression, result);
     }
 }

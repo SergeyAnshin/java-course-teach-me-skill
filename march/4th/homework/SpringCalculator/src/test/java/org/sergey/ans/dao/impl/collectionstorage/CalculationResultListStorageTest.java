@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class CalculationResultListStorageTest {
     private static CalculationResultListStorage calculationResultStorage;
 
-    private static CalculationResult<TwoVariableMathExpression> calculationResult;
-    private static CalculationResult<TwoVariableMathExpression> calculationResult1;
-    private static CalculationResult<TwoVariableMathExpression> calculationResult2;
-    private static CalculationResult<TwoVariableMathExpression> calculationResult3;
-    private static CalculationResult<TwoVariableMathExpression> calculationResult4;
+    private static CalculationResult calculationResult;
+    private static CalculationResult calculationResult1;
+    private static CalculationResult calculationResult2;
+    private static CalculationResult calculationResult3;
+    private static CalculationResult calculationResult4;
 
     @BeforeAll
     static void init() {
@@ -27,11 +27,11 @@ class CalculationResultListStorageTest {
         TwoVariableMathExpression expression3 = new TwoVariableMathExpression(3D, 0.5, Operation.MULTIPLY);
         TwoVariableMathExpression expression4 = new TwoVariableMathExpression(3D, 0.5, Operation.MULTIPLY);
 
-        calculationResult = new CalculationResult<>(expression, 1.5);
-        calculationResult1 = new CalculationResult<>(expression1, 1.5);
-        calculationResult2 = new CalculationResult<>(expression2, 1.5);
-        calculationResult3 = new CalculationResult<>(expression3, 1.5);
-        calculationResult4 = new CalculationResult<>(expression4, 1.5);
+        calculationResult = new CalculationResult(expression, 1.5);
+        calculationResult1 = new CalculationResult(expression1, 1.5);
+        calculationResult2 = new CalculationResult(expression2, 1.5);
+        calculationResult3 = new CalculationResult(expression3, 1.5);
+        calculationResult4 = new CalculationResult(expression4, 1.5);
     }
 
     @Test

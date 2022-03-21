@@ -6,11 +6,17 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import javax.validation.constraints.Past;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotBlank
     @NotEmpty
@@ -26,16 +32,29 @@ public class User {
     @Length(min = 5, max = 30)
     private String password;
 
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past(message = "Birthday must be in the past")
     private Date birthday;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<CalculationResult> calculationResultList;
+
+    public User() {
+    }
 
     public User(String name, String email, String password, Date birthday) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.birthday = birthday;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -70,6 +89,14 @@ public class User {
         this.birthday = birthday;
     }
 
+    public Set<CalculationResult> getCalculationResultList() {
+        return calculationResultList;
+    }
+
+    public void setCalculationResultList(Set<CalculationResult> calculationResultList) {
+        this.calculationResultList = calculationResultList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,10 +113,12 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", birthday=" + birthday +
+                ", calculationResultList=" + calculationResultList +
                 '}';
     }
 }
