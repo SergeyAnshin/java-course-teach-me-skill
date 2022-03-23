@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculation history</title>
+</head>
+<body>
+
+    <header th:insert="fragment/header.html :: header">Header</header>
+
+    <table>
+        <thead>
+        <tr>
+            <th>First value</th>
+            <th>Second value</th>
+            <th>Operation</th>
+            <th>Result</th>
+            <th>Date and time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${results}">
+            <td th:text="${result.expression.firstValue}">First value</td>
+            <td th:text="${result.expression.secondValue}">Second value</td>
+            <td th:text="${result.expression.operation}">Operation</td>
+            <td th:text="${result.result}">Result</td>
+            <td th:text="${result.creationDateTime}">Date and time</td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
