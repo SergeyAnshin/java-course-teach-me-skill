@@ -1,0 +1,25 @@
+GET http://localhost:8080/user
+
+###
+
+GET http://localhost:8080/user/findByUsername?username=test
+
+###
+
+POST http://localhost:8080/user
+Content-Type: application/json
+#X-API-Token: kmksdskmlakpd
+#Authorization: ldsd
+
+{
+  "username" : "test1",
+  "password" : "test1",
+  "names" : [
+    "Tom", "Bob"
+  ],
+  "address" : {
+    "street" : "Jakuba"
+  }
+}
+
+###
