@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/pet")
-@Api(value = "pet", description = "Everything about your Pets")
+@Api(tags = "pet", description = "Everything about your Pets")
 public class PetController {
     private final PetService petService;
 
